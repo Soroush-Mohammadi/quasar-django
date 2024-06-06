@@ -1,17 +1,5 @@
 <template>
   <q-layout view="lhh LpR ffr">
-    <div class="toolBar bg-deep-purple-2 row justify-around items-center">
-      <div>
-        <logo />
-        <span class="text-subtitle2 q-ml-sm"> Hamrah Mobin Maham Arvand </span>
-      </div>
-
-      <div>
-        <svg-icon type="mdi" :path="account"></svg-icon>
-        <svg-icon class="q-ml-lg" type="mdi" :path="cart"></svg-icon>
-      </div>
-    </div>
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -22,16 +10,10 @@
 import { ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import Logo from "components/logo.vue";
-import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiAccount } from "@mdi/js";
-import { mdiCart } from "@mdi/js";
 
 defineOptions({
   name: "MainLayout",
 });
-
-const account = mdiAccount;
-const cart = mdiCart;
 
 const linksList = [
   {

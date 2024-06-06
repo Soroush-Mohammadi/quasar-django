@@ -1,24 +1,33 @@
 <template>
-  <q-menu>
+  <q-menu anchor="bottom start" self="top start">
     <q-list style="min-width: 300px">
-      <q-item
-        clickable
-        v-close-popup
-        v-for="menu in menues"
-        v-bind:key="menu.name"
-      >
-        <q-item-section> {{ menu.name }}</q-item-section>
+      <q-item v-for="item in menu" :key="item.name" clickable>
+        <q-item-section>
+          {{ item.name }}
+        </q-item-section>
+        <q-item-section v-if="item.children.length > 0">
+          <top-menu
+            v-for="child in item.children"
+            :key="child.name"
+            :menu="item.children"
+          />
+        </q-item-section>
+        <q-item-section>
+          <q-icon name="keyboard_arrow_right" />
+        </q-item-section>
       </q-item>
-      <q-separator />
     </q-list>
   </q-menu>
 </template>
 
-<script setup>
-import { useProductStore } from "../stores/products";
-import { storeToRefs } from "pinia";
-
-const store = useProductStore();
-
-const { categories: menues } = storeToRefs(store);
+<script>
+export default {
+  name: "top-menu",
+  props: {
+    menu: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>

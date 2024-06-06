@@ -1,54 +1,100 @@
 <template>
   <div class="flex flex-center column">
-    <div class="header bg-light-blue-4 flex row justify-around items-center">
-      <div class="searchBar flex row justify-around">
-        <div class="bg-light-blue-9 col flex justify-center">
-          <q-btn
-            color="primary"
-            label="All Categories"
-            size="md"
-            flat
-            class="text-white q-px-xl"
-            :icon="mdiFormatListBulletedSquare"
-          >
-            <TopMenu />
+    <div class="header bg-light-blue-4 flex row justify-center items-center">
+      <div class="searchBar flex row justify-center" style="width: 90vw">
+        <div class="bg-light-blue-9 col">
+          <Logo />
+        </div>
+        <div class="bg-light-blue-9 col-1 flex justify-center">
+          <q-btn label="categories" flat text-color="white">
+            <TopMenu :menu="menus" />
           </q-btn>
         </div>
-        <div class="col-5">
-          <q-input class="q-ml-md" rounded outlined label="Search">
+        <div class="col-4">
+          <q-input square outlined label="Search">
             <template v-slot:prepend>
-              <svg-icon type="mdi" :path="path" size="40px"></svg-icon>
+              <svg-icon type="mdi" :path="magnify" size="40"></svg-icon>
             </template>
           </q-input>
         </div>
-        <div class="bg-light-blue-9 col">another menu</div>
+        <div class="bg-light-blue-9 col-5 flex row items-center justify-center">
+          <svg-icon
+            class="q-ml-lg"
+            type="mdi"
+            :path="account"
+            style="color: white"
+          ></svg-icon>
+          <svg-icon
+            class="q-ml-lg"
+            type="mdi"
+            :path="cart"
+            style="color: white"
+          ></svg-icon>
+          <svg-icon
+            class="q-ml-lg"
+            type="mdi"
+            :path="heart"
+            style="color: white"
+          ></svg-icon>
+        </div>
       </div>
     </div>
 
-    <q-page class="flex flex-center column">
-      <img
-        alt="Quasar logo"
-        src="~assets/quasar-logo-vertical.svg"
-        style="width: 200px; height: 200px"
-      />
+    <q-page>
+      <site-banner />
+      <category-cards />
+      <product-show-case />
+      <random-category />
     </q-page>
   </div>
 </template>
 
-<script setup>
+<script>
 import TopMenu from "../components/TopMenu.vue";
-import SvgIcon from "@jamescoyle/vue-icon";
+import Logo from "../components/logo.vue";
+import SiteBanner from "../components/SiteBanner.vue";
+import CategoryCards from "../components/CategoryCards.vue";
+import ProductShowCase from "../components/ProductShowCase.vue";
+import RandomCategory from "../components/RandomCategory.vue";
+
+import { useMenuStore } from "../stores/menus";
+import { storeToRefs } from "pinia";
+import { mdiAccount } from "@mdi/js";
+import { mdiCart } from "@mdi/js";
 import { mdiMagnify } from "@mdi/js";
-import { mdiFormatListBulletedSquare } from "@mdi/js";
-// import { mdiSunglasses } from "@mdi/js";
-// import { mdiShoeCleat } from "@mdi/js";
+import { mdiHeart } from "@mdi/js";
+import SvgIcon from "@jamescoyle/vue-icon";
+export default {
+  components: {
+    TopMenu,
+    Logo,
+    SvgIcon,
+    SiteBanner,
+    CategoryCards,
+    ProductShowCase,
+    RandomCategory,
+  },
 
-defineOptions({
-  name: "IndexPage",
-});
+  data() {},
 
-const path = mdiMagnify;
-const listIcon = mdiFormatListBulletedSquare;
+  setup() {
+    const store = useMenuStore();
+    const { menus } = storeToRefs(store);
+    const account = mdiAccount;
+    const cart = mdiCart;
+    const magnify = mdiMagnify;
+    const heart = mdiHeart;
+
+    return {
+      menus,
+      account,
+      cart,
+      magnify,
+      heart,
+    };
+  },
+};
+
 // const glasses = mdiSunglasses;
 // const shoes = mdiShoeCleat;
 </script>
