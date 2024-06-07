@@ -1,10 +1,7 @@
 <template>
-  <q-page-container class="flex justify-center items-center q-ma-md">
+  <q-page-container class="flex justify-center items-center q-ma-lg">
     <q-card class="my-card" style="width: 60vw; height: 40vh">
-      <q-card-section
-        horizontal
-        class="flex justify-center items-center bg-red"
-      >
+      <q-card-section horizontal class="flex justify-center items-center">
         <q-img src="https://cdn.quasar.dev/img/parallax1.jpg" />
 
         <q-card-section horizontal>

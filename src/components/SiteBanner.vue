@@ -1,24 +1,32 @@
 <template>
-  <div
-    class="row reverse bg-red justify-center items-center window-width q-mb-md"
-  >
-    <div class="col-4">
-      <q-card style="min-height: 280px">
-        <q-card-section>
-          <div class="text-h6">Card 1</div>
-        </q-card-section>
-        <q-card-section>
-          <p>Content of card 1</p>
-        </q-card-section>
-      </q-card>
-      <q-card style="min-height: 280px">
-        <q-card-section>
-          <div class="text-h6">Card 2</div>
-        </q-card-section>
-        <q-card-section>
-          <p>Content of card 2</p>
-        </q-card-section>
-      </q-card>
+  <div class="row reverse justify-center items-center window-width q-mb-md">
+    <div class="col-4 bg-red">
+      <div class="row column">
+        <div class="col bg-blue">
+          <div class="row">
+            <div v-for="card in 2" :key="card" class="col">
+              <q-card style="min-height: 280px">
+                <q-card-section>
+                  <div class="text-h6">Card 1</div>
+                </q-card-section>
+                <q-card-section>
+                  <p>Content of card 1</p>
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <q-card v-for="card in 1" :key="card" style="min-height: 280px">
+            <q-card-section>
+              <div class="text-h6">Card 1</div>
+            </q-card-section>
+            <q-card-section>
+              <p>Content of card 1</p>
+            </q-card-section>
+          </q-card>
+        </div>
+      </div>
     </div>
 
     <div class="col-6">
