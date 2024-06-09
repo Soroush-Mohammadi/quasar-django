@@ -1,5 +1,5 @@
 <template>
-  <q-page-container>
+  <q-page-container class="bg-red">
     <div class="col text-center q-ma-lg">
       <div class="text-h4 text-weight-thick">CategoryTitle</div>
       <div class="text-subtitle1 text-weight-light q-mt-xs">

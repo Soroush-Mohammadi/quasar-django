@@ -45,6 +45,7 @@
       <category-cards />
       <product-show-case />
       <random-category />
+      <product-slider v-for="slider in 3" :key="slider" />
     </q-page>
   </div>
 </template>
@@ -56,6 +57,7 @@ import SiteBanner from "../components/SiteBanner.vue";
 import CategoryCards from "../components/CategoryCards.vue";
 import ProductShowCase from "../components/ProductShowCase.vue";
 import RandomCategory from "../components/RandomCategory.vue";
+import ProductSlider from "../components/ProductSlider.vue";
 
 import { useMenuStore } from "../stores/menus";
 import { storeToRefs } from "pinia";
@@ -73,6 +75,7 @@ export default {
     CategoryCards,
     ProductShowCase,
     RandomCategory,
+    ProductSlider,
   },
 
   data() {},
