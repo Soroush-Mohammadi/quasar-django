@@ -16,7 +16,7 @@ export const useProductStore = defineStore("Products", () => {
     }
   }
 
-  const reduceProducts = computed(() => products.value.slice(0, 5));
+  const reduceProducts = computed(() => products.value.slice(0, 4));
 
   return { products, getProducts, reduceProducts };
 });

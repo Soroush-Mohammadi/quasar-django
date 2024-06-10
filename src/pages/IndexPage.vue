@@ -45,7 +45,21 @@
       <category-cards />
       <product-show-case />
       <random-category />
-      <product-slider v-for="slider in 3" :key="slider" />
+      <product-slider
+        v-for="cat in categories"
+        :key="cat.id"
+        :categories="categoreis"
+      >
+        <template #title>
+          {{ cat.name }}
+        </template>
+        <template #image>
+          <q-img :src="cat.image" class="q-mt-md" style="max-width: 200px" />
+        </template>
+        <!-- this is a wrong approach -->
+      </product-slider>
+
+      <!-- hame ro nafrest -->
     </q-page>
   </div>
 </template>
@@ -65,6 +79,8 @@ import { mdiAccount } from "@mdi/js";
 import { mdiCart } from "@mdi/js";
 import { mdiMagnify } from "@mdi/js";
 import { mdiHeart } from "@mdi/js";
+import { useCategoriesStore } from "../stores/categories";
+
 import SvgIcon from "@jamescoyle/vue-icon";
 export default {
   components: {
@@ -87,6 +103,10 @@ export default {
     const cart = mdiCart;
     const magnify = mdiMagnify;
     const heart = mdiHeart;
+    const categoriesStore = useCategoriesStore();
+    const { categories } = storeToRefs(categoriesStore);
+    const { getCategories } = categoriesStore;
+    categoriesStore.getCategories();
 
     return {
       menus,
@@ -94,6 +114,8 @@ export default {
       cart,
       magnify,
       heart,
+      categories,
+      getCategories,
     };
   },
 };

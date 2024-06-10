@@ -1,9 +1,11 @@
 <template>
   <q-page-container class="q-ma-lg">
-    <div class="bg-blue-4">
-      <div class="text-h3">title</div>
-      <div class="text-subtile1">subtitle</div>
-    </div>
+    <q-toolbar class="bg-purple text-white shadow-2 rounded-borders">
+      <div>
+        <slot name="title" />
+      </div>
+      <q-space />
+    </q-toolbar>
     <div class="row justify-center">
       <q-card
         class="my-card q-ma-md flex column items-center"
@@ -11,41 +13,20 @@
         :key="product.id"
         flat
         bordered
-        style="max-width: 280px"
+        style="max-width: 300px"
       >
-        <q-img :src="product.image" style="max-width: 150px" />
+        <slot name="image"> </slot>
 
         <q-card-section>
           {{ product.id }}
           <div class="text-overline text-orange-9">Overline</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">{{ product.title }}</div>
+          <div class="text-h5 q-mt-sm q-mb-xs">
+            {{ exert(product.title, 10) }}
+          </div>
           <div class="text-caption text-grey">
-            {{ product.description }}
+            {{ exert(product.description, 60) }}
           </div>
         </q-card-section>
-
-        <q-card-actions>
-          <q-btn flat color="primary" label="Share" />
-          <q-btn flat color="secondary" label="Book" />
-
-          <q-space />
-
-          <q-btn
-            color="grey"
-            round
-            flat
-            dense
-            :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-            @click="expanded = !expanded"
-          />
-        </q-card-actions>
-
-        <q-slide-transition>
-          <div v-show="expanded">
-            <q-separator />
-            <q-card-section class="text-subtitle2"> subtitle </q-card-section>
-          </div>
-        </q-slide-transition>
       </q-card>
     </div>
   </q-page-container>
@@ -53,11 +34,21 @@
 
 <script setup>
 import { useProductStore } from "../stores/products";
+
+import { defineProps } from "vue";
 import { storeToRefs } from "pinia";
+
+const props = defineProps({
+  categories: {
+    type: Array,
+    required: true,
+  },
+});
 const store = useProductStore();
-
 const { products, reduceProducts } = storeToRefs(store);
-const { getProducts } = store;
 
+const { getProducts } = store;
 store.getProducts();
+
+const exert = (text, char) => text.slice(0, char);
 </script>
