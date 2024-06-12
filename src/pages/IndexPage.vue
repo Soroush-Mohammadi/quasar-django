@@ -58,7 +58,7 @@
         </template>
         <!-- this is a wrong approach -->
       </product-slider>
-
+      <app-footer />
       <!-- hame ro nafrest -->
     </q-page>
   </div>
@@ -72,6 +72,7 @@ import CategoryCards from "../components/CategoryCards.vue";
 import ProductShowCase from "../components/ProductShowCase.vue";
 import RandomCategory from "../components/RandomCategory.vue";
 import ProductSlider from "../components/ProductSlider.vue";
+import AppFooter from "../components/AppFooter.vue";
 
 import { useMenuStore } from "../stores/menus";
 import { storeToRefs } from "pinia";
@@ -92,6 +93,7 @@ export default {
     ProductShowCase,
     RandomCategory,
     ProductSlider,
+    AppFooter,
   },
 
   data() {},
