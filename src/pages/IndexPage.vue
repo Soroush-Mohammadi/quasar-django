@@ -41,23 +41,20 @@
     </div>
 
     <q-page>
-      <site-banner />
+      <site-banner :cards="bannerCards" />
       <category-cards />
       <product-show-case />
       <random-category />
       <product-slider
-        v-for="cat in categories"
-        :key="cat.id"
-        :categories="categoreis"
+        v-for="product in products.slice(0, 4)"
+        :key="product"
+        :categories="product.products"
       >
         <template #title>
-          {{ cat.name }}
+          {{ product.category }}
         </template>
-        <template #image>
-          <q-img :src="cat.image" class="q-mt-md" style="max-width: 200px" />
-        </template>
-        <!-- this is a wrong approach -->
       </product-slider>
+
       <app-footer />
       <!-- hame ro nafrest -->
     </q-page>
@@ -65,6 +62,8 @@
 </template>
 
 <script>
+import { onMounted, ref } from "vue";
+
 import TopMenu from "../components/TopMenu.vue";
 import Logo from "../components/logo.vue";
 import SiteBanner from "../components/SiteBanner.vue";
@@ -80,8 +79,8 @@ import { mdiAccount } from "@mdi/js";
 import { mdiCart } from "@mdi/js";
 import { mdiMagnify } from "@mdi/js";
 import { mdiHeart } from "@mdi/js";
-import { useCategoriesStore } from "../stores/categories";
-
+// import { useCategoriesStore } from "../stores/categories";
+import { useProductsServer } from "../stores/productsServer";
 import SvgIcon from "@jamescoyle/vue-icon";
 export default {
   components: {
@@ -96,8 +95,6 @@ export default {
     AppFooter,
   },
 
-  data() {},
-
   setup() {
     const store = useMenuStore();
     const { menus } = storeToRefs(store);
@@ -105,10 +102,36 @@ export default {
     const cart = mdiCart;
     const magnify = mdiMagnify;
     const heart = mdiHeart;
-    const categoriesStore = useCategoriesStore();
-    const { categories } = storeToRefs(categoriesStore);
-    const { getCategories } = categoriesStore;
-    categoriesStore.getCategories();
+    // const categoriesStore = useCategoriesStore();
+    const productServer = useProductsServer();
+    // const { categories } = storeToRefs(categoriesStore);
+    const { products } = storeToRefs(productServer);
+    // const { getCategories } = categoriesStore;
+    const { getProducts } = productServer;
+    // categoriesStore.getCategories();
+
+    // productServer.getProducts();
+
+    const banner = async (arr) => {
+      const cards = [];
+
+      for (var i = 0; i < 3; i++) {
+        const num = Math.floor(Math.random() * arr.value.length);
+        cards.push(arr.value[num]);
+      }
+
+      console.log(cards);
+      return cards;
+    };
+
+    const bannerCards = ref([]);
+
+    onMounted(async () => {
+      await getProducts();
+      bannerCards.value = await banner(products);
+    });
+
+    // console.log(banner(products.value));
 
     return {
       menus,
@@ -116,8 +139,10 @@ export default {
       cart,
       magnify,
       heart,
-      categories,
-      getCategories,
+      products,
+      getProducts,
+      banner,
+      bannerCards,
     };
   },
 };

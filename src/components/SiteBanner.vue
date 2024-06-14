@@ -4,38 +4,33 @@
       <div class="row column">
         <div class="col bg-blue">
           <div class="row">
-            <div v-for="card in 2" :key="card" class="col">
-              <q-card style="min-height: 280px">
+            <div v-for="card in cards.slice(1)" :key="card" class="col">
+              <q-card>
                 <q-card-section>
-                  <div class="text-h6">Card 1</div>
-                </q-card-section>
-                <q-card-section>
-                  <p>Content of card 1</p>
+                  <q-img :src="card.imageUrl" style="min-height: 260px"></q-img>
                 </q-card-section>
               </q-card>
             </div>
           </div>
         </div>
         <div class="col">
-          <q-card v-for="card in 1" :key="card" style="min-height: 280px">
+          <q-card
+            v-for="card in cards.slice(0, 1)"
+            :key="card"
+            style="min-height: 280px"
+          >
             <q-card-section>
-              <div class="text-h6">Card 1</div>
-            </q-card-section>
-            <q-card-section>
-              <p>Content of card 1</p>
+              <q-img :src="card.imageUrl" style="max-height: 250px"></q-img>
             </q-card-section>
           </q-card>
         </div>
       </div>
     </div>
 
-    <div class="col-6">
+    <div class="col-6" v-for="card in cards.slice(0, 1)" :key="card">
       <q-card style="min-height: 560px">
         <q-card-section>
-          <div class="text-h6">Card 3</div>
-        </q-card-section>
-        <q-card-section>
-          <p>Content of card 3</p>
+          <q-img :src="card.imageUrl" style="max-height: 580px"></q-img>
         </q-card-section>
       </q-card>
     </div>
@@ -45,6 +40,12 @@
 <script>
 export default {
   name: "site-banner",
+  props: {
+    cards: {
+      type: Array,
+      required: true,
+    },
+  },
 };
 </script>
 
