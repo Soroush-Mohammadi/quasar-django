@@ -42,8 +42,8 @@
 
     <q-page>
       <site-banner :cards="bannerCards" />
-      <category-cards />
-      <product-show-case />
+      <category-cards :cards="products" />
+      <product-show-case :cards="products" />
       <random-category />
       <product-slider
         v-for="product in products.slice(0, 4)"
@@ -112,6 +112,13 @@ export default {
 
     // productServer.getProducts();
 
+    const selectProduct = ref([]);
+
+    const findProduct = async (myArr) => {
+      const num = Math.floor(Math.random() * myArr.length);
+      return myArr[num];
+    };
+
     const banner = async (arr) => {
       const cards = [];
 
@@ -120,7 +127,6 @@ export default {
         cards.push(arr.value[num]);
       }
 
-      console.log(cards);
       return cards;
     };
 
@@ -129,6 +135,8 @@ export default {
     onMounted(async () => {
       await getProducts();
       bannerCards.value = await banner(products);
+      selectProduct.value = await findProduct(products.value);
+      console.log(selectProduct.value);
     });
 
     // console.log(banner(products.value));
@@ -143,6 +151,7 @@ export default {
       getProducts,
       banner,
       bannerCards,
+      selectProduct,
     };
   },
 };

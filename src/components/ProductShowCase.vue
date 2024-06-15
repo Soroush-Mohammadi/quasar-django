@@ -1,21 +1,54 @@
 <template>
   <q-page-container class="flex justify-center items-center q-ma-lg">
     <q-card class="my-card" style="width: 60vw; height: 40vh">
-      <q-card-section horizontal class="flex justify-center items-center">
-        <q-img src="https://cdn.quasar.dev/img/parallax1.jpg" />
-
-        <q-card-section horizontal>
-          <q-card-section>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
-            debitis odio, doloremque sunt impedit corporis quas minus nesciunt
-            culpa, architecto a quod adipisci ad repellat repellendus qui
-            excepturi facilis quos!
-            <q-card-section>
-              <q-btn> click me </q-btn>
-            </q-card-section>
-          </q-card-section>
-        </q-card-section>
-      </q-card-section>
+      <div v-if="selectedProduct">
+        <h2>Randomly Selected Product:</h2>
+        <p>{{ selectedProduct }}</p>
+      </div>
     </q-card>
   </q-page-container>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedProduct: null,
+    };
+  },
+
+  computed: {
+    productsInSelectedProduct() {
+      return this.selectedProduct ? this.selectedProduct.products : [];
+    },
+
+    randomProduct() {
+      if (this.productsInSelectedProduct.length > 0) {
+        const num = Math.floor(
+          Math.random() * this.productsInSelectedProduct.length
+        );
+        return this.productsInSelectedProduct[num];
+      }
+      return null;
+    },
+  },
+
+  watch: {
+    product: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal) {
+          this.selectedProduct = newVal;
+        }
+      },
+    },
+  },
+
+  props: {
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
+};
+</script>
