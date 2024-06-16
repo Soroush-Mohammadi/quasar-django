@@ -43,8 +43,8 @@
     <q-page>
       <site-banner :cards="bannerCards" />
       <category-cards :cards="products" />
-      <product-show-case :cards="products" />
-      <random-category />
+      <product-show-case :card="selectProduct" />
+      <random-category :card="selectProduct" />
       <product-slider
         v-for="product in products.slice(0, 4)"
         :key="product"
@@ -110,6 +110,8 @@ export default {
     const { getProducts } = productServer;
     // categoriesStore.getCategories();
 
+    getProducts();
+
     // productServer.getProducts();
 
     const selectProduct = ref([]);
@@ -132,12 +134,13 @@ export default {
 
     const bannerCards = ref([]);
 
-    onMounted(async () => {
+    async function fetchData() {
       await getProducts();
       bannerCards.value = await banner(products);
       selectProduct.value = await findProduct(products.value);
-      console.log(selectProduct.value);
-    });
+    }
+
+    fetchData();
 
     // console.log(banner(products.value));
 

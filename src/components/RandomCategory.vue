@@ -1,30 +1,62 @@
 <template>
-  <q-page-container class="bg-red">
+  <q-page-container class="bg-red-2 flex column items-center">
     <div class="col text-center q-ma-lg">
-      <div class="text-h4 text-weight-thick">CategoryTitle</div>
+      <div class="text-h4 text-weight-thick">{{ card.category }}</div>
       <div class="text-subtitle1 text-weight-light q-mt-xs">
         CategorySubtitle
       </div>
     </div>
-    <div class="col">
-      <div v-for="row in 2" :key="row" class="row justify-center">
-        <q-card
-          v-for="card in 4"
-          :key="card"
-          class="q-ma-xs"
-          style="width: 300px"
-        >
-          <img src="https://cdn.quasar.dev/img/mountains.jpg" />
-          <q-card-section>
-            <div class="text-h6">card title</div>
-            <div class="text-subtitle2">card subtitle</div>
-          </q-card-section>
-          <q-card-section> card description </q-card-section>
-          <q-card-section> card price </q-card-section>
-        </q-card>
-      </div>
+    <div
+      class="row bg-blue justify-center"
+      style="max-width: 70vw"
+      v-if="products"
+    >
+      <q-card
+        v-for="product in products.slice(0, 6)"
+        :key="product"
+        class="q-ma-lg"
+        style="max-width: 300px"
+      >
+        <q-img :src="product.imageUrl" />
+        <q-card-section>
+          <div class="text-h6">{{ product.name }}</div>
+          <div class="text-subtitle2">card subtitle</div>
+        </q-card-section>
+        <q-card-section> {{ product.description }} </q-card-section>
+        <q-card-section> {{ product.price }} </q-card-section>
+      </q-card>
+    </div>
+    <div v-else>
+      <p>Loading.....</p>
     </div>
   </q-page-container>
 </template>
 
-<script setup></script>
+<script>
+import { ref, watch } from "vue";
+
+export default {
+  props: {
+    card: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  setup(props) {
+    const products = ref(props.card.products);
+
+    watch(
+      () => props.card.products,
+      (newVal) => {
+        if (newVal) {
+          products.value = newVal;
+        }
+      }
+    );
+
+    return {
+      products,
+    };
+  },
+};
+</script>

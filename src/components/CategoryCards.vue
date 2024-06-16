@@ -1,14 +1,14 @@
 <template>
   <div class="row bg-blue full-width justify-center">
-    <q-card v-for="card in cards.slice(4)" :key="card" class="q-ma-xs">
+    <q-card v-for="card in cards" :key="card" class="q-ma-md">
       <!-- <svg-icon type="mdi" :path="shoe" size="60"></svg-icon> -->
-      <q-items-section>
-        <q-img :src="card.imageUrl" style="min-height: 250px; min-width: 200px">
-          <div class="absolute-bottom text-h6">
+      <q-card-section>
+        <q-img :src="card.imageUrl" style="min-width: 120px; min-height: 200px">
+          <div class="absolute-bottom">
             <span>{{ card.category }}</span>
           </div>
         </q-img>
-      </q-items-section>
+      </q-card-section>
     </q-card>
   </div>
 </template>
