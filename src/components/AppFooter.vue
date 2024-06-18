@@ -1,32 +1,31 @@
 <template>
-  <q-page-contianer class="flex justify-center">
-    <div
-      class="row bg-blue-2 justify-between"
-      style="min-height: 20vh; width: 95vw"
-    >
-      <div class="col-2" v-for="(nav, index) in navigations" :key="nav">
-        <q-item v-if="index == 0">
-          <logo />
+  <div
+    class="row bg-blue-2 justify-between"
+    style="min-height: 20vh; width: 95vw"
+  >
+    <div class="col-2" v-for="(nav, index) in navigations" :key="nav">
+      <q-item v-if="index == 0">
+        <Logo />
+      </q-item>
+      <q-list>
+        <q-item v-for="link in nav.links" :key="link">
+          <q-item-section>
+            {{ link }}
+          </q-item-section>
         </q-item>
-        <q-list>
-          <q-item v-for="link in nav.links" :key="link">
-            <q-item-section>
-              {{ link }}
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </div>
+      </q-list>
     </div>
-  </q-page-contianer>
+  </div>
 </template>
 
 <script setup>
-import logo from "./logo.vue";
+import Logo from "../components/logo.vue";
+import { ref } from "vue";
 
-const navigations = [
+const navigations = ref([
   {
     title: "Get In Touch",
-    links: ["Company Address", "Email Address", "Shipping Info", ""],
+    links: ["Company Address", "Email Address", "Shipping Info"],
   },
   {
     title: "Customer Service",
@@ -57,5 +56,5 @@ const navigations = [
       " Cookie Policy",
     ],
   },
-];
+]);
 </script>

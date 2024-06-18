@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <q-avatar>
+  <div class="bg-red">
+    <q-avatar size="50px">
       <img src="../assets/Pictures/logo.jpg" />
     </q-avatar>
-    <span class="text-subtitle2 q-ml-sm"> Hamrah Mobin Maham Arvand </span>
+    <span class="text-subtitle2 q-ml-sm text-white text-weight-bold"
+      >HAMRAH MOBIN MAHAM ARVAND
+    </span>
   </div>
 </template>
 
-<script>
-let trigerLog = () => {
-  return "hello";
-};
-</script>
+<script setup>
+import { defineComponent } from "vue";
 
-<style>
-.logo {
-  background-color: blue;
-}
-</style>
+const LogoComponent = defineComponent({
+  name: "App-Logo",
+});
+</script>

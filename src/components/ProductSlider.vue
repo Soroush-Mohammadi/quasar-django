@@ -1,5 +1,5 @@
 <template>
-  <q-page-container class="q-ma-lg">
+  <div>
     <q-toolbar class="bg-purple text-white shadow-2 rounded-borders">
       <div>
         <slot name="title" />
@@ -31,7 +31,7 @@
         </q-card-section>
       </q-card>
     </div>
-  </q-page-container>
+  </div>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <q-page-container class="bg-red-2 flex column items-center">
+  <div class="bg-red-2 flex column items-center">
     <div class="col text-center q-ma-lg">
       <div class="text-h4 text-weight-thick">{{ card.category }}</div>
       <div class="text-subtitle1 text-weight-light q-mt-xs">
@@ -29,7 +29,7 @@
     <div v-else>
       <p>Loading.....</p>
     </div>
-  </q-page-container>
+  </div>
 </template>
 
 <script>

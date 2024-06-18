@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "top-menu",
+  name: "app-topMenu",
   props: {
     menu: {
       type: Object,

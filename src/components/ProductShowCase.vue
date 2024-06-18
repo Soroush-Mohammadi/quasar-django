@@ -1,5 +1,5 @@
 <template>
-  <q-page-container class="flex justify-center items-center q-ma-lg">
+  <div class="flex justify-center items-center q-ma-lg">
     <q-card class="my-card" style="width: 60vw; height: 40vh">
       <q-item v-if="selectedProduct">
         <q-card-section horizontal class="bg-red col">
@@ -21,7 +21,7 @@
         <p>Loading product...</p>
       </q-item>
     </q-card>
-  </q-page-container>
+  </div>
 </template>
 
 <script>
