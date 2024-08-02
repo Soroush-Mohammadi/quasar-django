@@ -1,5 +1,5 @@
 <template>
-  <q-input square outlined label="Search">
+  <q-input rounded standout label="Search" dark>
     <template v-slot:prepend>
       <svg-icon type="mdi" :path="magnify" size="40"></svg-icon>
     </template>

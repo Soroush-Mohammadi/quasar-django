@@ -1,23 +1,17 @@
 <template>
-  <div class="row bg-blue-4 q-pa-md items-center justify-between">
-    <div class="col-2">
-      <Logo />
+  <div class="row q-pa-md items-center justify-between justify-xl-around">
+    <div class="col lg">
+      <AppLogo />
     </div>
-    <div class="col-2">
-      <q-btn
-        class="bg-green full-width"
-        label="categories"
-        flat
-        text-color="white"
-        push
-      >
+    <div class="col-3 col-lg-2">
+      <q-btn class="full-width" label="categories" flat>
         <TopMenu :menu="menus" />
       </q-btn>
     </div>
-    <div class="col-4">
+    <div class="col col-5">
       <SearchBar />
     </div>
-    <div class="col-3 flex justify-center">
+    <div class="col col-4 flex justify-center">
       <WidgetBar />
     </div>
   </div>
@@ -30,10 +24,12 @@ defineComponent({
   name: "app-header",
 });
 
-import Logo from "../components/logo.vue";
+const getWidth = computed(() => window.innerWidth);
+import AppLogo from "../components/AppLogo.vue";
 import TopMenu from "../components/TopMenu.vue";
 import SearchBar from "../components/SearchBar.vue";
 import WidgetBar from "../components/WidgetBar.vue";
+import { ref, watch, computed } from "vue";
 
 import { useMenuStore } from "../stores/menus";
 import { storeToRefs } from "pinia";

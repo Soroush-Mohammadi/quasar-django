@@ -1,11 +1,8 @@
 <template>
-  <div
-    class="row bg-blue-2 justify-between"
-    style="min-height: 20vh; width: 95vw"
-  >
+  <div class="row justify-center">
     <div class="col-2" v-for="(nav, index) in navigations" :key="nav">
       <q-item v-if="index == 0">
-        <Logo />
+        <AppLogo />
       </q-item>
       <q-list>
         <q-item v-for="link in nav.links" :key="link">
@@ -19,7 +16,7 @@
 </template>
 
 <script setup>
-import Logo from "../components/logo.vue";
+import AppLogo from "../components/AppLogo.vue";
 import { ref } from "vue";
 
 const navigations = ref([

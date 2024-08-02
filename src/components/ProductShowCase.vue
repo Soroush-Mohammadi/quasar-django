@@ -1,18 +1,38 @@
 <template>
-  <div class="flex justify-center items-center q-ma-lg">
-    <q-card class="my-card" style="width: 60vw; height: 40vh">
+  <div class="row justify-center items-center q-ma-lg">
+    <q-card
+      class="my-card"
+      style="width: 80vw; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
+    >
       <q-item v-if="selectedProduct">
-        <q-card-section horizontal class="bg-red col">
-          <q-img :src="selectedProduct.imageUrl" />
+        <q-card-section
+          horizontal
+          class="bg-red col"
+          style="border-radius: 8px"
+        >
+          <q-img
+            :src="selectedProduct.imageUrl"
+            style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)"
+          />
         </q-card-section>
         <q-card-section class="col">
           <q-card-section>
-            <div class="text-h3">{{ selectedProduct.name }}</div>
-            <p class="text-h5">{{ selectedProduct.description }}</p>
-            <p class="text-h5">{{ selectedProduct.price }}</p>
+            <div class="text-h3" style="font-weight: bold; color: #333">
+              {{ selectedProduct.name }}
+            </div>
+            <p class="text-h5" style="color: #666">
+              {{ selectedProduct.description }}
+            </p>
+            <p class="text-h5" style="color: #666">
+              {{ selectedProduct.price }}
+            </p>
           </q-card-section>
           <q-card-actions>
-            <q-btn size="20px">click</q-btn>
+            <RouterLink>
+              <q-btn color="primary" size="md" style="border-radius: 20px"
+                >Click Me</q-btn
+              >
+            </RouterLink>
           </q-card-actions>
         </q-card-section>
         <!-- Display other details of the selected product as needed -->
@@ -32,6 +52,11 @@ export default {
     card: {
       type: Object,
       default: () => ({}),
+    },
+
+    categories: {
+      type: Array,
+      required: true,
     },
   },
   setup(props) {

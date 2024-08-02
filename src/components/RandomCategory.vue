@@ -11,20 +11,21 @@
       style="max-width: 70vw"
       v-if="products"
     >
-      <q-card
+      <RouterLink
         v-for="product in products.slice(0, 6)"
         :key="product"
-        class="q-ma-lg"
-        style="max-width: 300px"
+        :to="`${removeSpace(card.category)}/${removeSpace(product.name)}`"
       >
-        <q-img :src="product.imageUrl" />
-        <q-card-section>
-          <div class="text-h6">{{ product.name }}</div>
-          <div class="text-subtitle2">card subtitle</div>
-        </q-card-section>
-        <q-card-section> {{ product.description }} </q-card-section>
-        <q-card-section> {{ product.price }} </q-card-section>
-      </q-card>
+        <q-card class="q-ma-lg" style="max-width: 300px">
+          <q-img :src="product.imageUrl" />
+          <q-card-section>
+            <div class="text-h6">{{ product.name }}</div>
+            <div class="text-subtitle2">card subtitle</div>
+          </q-card-section>
+          <q-card-section> {{ product.description }} </q-card-section>
+          <q-card-section> {{ product.price }} </q-card-section>
+        </q-card>
+      </RouterLink>
     </div>
     <div v-else>
       <p>Loading.....</p>
@@ -33,7 +34,8 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
+import { useSpaceRemover } from "../composables/useSpaceRemover";
 
 export default {
   props: {
@@ -44,7 +46,6 @@ export default {
   },
   setup(props) {
     const products = ref(props.card.products);
-
     watch(
       () => props.card.products,
       (newVal) => {
@@ -54,8 +55,11 @@ export default {
       }
     );
 
+    const { removeSpace } = useSpaceRemover();
+
     return {
       products,
+      removeSpace,
     };
   },
 };

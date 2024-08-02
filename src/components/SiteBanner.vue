@@ -1,10 +1,10 @@
 <template>
-  <div class="row reverse justify-center items-center window-width q-mb-md">
-    <div class="col-4 bg-red">
-      <div class="row column">
-        <div class="col bg-blue">
-          <div class="row">
-            <div v-for="card in cards.slice(1)" :key="card" class="col">
+  <div class="row reverse justify-around items-center q-ma-xl bg-teal-4">
+    <div class="col col-md-5">
+      <div class="row column justify-between">
+        <div class="col q-ma-sm">
+          <div class="row justify-center">
+            <div class="col" v-for="card in cards.slice(1)" :key="card">
               <q-card>
                 <q-card-section>
                   <q-img :src="card.imageUrl" style="min-height: 260px"></q-img>
@@ -13,12 +13,10 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <q-card
-            v-for="card in cards.slice(0, 1)"
-            :key="card"
-            style="min-height: 280px"
-          >
+      </div>
+      <div class="row">
+        <div class="col q-ma-sm">
+          <q-card v-for="card in cards.slice(0, 1)" :key="card">
             <q-card-section>
               <q-img :src="card.imageUrl" style="max-height: 250px"></q-img>
             </q-card-section>
@@ -27,10 +25,14 @@
       </div>
     </div>
 
-    <div class="col-6" v-for="card in cards.slice(0, 1)" :key="card">
-      <q-card style="min-height: 560px">
+    <div
+      class="col col-12 col-md-6"
+      v-for="card in cards.slice(0, 1)"
+      :key="card"
+    >
+      <q-card>
         <q-card-section>
-          <q-img :src="card.imageUrl" style="max-height: 580px"></q-img>
+          <q-img :src="card.imageUrl"></q-img>
         </q-card-section>
       </q-card>
     </div>
