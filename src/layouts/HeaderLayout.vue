@@ -1,5 +1,8 @@
 <template>
-  <div class="row q-pa-md items-center justify-between justify-xl-around">
+  <div
+    class="row q-pa-md items-center justify-between justify-xl-around"
+    style="max-height: 100px"
+  >
     <div class="col lg">
       <AppLogo />
     </div>
@@ -9,7 +12,8 @@
       </q-btn>
     </div>
     <div class="col col-5">
-      <SearchBar />
+      <SearchBar @filter-products="handleSearchProducts" />
+      <searchItems v-if="items" :items="items" />
     </div>
     <div class="col col-4 flex justify-center">
       <WidgetBar />
@@ -17,25 +21,49 @@
   </div>
 </template>
 
-<script setup>
-import { defineComponent } from "vue";
+<script>
+import { ref, defineComponent, watch } from "vue";
+import { useMenuStore } from "../stores/menus";
+import { storeToRefs } from "pinia";
 
-defineComponent({
-  name: "app-header",
-});
-
-const getWidth = computed(() => window.innerWidth);
 import AppLogo from "../components/AppLogo.vue";
 import TopMenu from "../components/TopMenu.vue";
 import SearchBar from "../components/SearchBar.vue";
 import WidgetBar from "../components/WidgetBar.vue";
-import { ref, watch, computed } from "vue";
+import searchItems from "../components/SearchItems.vue";
 
-import { useMenuStore } from "../stores/menus";
-import { storeToRefs } from "pinia";
+export default {
+  name: "app-header",
+  data() {
+    return {
+      items: [],
+    };
+  },
+  components: {
+    searchItems,
+    TopMenu,
+    WidgetBar,
+    SearchBar,
+    AppLogo,
+  },
+  setup() {
+    const products = ref([null]);
+    const store = useMenuStore();
+    const { menus } = storeToRefs(store);
 
-const store = useMenuStore();
-const { menus } = storeToRefs(store);
+    return {
+      store,
+      products,
+      menus,
+    };
+  },
+
+  methods: {
+    handleSearchProducts(data) {
+      this.items = data;
+    },
+  },
+};
 </script>
 
 <style></style>
