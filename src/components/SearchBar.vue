@@ -48,7 +48,7 @@ export default {
       });
     },
     searchProducts() {
-      this.$emit("filter-products", this.searchProducts);
+      this.$emit("filter-products", this.searchProducts, this.search);
     },
   },
 };
