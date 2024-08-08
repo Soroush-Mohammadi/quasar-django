@@ -2,7 +2,7 @@
   <search-items
     :items="localItems"
     style="max-height: 400px; overflow-y: scroll"
-    class="bg-blue-2"
+    class="bg-blue-8 self-center"
   />
 </template>
 

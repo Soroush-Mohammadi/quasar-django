@@ -100,6 +100,7 @@
 <script>
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
+
 export default {
   setup() {
     const options = ["small", "meduim", "large"];
@@ -110,11 +111,6 @@ export default {
 
     const tab = ref("mails");
     const route = useRoute();
-    watch(
-      () => route.params.id,
-      (newVal, oldVal) => console.log(newVal, oldVal),
-      { immediate: true }
-    );
 
     const pictureNum = ref(pictures[0]);
 

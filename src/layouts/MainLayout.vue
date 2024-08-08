@@ -1,8 +1,12 @@
 <template>
   <q-layout view="hhh lpr fFf">
-    <q-header elavated class="bg-primary text-white" height-hint="98">
-      <HeaderLayout @search-products="search" />
-      <SearchLayout :items="items" />
+    <q-header
+      elavated
+      class="bg-primary text-white flex-col"
+      style="max-height: 100px"
+    >
+      <HeaderLayout @search-products="search" style="position: relative" />
+      <SearchLayout :items="items" class="searchLayout" />
     </q-header>
     <q-page-container>
       <router-view />
@@ -46,6 +50,11 @@ export default {
 </script>
 
 <style>
+.searchLayout {
+  width: 800px;
+  left: 22%;
+  position: relative;
+}
 .footer {
   position: static;
 }

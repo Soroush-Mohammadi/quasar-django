@@ -1,14 +1,15 @@
 <template>
-  <q-list bordered separator>
+  <q-list bordered separator dark>
     <RouterLink
       v-for="product in items"
       :key="product.name"
-      :to="`${product.category}/${product.name}`"
+      :to="`/${product.name}`"
+      @click="getProduct()"
     >
       <q-item clickable v-ripple>
         <q-item-section>
-          <div class="row justify-start">
-            <div class="col-4">
+          <div class="row justify-between items-center">
+            <div class="col-2">
               <q-img :src="product.images[0]" width="100px" />
             </div>
             <div
@@ -28,7 +29,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { useProductStore } from "../stores/productStore";
+import { onBeforeRouteLeave } from "vue-router";
+import { watch, ref, computed } from "vue";
 export default {
   name: "search-items",
   props: {
@@ -38,40 +41,21 @@ export default {
     },
   },
   setup() {
-    const products = ref([
-      {
-        name: "product-1",
-        caprtion: "product-caption",
-        price: 30,
-        url: "https://placehold.co/60x60",
-        quantity: 4,
-        category: "sport",
-      },
-      {
-        name: "product-2",
-        caprtion: "product-caption",
-        price: 59,
-        url: "https://placehold.co/60x60",
-        quantity: 4,
-        category: "books",
-      },
-      {
-        name: "product-3",
-        caprtion: "product-caption",
-        price: 60,
-        url: "https://placehold.co/60x60",
-        quantity: 4,
-        category: "electronics",
-      },
-    ]);
+    const { products } = useProductStore();
+    const productName = ref("");
+    const getProduct = () => {
+      for (product in products) {
+        console.log(
+          product.products.find((product) => product.category === "Electronics")
+        );
+      }
+    };
 
-    return { products };
-  },
-
-  methods: {
-    resetSearch() {
-      console.log(this.items);
-    },
+    return {
+      products,
+      productName,
+      getProduct,
+    };
   },
 };
 </script>
