@@ -9,7 +9,6 @@ export const useCategoriesStore = defineStore("Categories", () => {
 
     try {
       const response = await axios.get(url);
-      console.log(response.data);
       categories.value = response.data;
     } catch (error) {
       console.log("Error", error);

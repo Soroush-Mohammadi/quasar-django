@@ -3,6 +3,7 @@
     :items="localItems"
     style="max-height: 400px; overflow-y: scroll"
     class="bg-blue-8 self-center"
+    @reset-input="onResetInput()"
   />
 </template>
 
@@ -10,6 +11,7 @@
 import SearchItems from "../components/SearchItems.vue";
 export default {
   props: ["items"],
+  emit: ["onResetInput"],
 
   data() {
     return {
@@ -26,6 +28,9 @@ export default {
       } else {
         this.localItems.length = 0;
       }
+    },
+    onResetInput() {
+      this.$emit("onResetInput");
     },
   },
 

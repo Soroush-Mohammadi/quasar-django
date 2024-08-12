@@ -19,6 +19,8 @@ export default {
       searchProducts: [],
     };
   },
+
+  props: ["value"],
   components: {
     SvgIcon,
   },
@@ -49,6 +51,10 @@ export default {
     },
     searchProducts() {
       this.$emit("filter-products", this.searchProducts, this.search);
+    },
+
+    value(val, newVal) {
+      console.log(val, newVal);
     },
   },
 };

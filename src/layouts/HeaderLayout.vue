@@ -13,7 +13,11 @@
     </div>
     <div class="col col-5">
       <div class="column">
-        <SearchBar class="col" @filter-products="handleSearchProducts" />
+        <SearchBar
+          class="col"
+          @filter-products="handleSearchProducts"
+          :value="resetValue"
+        />
       </div>
     </div>
     <div class="col col-4 flex justify-center">
@@ -35,6 +39,8 @@ import WidgetBar from "../components/WidgetBar.vue";
 export default {
   name: "app-header",
   emite: ["search-products"],
+
+  props: ["resetValue"],
   data() {
     return {
       items: [],
@@ -60,11 +66,6 @@ export default {
   methods: {
     handleSearchProducts(data, search) {
       this.$emit("search-products", data, search);
-    },
-  },
-  watch: {
-    items() {
-      console.log(this.items.length);
     },
   },
 };

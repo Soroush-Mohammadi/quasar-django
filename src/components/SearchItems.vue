@@ -1,10 +1,10 @@
 <template>
   <q-list bordered separator dark>
     <RouterLink
-      v-for="product in items"
+      v-for="product in searchItems"
       :key="product.name"
-      :to="`/${product.name}`"
-      @click="getProduct()"
+      :to="`${removeSpace(product.category)}/${removeSpace(product.name)}`"
+      @click="closeList()"
     >
       <q-item clickable v-ripple>
         <q-item-section>
@@ -30,8 +30,10 @@
 
 <script>
 import { useProductStore } from "../stores/productStore";
-import { onBeforeRouteLeave } from "vue-router";
-import { watch, ref, computed } from "vue";
+import { useSpaceRemover } from "../composables/useSpaceRemover";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+import { ref, watch } from "vue";
 export default {
   name: "search-items",
   props: {
@@ -40,21 +42,31 @@ export default {
       required: true,
     },
   },
-  setup() {
-    const { products } = useProductStore();
-    const productName = ref("");
-    const getProduct = () => {
-      for (product in products) {
-        console.log(
-          product.products.find((product) => product.category === "Electronics")
-        );
-      }
+
+  emit: ["reset-input"],
+
+  setup(props, { emit }) {
+    const store = useProductStore();
+    const { products } = storeToRefs(store);
+    const router = useRoute();
+    const { removeSpace } = useSpaceRemover();
+    const searchItems = ref([]);
+    const closeList = () => {
+      searchItems.value = [];
+      emit("reset-input");
     };
+
+    watch(
+      () => props.items,
+      (val) => (searchItems.value = val)
+    );
 
     return {
       products,
-      productName,
-      getProduct,
+      router,
+      removeSpace,
+      searchItems,
+      closeList,
     };
   },
 };

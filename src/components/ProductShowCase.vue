@@ -28,11 +28,9 @@
             </p>
           </q-card-section>
           <q-card-actions>
-            <RouterLink>
-              <q-btn color="primary" size="md" style="border-radius: 20px"
-                >Click Me</q-btn
-              >
-            </RouterLink>
+            <q-btn color="primary" size="md" style="border-radius: 20px"
+              >Click Me</q-btn
+            >
           </q-card-actions>
         </q-card-section>
         <!-- Display other details of the selected product as needed -->

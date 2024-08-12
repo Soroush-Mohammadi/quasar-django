@@ -5,8 +5,16 @@
       class="bg-primary text-white flex-col"
       style="max-height: 100px"
     >
-      <HeaderLayout @search-products="search" style="position: relative" />
-      <SearchLayout :items="items" class="searchLayout" />
+      <HeaderLayout
+        @search-products="search"
+        style="position: relative"
+        :restValue="value"
+      />
+      <SearchLayout
+        :items="items"
+        class="searchLayout"
+        @onResetInput="resetInput"
+      />
     </q-header>
     <q-page-container>
       <router-view />
@@ -26,6 +34,7 @@ export default {
   data() {
     return {
       items: [],
+      value: false,
     };
   },
   components: {
@@ -44,6 +53,10 @@ export default {
       } else {
         this.items.length = 0;
       }
+    },
+
+    resetInput() {
+      this.value = true;
     },
   },
 };
