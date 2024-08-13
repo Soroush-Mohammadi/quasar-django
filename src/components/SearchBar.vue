@@ -6,6 +6,7 @@
     dark
     v-model="search"
     :value="searchValue"
+    @focus="searchValue = ''"
   >
     <template v-slot:prepend>
       <svg-icon type="mdi" :path="magnify" size="40"></svg-icon>

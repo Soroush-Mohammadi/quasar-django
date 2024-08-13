@@ -98,34 +98,47 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 
 export default {
+  data() {
+    return {
+      product: {},
+    };
+  },
   setup() {
     const options = ["small", "meduim", "large"];
     const colors = ["red", "green", "yellow"];
     const model = ref([]);
 
     const pictures = ["white/black", "red/black", "green/white", "blue/white"];
-
-    const tab = ref("mails");
     const route = useRoute();
+    const tab = ref("mails");
 
     const pictureNum = ref(pictures[0]);
 
     const selectPicture = (value) => (pictureNum.value = value);
 
+    // here we find product and show it in the template
+    const getProduct = (value) => console.log(value);
+
     return {
       options,
       colors,
       pictures,
-      route,
       selectPicture,
       pictureNum,
       tab,
       model,
+      getProduct,
     };
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.getProduct(to.params);
+    });
   },
 };
 </script>
