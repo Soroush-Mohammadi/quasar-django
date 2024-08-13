@@ -8,7 +8,7 @@
       <HeaderLayout
         @search-products="search"
         style="position: relative"
-        :restValue="value"
+        :resetValue="value"
       />
       <SearchLayout
         :items="items"

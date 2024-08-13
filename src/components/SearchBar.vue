@@ -1,5 +1,12 @@
 <template>
-  <q-input rounded standout label="Search" dark v-model="search">
+  <q-input
+    rounded
+    standout
+    label="Search"
+    dark
+    v-model="search"
+    :value="searchValue"
+  >
     <template v-slot:prepend>
       <svg-icon type="mdi" :path="magnify" size="40"></svg-icon>
     </template>
@@ -7,7 +14,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { mdiMagnify } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
@@ -25,16 +32,27 @@ export default {
     SvgIcon,
   },
   emits: ["filter-products"],
-  setup() {
+  setup(props) {
     const magnify = mdiMagnify;
     const search = ref("");
+    const searchValue = ref("");
     const store = useProductStore();
     const { products } = storeToRefs(store);
+
+    watch(
+      () => props.value,
+      (val) => {
+        if (val) {
+          search.value = "";
+        }
+      }
+    );
 
     return {
       search,
       magnify,
       products,
+      searchValue,
     };
   },
   computed: {
@@ -51,10 +69,6 @@ export default {
     },
     searchProducts() {
       this.$emit("filter-products", this.searchProducts, this.search);
-    },
-
-    value(val, newVal) {
-      console.log(val, newVal);
     },
   },
 };

@@ -52,7 +52,7 @@ export default {
     SearchBar,
     AppLogo,
   },
-  setup() {
+  setup(props) {
     const products = ref([null]);
     const store = useMenuStore();
     const { menus } = storeToRefs(store);
