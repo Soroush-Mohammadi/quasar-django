@@ -39,10 +39,12 @@ export default {
 
   setup() {
     const productStore = useProductStore();
-    const { products } = storeToRefs(productStore);
-    const { getProducts } = productStore;
+    const { products, parhamProducts } = storeToRefs(productStore);
+    const { getProducts, parhamData } = productStore;
     const selectProduct = ref([]);
     const bannerCards = ref([]);
+    parhamData();
+    console.log(parhamProducts);
 
     async function fetchData() {
       await getProducts();
@@ -57,6 +59,8 @@ export default {
       getProducts,
       bannerCards,
       selectProduct,
+      parhamData,
+      parhamProducts,
     };
   },
 };

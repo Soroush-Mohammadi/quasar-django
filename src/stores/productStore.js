@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import { useSpaceRemover } from "../composables/useSpaceRemover";
 import axios from "axios";
 
 export const useProductStore = defineStore("Products", () => {
   const products = ref([]);
+  const parhamProducts = ref([]);
 
   async function getProducts() {
     const url = "http://localhost:3000/";
@@ -31,5 +33,34 @@ export const useProductStore = defineStore("Products", () => {
     return products.value[num];
   });
 
-  return { products, getProducts, findProduct, banner };
+  const findCategorybyName = async (category) => {
+    let getCat = ref({});
+    getCat.value = await products.value.find(
+      (cat) => cat.category === category
+    );
+    console.log(getCat.value.category);
+    return getCat;
+  };
+
+  async function parhamData() {
+    const url = "https://onlineshop-parhams-projects-41827abc.vercel.app/main";
+
+    try {
+      const response = await axios.get(url);
+      return response.data; // Return the data directly
+    } catch (error) {
+      console.log("Error", error);
+      throw error; // Optionally re-throw the error so it can be handled by the caller
+    }
+  }
+
+  return {
+    products,
+    getProducts,
+    findProduct,
+    banner,
+    findCategorybyName,
+    parhamData,
+    parhamProducts,
+  };
 });

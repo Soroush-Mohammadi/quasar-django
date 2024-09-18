@@ -1,6 +1,6 @@
 <template>
-  <div class="row reverse justify-around items-center q-ma-xl bg-teal-4">
-    <div class="col col-md-5">
+  <div class="row reverse justify-around items-center q-ma-xl bg-red">
+    <div class="col">
       <div class="row column justify-between">
         <div class="col q-ma-sm">
           <div class="row justify-center">
@@ -25,11 +25,7 @@
       </div>
     </div>
 
-    <div
-      class="col col-12 col-md-6"
-      v-for="card in cards.slice(0, 1)"
-      :key="card"
-    >
+    <div class="col" v-for="card in cards.slice(0, 1)" :key="card">
       <q-card>
         <q-card-section>
           <q-img :src="card.imageUrl"></q-img>

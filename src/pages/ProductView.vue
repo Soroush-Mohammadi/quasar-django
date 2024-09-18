@@ -27,8 +27,8 @@
     <div class="col-5 bg-blue">
       <div class="column">
         <div class="col column bg-green q-pa-md">
-          <div class="q-my-sm text-h3">title</div>
-          <div class="q-my-sm text-h6">Lorem ipsum dolor sit.</div>
+          <div class="q-my-sm text-h3">{{ product.name }}</div>
+          <div class="q-my-sm text-h6">subtitle</div>
           <div class="q-my-sm row">
             <q-select
               square
@@ -47,7 +47,7 @@
               style="width: 100px"
             />
           </div>
-          <div class="q-my-sm text-h3">Price : 120$</div>
+          <div class="q-my-sm text-h3">Price : {{ product.price }}$</div>
           <div class="q-my-sm row justify-start">
             <q-btn class="q-mx-md" color="primary" label="Add To Card" />
             <q-btn class="q-mx-md" color="primary" label="Add To Wishlist" />
@@ -76,7 +76,7 @@
               >
                 <q-tab-panel name="mails">
                   <div class="text-h6">Mails</div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  {{ product.description }}
                 </q-tab-panel>
 
                 <q-tab-panel name="alarms">
@@ -98,8 +98,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useProductStore } from "../stores/productStore";
+import { useDashRemover } from "../composables/useDashRemover";
+import { storeToRefs } from "pinia";
 
 export default {
   data() {
@@ -116,12 +119,16 @@ export default {
     const route = useRoute();
     const tab = ref("mails");
 
+    const store = useProductStore();
+    const dashRemover = useDashRemover();
+
+    const { findCategorybyName } = store;
+
     const pictureNum = ref(pictures[0]);
 
     const selectPicture = (value) => (pictureNum.value = value);
 
     // here we find product and show it in the template
-    const getProduct = (value) => console.log(value);
 
     return {
       options,
@@ -131,14 +138,26 @@ export default {
       pictureNum,
       tab,
       model,
-      getProduct,
+      findCategorybyName,
+      dashRemover,
     };
   },
 
   beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.getProduct(to.params);
-    });
+    const findProductAndSettle = async (vm) => {
+      try {
+        const cat = await vm.findCategorybyName(to.params.category);
+        vm.product = await cat.products.find(
+          (product) => product.name === to.params.id
+        );
+        // next(); // Settle the route
+      } catch (error) {
+        console.error("Error finding product:", error);
+        next("/error"); // Redirect to an error page
+      }
+    };
+
+    next(findProductAndSettle);
   },
 };
 </script>
