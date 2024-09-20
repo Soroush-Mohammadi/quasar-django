@@ -1,24 +1,22 @@
 <template>
   <div>
     <q-toolbar class="bg-primary text-white">
-      <div>
+      <!-- <div>
         <slot name="title" />
-      </div>
+      </div> -->
+      {{ categoryTitle[6] }}
       <q-space />
     </q-toolbar>
     <div class="row justify-center">
-      <RouterLink
-        v-for="product in categories.slice(0, 4)"
-        :key="product"
-        :to="`/${removeSpace(cat)}/${removeSpace(product.name)}`"
-      >
-        <q-card
-          class="my-card q-ma-md flex column items-center"
-          flat
-          bordered
-          style="max-width: 300px"
-        >
-          <q-img :src="product.imageUrl" spinner-color="white" />
+      <RouterLink v-for="product in category" :key="product">
+        <q-card class="my-card q-ma-md flex column items-center" flat bordered>
+          <div v-if="product.image">
+            <img
+              :src="`${baseUrl}${product.image.image_url}`"
+              style="max-width: 150px"
+            />
+          </div>
+
           <q-card-section>
             <div class="text-overline text-blue">
               <span class="q-mr-md">Price:</span>{{ `${product.price}$` }}
@@ -37,8 +35,9 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, onMounted, ref } from "vue";
 import { useSpaceRemover } from "../composables/useSpaceRemover";
+import { useProductStore } from "../stores/productStore";
 
 // doroste ?
 const props = defineProps({
@@ -52,6 +51,26 @@ const props = defineProps({
     required: true,
   },
 });
+
+const category = ref([]);
+const baseUrl = "https://onlineshop-parhams-projects-41827abc.vercel.app";
+let categoryTitle = ref([]);
+
+async function getData() {
+  try {
+    const data = await parhamData();
+    category.value = data["highest_price_products"];
+    categoryTitle.value = Object.keys(data);
+    console.log(categoryTitle.value, "test");
+  } catch (error) {
+    console.error("faild", error);
+  }
+}
+
+const store = useProductStore();
+const { parhamData } = store;
+
+onMounted(() => getData());
 
 const exert = (text, char) => text.slice(0, char);
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-red-2 flex column items-center">
-    <div class="col text-center q-ma-lg">
-      <div class="text-h4 text-weight-thick">{{ card.category }}</div>
+  <div v-if="randomCategories" class="bg-red-2 flex column items-center">
+    <div v-if="findCategory" class="col text-center q-ma-lg">
+      <div v-if="categoryTitle" class="text-h4 text-weight-thick">title</div>
       <div class="text-subtitle1 text-weight-light q-mt-xs">
         CategorySubtitle
       </div>
@@ -11,19 +11,16 @@
       style="max-width: 70vw"
       v-if="products"
     >
-      <RouterLink
-        v-for="product in products.slice(0, 6)"
-        :key="product"
-        :to="`${removeSpace(card.category)}/${removeSpace(product.name)}`"
-      >
+      <RouterLink v-for="cat in category" :key="cat.id">
         <q-card class="q-ma-lg" style="max-width: 300px">
-          <q-img :src="product.imageUrl" />
+          <div v-if="cat.image">
+            <q-img :src="`${baseUrl}${cat.image.image_url}`" />
+          </div>
           <q-card-section>
-            <div class="text-h6">{{ product.name }}</div>
-            <div class="text-subtitle2">card subtitle</div>
+            <div class="text-h6">{{ cat.name }}</div>
           </q-card-section>
-          <q-card-section> {{ product.description }} </q-card-section>
-          <q-card-section> {{ product.price }} </q-card-section>
+          <q-card-section> {{ cat.description }} </q-card-section>
+          <q-card-section> {{ cat.price }} </q-card-section>
         </q-card>
       </RouterLink>
     </div>
@@ -34,8 +31,9 @@
 </template>
 
 <script>
-import { ref, watch, computed } from "vue";
+import { ref, watch, computed, onMounted } from "vue";
 import { useSpaceRemover } from "../composables/useSpaceRemover";
+import { useProductStore } from "../stores/productStore";
 
 export default {
   props: {
@@ -46,6 +44,25 @@ export default {
   },
   setup(props) {
     const products = ref(props.card.products);
+    const store = useProductStore();
+    const { parhamData } = store;
+
+    const baseUrl = "https://onlineshop-parhams-projects-41827abc.vercel.app";
+    const randomCategories = ref([]);
+    const category = ref([]);
+    const findCategory = ref("");
+
+    async function getData() {
+      try {
+        randomCategories.value = await parhamData();
+        category.value = randomCategories.value["product_category_random"];
+      } catch (error) {
+        console.error("faild", error);
+      }
+    }
+
+    onMounted(() => getData());
+
     watch(
       () => props.card.products,
       (newVal) => {
@@ -60,6 +77,11 @@ export default {
     return {
       products,
       removeSpace,
+      randomCategories,
+      baseUrl,
+      category,
+      findCategory,
+      getData,
     };
   },
 };

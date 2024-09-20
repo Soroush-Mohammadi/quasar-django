@@ -1,15 +1,10 @@
 <template>
   <q-page>
-    <site-banner :cards="bannerCards" />
-    <category-cards :cards="products" />
-    <product-show-case :card="selectProduct" :categories="products" />
-    <random-category :card="selectProduct" />
-    <product-slider
-      v-for="product in products.slice(0, 4)"
-      :key="product"
-      :categories="product.products"
-      :cat="product.category"
-    >
+    <site-banner :banners="bannerList" />
+    <category-cards />
+    <product-show-case />
+    <random-category />
+    <product-slider>
       <template #title>
         {{ product.category }}
       </template>
@@ -18,7 +13,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from "../stores/productStore";
 
@@ -38,29 +33,24 @@ export default {
   },
 
   setup() {
-    const productStore = useProductStore();
-    const { products, parhamProducts } = storeToRefs(productStore);
-    const { getProducts, parhamData } = productStore;
-    const selectProduct = ref([]);
-    const bannerCards = ref([]);
-    parhamData();
-    console.log(parhamProducts);
-
-    async function fetchData() {
-      await getProducts();
-      bannerCards.value = await productStore.banner;
-      selectProduct.value = await productStore.findProduct;
+    const store = useProductStore();
+    const { parhamData } = store;
+    const bannerList = ref([]);
+    async function getData() {
+      let categories = [];
+      try {
+        categories = await parhamData();
+        bannerList.value = await categories.banners_list;
+      } catch (error) {
+        console.error("faild", error);
+      }
     }
 
-    fetchData();
+    onMounted(() => getData());
 
     return {
-      products,
-      getProducts,
-      bannerCards,
-      selectProduct,
       parhamData,
-      parhamProducts,
+      bannerList,
     };
   },
 };
