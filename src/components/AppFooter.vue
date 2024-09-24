@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-center">
+  <div class="row justify-center q-col-gutter-md">
     <div class="col-2" v-for="(nav, index) in navigations" :key="nav">
       <q-item v-if="index == 0">
         <AppLogo />

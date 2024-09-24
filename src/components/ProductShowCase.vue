@@ -5,7 +5,7 @@
       style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
     >
       <div v-if="productRandom && productRandom.image" class="row">
-        <q-card-section class="col-3">
+        <q-card-section class="col">
           <img
             :src="`${baseUrl}${productRandom.image.image_url}`"
             alt=""

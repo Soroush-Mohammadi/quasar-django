@@ -1,28 +1,31 @@
 <template>
-  <div v-if="randomCategories" class="bg-red-2 flex column items-center">
-    <div v-if="findCategory" class="col text-center q-ma-lg">
-      <div v-if="categoryTitle" class="text-h4 text-weight-thick">title</div>
-      <div class="text-subtitle1 text-weight-light q-mt-xs">
-        CategorySubtitle
-      </div>
-    </div>
+  <div class="flex justify-center">
     <div
-      class="row bg-blue justify-center"
-      style="max-width: 70vw"
-      v-if="products"
+      v-if="category"
+      style="width: 80vw"
+      class="row q-col-gutter-md justify-around items-center"
     >
-      <RouterLink v-for="cat in category" :key="cat.id">
-        <q-card class="q-ma-lg" style="max-width: 300px">
-          <div v-if="cat.image">
-            <q-img :src="`${baseUrl}${cat.image.image_url}`" />
-          </div>
-          <q-card-section>
-            <div class="text-h6">{{ cat.name }}</div>
-          </q-card-section>
-          <q-card-section> {{ cat.description }} </q-card-section>
-          <q-card-section> {{ cat.price }} </q-card-section>
-        </q-card>
-      </RouterLink>
+      <div class="col-4" v-for="cat in category" :key="cat.id">
+        <RouterLink :to="`/${cat.category_id.name}/${removeSpace(cat.name)}`">
+          <q-card class="row items-center justify-around">
+            <div class="col-5">
+              <div v-if="cat.image">
+                <q-img
+                  :src="`${baseUrl}${cat.image.image_url}`"
+                  style="max-width: 200px"
+                />
+              </div>
+            </div>
+            <div class="col-5">
+              <q-card-section
+                ><h5>{{ cat.name }}</h5></q-card-section
+              >
+              <q-card-section> {{ cat.description }} </q-card-section>
+              <q-card-section> {{ cat.price }} </q-card-section>
+            </div>
+          </q-card>
+        </RouterLink>
+      </div>
     </div>
     <div v-else>
       <p>Loading.....</p>
@@ -56,6 +59,7 @@ export default {
       try {
         randomCategories.value = await parhamData();
         category.value = randomCategories.value["product_category_random"];
+        console.log(category.value);
       } catch (error) {
         console.error("faild", error);
       }

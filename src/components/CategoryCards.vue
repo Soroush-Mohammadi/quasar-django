@@ -6,16 +6,18 @@
         v-for="item in images"
         :key="item"
       >
-        <q-card class="my-card column items-center">
-          <img
-            :src="`${baseUrl}${item.image}`"
-            alt=""
-            style="max-width: 200px"
-          />
-          <span class="q-mt-md">
-            {{ item.name }}
-          </span>
-        </q-card>
+        <RouterLink :to="`/${item.name}`">
+          <q-card class="my-card column items-center">
+            <img
+              :src="`${baseUrl}${item.image}`"
+              alt=""
+              style="max-width: 200px"
+            />
+            <span class="q-mt-md">
+              {{ item.name }}
+            </span>
+          </q-card>
+        </RouterLink>
       </div>
     </div>
     <div v-else>Loading Data ...</div>
@@ -47,6 +49,7 @@ export default {
       try {
         categories.value = await parhamData();
         images.value = categories.value["categories_image"];
+        console.log(images.value, "from categoru");
       } catch (error) {
         console.error("faild", error);
       }

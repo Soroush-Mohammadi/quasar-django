@@ -1,32 +1,56 @@
 <template>
   <div
-    class="row q-pa-md items-center justify-between justify-xl-around"
-    style="max-height: 100px"
+    class="row q-col-gutter-lg q-mt-xs items-center justify-around justify-xl-around"
   >
-    <div class="col lg bg-red">
-      <AppLogo />
-    </div>
-    <div class="col-3 col-lg-2">
-      <q-btn class="full-width bg-yellow" label="categories" flat>
-        <TopMenu :menu="menus" />
-      </q-btn>
-    </div>
-    <div class="col col-5">
-      <div class="column">
-        <SearchBar
-          class="col"
-          @filter-products="handleSearchProducts"
-          :value="resetValue"
-        />
+    <div class="col-2 flex justify-center">
+      <div style="width: 100px">
+        <img src="/my-logo.png" style="max-width: 70px" />
       </div>
     </div>
+    <div class="col-6">
+      <SearchBar
+        class="col"
+        @filter-products="handleSearchProducts"
+        :value="resetValue"
+      />
+    </div>
+
     <div class="col col-4 flex justify-center">
       <WidgetBar />
+    </div>
+    <div class="col-2 flex justify-end q-col-gutter-none">
+      <TopMenu :menu="menus" class="q-mx-md">
+        <template v-slot:icon>
+          <svg-icon type="mdi" :path="path" class="q-mx-md"></svg-icon>
+        </template>
+      </TopMenu>
+    </div>
+    <div class="col-10">
+      <q-list class="flex" style="gap: 20px">
+        <q-item clickable v-ripple>
+          <q-item-section>Page 1</q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple>
+          <q-item-section>
+            <q-item-section>Page 2</q-item-section>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple>
+          <q-item-section>
+            <q-item-section>Page 3</q-item-section>
+          </q-item-section>
+        </q-item>
+      </q-list>
     </div>
   </div>
 </template>
 
 <script>
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiViewList } from "@mdi/js";
+
 import { ref, defineComponent, watch } from "vue";
 import { useMenuStore } from "../stores/menus";
 import { storeToRefs } from "pinia";
@@ -44,13 +68,14 @@ export default {
   data() {
     return {
       items: [],
+      path: mdiViewList,
     };
   },
   components: {
     TopMenu,
     WidgetBar,
     SearchBar,
-    AppLogo,
+    SvgIcon,
   },
   setup(props) {
     const products = ref([null]);

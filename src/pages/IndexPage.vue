@@ -4,11 +4,7 @@
     <category-cards />
     <product-show-case />
     <random-category />
-    <product-slider>
-      <template #title>
-        {{ product.category }}
-      </template>
-    </product-slider>
+    <product-slider />
   </q-page>
 </template>
 

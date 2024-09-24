@@ -1,10 +1,6 @@
 <template>
   <q-layout view="hhh lpr fFf">
-    <q-header
-      elavated
-      class="bg-primary text-white flex-col"
-      style="max-height: 100px"
-    >
+    <q-header elavated class="bg-primary text-white flex-col">
       <HeaderLayout
         @search-products="search"
         style="position: relative"
