@@ -6,7 +6,7 @@
         v-for="item in images"
         :key="item"
       >
-        <RouterLink :to="`/${item.name}`">
+        <RouterLink :to="`/${removeSpace(item.name)}`">
           <q-card class="my-card column items-center">
             <img
               :src="`${baseUrl}${item.image}`"

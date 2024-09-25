@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-center q-col-gutter-md">
+  <div class="row justify-center q-col-gutter-md footer">
     <div class="col-2" v-for="(nav, index) in navigations" :key="nav">
       <q-item v-if="index == 0">
         <AppLogo />
@@ -55,3 +55,9 @@ const navigations = ref([
   },
 ]);
 </script>
+
+<style>
+.footer {
+  bottom: 0;
+}
+</style>

@@ -1,18 +1,22 @@
 <template>
   <div v-if="category">
     <div
-      class="row q-col-gutter-lg items-center justify-around q-my-md"
+      class="row q-col-gutter-md items-center justify-center q-ma-md"
       v-for="(items, key) in filteredKeys"
       :key="key"
     >
       <div class="col-12 bg-blue">
         {{ key }}
       </div>
-      <div class="col-2" v-for="(product, index) in items" :key="index">
+      <div
+        class="col-3 q-col-gutter-md"
+        v-for="(product, index) in items"
+        :key="index"
+      >
         <div v-if="product.image">
           <img
             :src="`${baseUrl}${product.image.image_url}`"
-            style="width: 200px"
+            style="max-width: 150px"
           />
         </div>
         <div>
