@@ -1,35 +1,57 @@
 <template>
   <div class="row justify-center items-center q-ma-lg">
     <q-card
-      class="my-card q-my-xl"
-      style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
+      class="q-pa-md q-my-xl q-card-shadow q-hoverable"
+      style="
+        border-radius: 16px;
+        transition: transform 0.3s;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 1000px;
+      "
     >
-      <div v-if="productRandom && productRandom.image" class="row">
-        <q-card-section class="col">
-          <img
+      <div v-if="productRandom && productRandom.image" class="row no-wrap">
+        <!-- Image Section - Larger and Side-by-Side -->
+        <q-card-section class="col-5 flex justify-center q-pa-md">
+          <q-img
             :src="`${baseUrl}${productRandom.image.image_url}`"
             alt=""
-            style="max-width: 300px"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 12px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            "
           />
         </q-card-section>
-        <q-card-section class="col">
-          <div class="text-h3" style="font-weight: bold; color: #333">
+
+        <!-- Text and Details Section -->
+        <q-card-section class="col-7 q-pa-lg">
+          <div class="text-h3 text-bold q-mb-md" style="color: #333">
             {{ productRandom.name }}
           </div>
-          <p class="text-h5 q-my-lg" style="color: #666">
+          <p class="text-body1 q-my-md" style="color: #666; line-height: 1.8">
             {{ productRandom.description }}
           </p>
-          <p class="text-h5 q-my-lg" style="color: #666">
+          <p class="text-h5 q-my-md" style="color: #666">
             {{ productRandom.price }}
           </p>
-        </q-card-section>
-        <q-card-actions class="col">
-          <q-btn color="primary" size="lg">Click Me</q-btn>
-        </q-card-actions>
 
-        <!-- Display other details of the selected product as needed -->
+          <!-- Action Button -->
+          <q-card-actions align="left" class="q-pa-none q-mt-lg">
+            <q-btn
+              color="primary"
+              size="xl"
+              class="q-btn-rounded q-shadow-2 q-px-lg"
+            >
+              Click Me
+            </q-btn>
+          </q-card-actions>
+        </q-card-section>
       </div>
-      <div v-else>
+
+      <!-- Loading State -->
+      <div v-else class="text-center q-pa-md">
         <p>Loading product...</p>
       </div>
     </q-card>

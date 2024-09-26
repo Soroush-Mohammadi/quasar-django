@@ -1,102 +1,97 @@
 <template>
-  <div v-if="product">
-    <div class="row justify-center bg-red-6 full-window q-mt-lg">
-      <div class="col-5 q-mx-lg">
-        <div class="column flex justify-between">
-          <div>
-            <div class="col">
-              <q-img
-                v-if="product.images"
-                class="q-mb-sm"
-                :src="`${baseUrl}${product.images[1]}`"
-              />
-            </div>
-          </div>
-          <div class="row justify-between q-col-gutter-md">
-            <div
-              class="col-3"
-              v-for="img in product.images"
-              :key="img.upc"
-              @click="selectPicture(img)"
-              style="cursor: pointer"
-            >
-              <q-img :src="`${baseUrl}${img.image}`"></q-img>
-            </div>
-          </div>
+  <div class="row bg-white q-pa-xl justify-center" v-if="product">
+    <!-- Product Image Section -->
+    <div class="col-5">
+      <div class="row justify-center q-pa-md">
+        <!-- Main Product Image -->
+        <div
+          v-if="product.images"
+          class="col-12 q-my-auto flex justify-center"
+          style="height: 400px"
+        >
+          <q-img
+            :src="`${baseUrl}${product.images[0].image}`"
+            alt=""
+            style="
+              max-width: 100%;
+              height: 100%;
+              object-fit: contain;
+              border-radius: 8px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            "
+          />
         </div>
-      </div>
-      <div class="col-5 bg-blue">
-        <div class="column">
-          <div class="col column bg-green q-pa-md">
-            <div class="q-my-sm text-h3">{{ product.name }}</div>
-            <div class="q-my-sm text-h6">subtitle</div>
-            <div class="q-my-sm row">
-              <q-select
-                square
-                outlined
-                v-model="model"
-                :options="options"
-                label="size"
-                style="width: 100px"
-              />
-              <q-select
-                square
-                outlined
-                v-model="model"
-                :options="colors"
-                label="color"
-                style="width: 100px"
-              />
-            </div>
-            <div class="q-my-sm text-h3">Price : {{ product.price }}$</div>
-            <div class="q-my-sm row justify-start">
-              <q-btn class="q-mx-md" color="primary" label="Add To Card" />
-              <q-btn class="q-mx-md" color="primary" label="Add To Wishlist" />
-            </div>
-          </div>
-          <div class="col bg-yellow">
-            <div class="q-gutter-y-md">
-              <q-card>
-                <q-tabs
-                  v-model="tab"
-                  dense
-                  class="bg-grey-2 text-grey-7"
-                  active-color="primary"
-                  indicator-color="purple"
-                  align="justify"
-                >
-                  <q-tab name="mails" label="description" />
-                  <q-tab name="alarms" label="shipping" />
-                </q-tabs>
 
-                <q-tab-panels
-                  v-model="tab"
-                  animated
-                  class="bg-primary text-white"
-                  style="height: 300px"
-                >
-                  <q-tab-panel name="mails">
-                    <div class="text-h6">Mails</div>
-                    {{ product.description }}
-                  </q-tab-panel>
-
-                  <q-tab-panel name="alarms">
-                    <div class="text-h6">Alarms</div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </q-tab-panel>
-
-                  <q-tab-panel name="movies">
-                    <div class="text-h6">Movies</div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </q-tab-panel>
-                </q-tab-panels>
-              </q-card>
-            </div>
-          </div>
+        <!-- Product Image Thumbnails -->
+        <div class="col-12 flex justify-center q-mt-md">
+          <q-img
+            v-for="img in product.images"
+            :key="img"
+            :src="`${baseUrl}${img.image}`"
+            alt=""
+            class="q-ma-xs"
+            style="
+              width: 80px;
+              height: 80px;
+              border-radius: 4px;
+              border: 2px solid #f5f5f5;
+              cursor: pointer;
+            "
+          />
         </div>
       </div>
     </div>
+
+    <!-- Product Information Section -->
+    <div class="col-5 q-px-lg">
+      <!-- Product Name -->
+      <h3 class="text-h4 text-bold" style="color: #333">
+        {{ product.name }}
+      </h3>
+
+      <!-- Description Section -->
+      <span class="text-subtitle1 text-weight-medium text-primary"
+        >Description</span
+      >
+      <div
+        class="q-my-md"
+        style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px"
+      >
+        <p class="text-body1" style="color: #666">
+          {{ product.description }}
+        </p>
+      </div>
+
+      <!-- Price and Stock Section -->
+      <div
+        class="q-my-xl text-h6 flex justify-between"
+        style="font-size: 1.2rem"
+      >
+        <span class="text-bold text-primary">Price: {{ product.price }}$</span>
+        <span
+          class="text-bold"
+          style="color: {{ product.stock > 0 ? 'green' : 'red' }};"
+        >
+          Stock: {{ product.stock }}
+        </span>
+      </div>
+
+      <!-- Add to Cart Button -->
+      <div class="q-my-xl">
+        <q-btn
+          class="q-py-md q-px-xl q-shadow-2 q-rounded-borders"
+          style="
+            background: #ff5722;
+            color: white;
+            width: 100%;
+            font-size: 1.2rem;
+          "
+          label="Add to Cart"
+        />
+      </div>
+    </div>
   </div>
+
   <div v-else>Loading ....</div>
 </template>
 
@@ -133,6 +128,7 @@ export default {
       try {
         const response = await axios.get(url);
         product.value = await response.data;
+        console.log(product.value);
       } catch (error) {
         console.log("Error", error);
         throw error; // Optionally re-throw the error so it can be handled by the caller

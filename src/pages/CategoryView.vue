@@ -1,29 +1,53 @@
 <template>
-  <div class="container">
-    <div v-if="products" class="row justify-center q-col-gutter-md">
+  <div class="container q-pa-lg">
+    <div v-if="products" class="row justify-center q-col-gutter-xl">
       <div v-if="products.category" class="col q-pa-xl q-ma-md">
-        <h4>{{ products.category.name }}</h4>
-        <p>{{ products.category.description }}</p>
-        <div class="row q-col-gutter-xl justify-center q-ma-lg">
+        <q-card
+          class="q-pa-md bg-primary text-white q-card-shadow"
+          style="border-radius: 12px"
+        >
+          <h4 class="text-h4 text-bold q-mb-md">
+            {{ products.category.name }}
+          </h4>
+          <p class="text-body1 q-mb-lg">{{ products.category.description }}</p>
+        </q-card>
+
+        <div class="row q-col-gutter-xl justify-between q-mt-md q-pa-md">
           <div
-            class="col-3 flex column q-col-gutter-xs"
+            class="col-3 q-pa-md q-hoverable q-card-shadow"
             v-for="item in products.products"
-            :key="item"
+            :key="item.id"
           >
-            <img
-              :src="`${baseUrl}${item.image.image_url}`"
-              alt="image"
-              style="max-width: 300px"
-            />
-            <span> {{ item.name }}</span>
-            <span>{{ item.description }}</span>
-            <span>
-              {{ item.price }}
-            </span>
+            <q-card style="border-radius: 12px; transition: transform 0.3s">
+              <div class="q-pa-md text-center">
+                <q-img
+                  :src="`${baseUrl}${item.image.image_url}`"
+                  alt="image"
+                  style="
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                  "
+                />
+                <div class="text-h6 text-primary q-mt-md">{{ item.name }}</div>
+                <div class="text-body2 text-grey-7 q-mt-xs">
+                  {{ item.description }}
+                </div>
+                <q-badge
+                  color="green-6"
+                  :label="`Price: ${item.price}`"
+                  class="q-mt-md"
+                  style="font-size: 1.1em"
+                />
+              </div>
+            </q-card>
           </div>
         </div>
       </div>
     </div>
+
+    <div v-else class="text-center text-body1 q-pa-md">Data is loading...</div>
   </div>
 </template>
 
@@ -81,6 +105,6 @@ export default {
 
 <style>
 .container {
-  height: 130vh;
+  height: auto;
 }
 </style>
