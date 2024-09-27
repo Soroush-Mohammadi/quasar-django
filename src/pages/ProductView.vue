@@ -10,7 +10,7 @@
           style="height: 400px"
         >
           <q-img
-            :src="`${baseUrl}${product.images[0].image}`"
+            :src="`${baseUrl}${product.images[pictureNum].image}`"
             alt=""
             style="
               max-width: 100%;
@@ -25,11 +25,12 @@
         <!-- Product Image Thumbnails -->
         <div class="col-12 flex justify-center q-mt-md">
           <q-img
-            v-for="img in product.images"
+            v-for="(img, index) in product.images"
             :key="img"
             :src="`${baseUrl}${img.image}`"
             alt=""
             class="q-ma-xs"
+            @click="changePicture(index)"
             style="
               width: 80px;
               height: 80px;
@@ -114,12 +115,16 @@ export default {
     const route = useRoute();
     const tab = ref("mails");
 
+    const changePicture = (val) => {
+      pictureNum.value = val;
+    };
+
     const store = useProductStore();
     const dashRemover = useDashRemover();
 
     const { findCategorybyName } = store;
 
-    const pictureNum = ref(pictures[0]);
+    const pictureNum = ref(0);
     const product = ref({});
 
     const selectPicture = (value) => (pictureNum.value = value);
@@ -153,6 +158,7 @@ export default {
       getProduct,
       baseUrl,
       product,
+      changePicture,
     };
   },
 

@@ -16,33 +16,40 @@
         v-for="(product, index) in items"
         :key="index"
       >
-        <q-card
-          class="q-pa-sm q-hoverable q-card-shadow"
-          style="border-radius: 12px; transition: transform 0.3s"
+        <RouterLink
+          style="text-decoration: none"
+          :to="`${removeSpace(product.category_id.name)}/${removeSpace(
+            product.name
+          )}`"
         >
-          <div class="q-gutter-md text-center">
-            <div v-if="product.image">
-              <q-img
-                :src="`${baseUrl}${product.image.image_url}`"
-                style="
-                  max-width: 120px;
-                  border-radius: 8px;
-                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                "
+          <q-card
+            class="q-pa-sm q-hoverable q-card-shadow"
+            style="border-radius: 12px; transition: transform 0.3s"
+          >
+            <div class="q-gutter-md text-center">
+              <div v-if="product.image">
+                <q-img
+                  :src="`${baseUrl}${product.image.image_url}`"
+                  style="
+                    max-width: 120px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  "
+                />
+              </div>
+              <div class="text-h6 text-primary q-mb-xs">{{ product.name }}</div>
+              <div class="text-body2 text-grey-7 q-mb-xs">
+                {{ product.description }}
+              </div>
+              <q-badge
+                color="green-6"
+                :label="`Price${product.price}$`"
+                class="q-mt-md"
+                style="font-size: 1em"
               />
             </div>
-            <div class="text-h6 text-primary q-mb-xs">{{ product.name }}</div>
-            <div class="text-body2 text-grey-7 q-mb-xs">
-              {{ product.description }}
-            </div>
-            <q-badge
-              color="green-6"
-              :label="`Price${product.price}$`"
-              class="q-mt-md"
-              style="font-size: 1em"
-            />
-          </div>
-        </q-card>
+          </q-card>
+        </RouterLink>
       </div>
     </div>
   </div>
