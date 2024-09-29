@@ -1,18 +1,14 @@
 <template>
-  <q-layout view="hhh lpr fFf">
-    <q-header elavated class="bg-primary text-white flex-col">
-      <HeaderLayout
-        @search-products="search"
-        style="position: relative"
-        :resetValue="value"
-      />
+  <q-layout view="hHh lpR fff" style="background-color: #092a48">
+    <q-header elavated class="bg-primary text-white flex-col header">
+      <HeaderLayout @search-products="search" :resetValue="value" />
       <SearchLayout
         :items="items"
         class="searchLayout"
         @onResetInput="resetInput"
       />
     </q-header>
-    <q-page-container>
+    <q-page-container class="main">
       <router-view />
     </q-page-container>
     <q-footer class="footer">
@@ -62,9 +58,5 @@ export default {
 .searchLayout {
   width: 800px;
   left: 22%;
-  position: relative;
-}
-.footer {
-  position: static;
 }
 </style>

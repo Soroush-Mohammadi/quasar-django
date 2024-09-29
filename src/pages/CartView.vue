@@ -1,54 +1,39 @@
 <template>
-  <div class="cart">
-    <h2>Your Shopping Cart</h2>
-    <div v-if="cartItems.length === 0" class="empty-cart">
-      <p>Your cart is empty.</p>
-    </div>
-    <ul v-else>
-      <li v-for="item in cartItems" :key="item.id" class="cart-item">
-        <img :src="item.image" :alt="item.name" class="cart-item-image" />
-        <div class="cart-item-details">
-          <h3>{{ item.name }}</h3>
-          <p>Price: ${{ item.price.toFixed(2) }}</p>
-          <label for="quantity">Quantity:</label>
-          <input
-            type="number"
-            v-model="item.quantity"
-            min="1"
-            @change="updateQuantity(item)"
-          />
-          <button @click="removeFromCart(item.id)">Remove</button>
-        </div>
-      </li>
-    </ul>
-    <div v-if="cartItems.length > 0" class="cart-summary">
-      <h3>Total: ${{ totalPrice.toFixed(2) }}</h3>
-      <button @click="checkout">Checkout</button>
+  <div class="row justify-center q-my-xl">
+    <div
+      class="col-md-8 col-lg-6 col-xl-5 bg-white q-pa-md flex justify-center"
+    >
+      <ul class="col-12">
+        <h5>Shop Cart</h5>
+        <li v-for="item in cart" :key="item.id" class="cart-item">
+          <img :src="item.image" alt="" />
+          <h5>{{ item.name }}</h5>
+          <h6 class="q-mx-md">{{ item.price }}$</h6>
+          <div class="flex justify-between q-mx-md" style="min-width: 80px">
+            <button @click="removeProduct(item)">-</button>
+            <span>{{ item.quantity }}</span>
+            <button @click="addProduct(item)">+</button>
+          </div>
+        </li>
+        <hr />
+        <li
+          class="bg-red flex items-center"
+          style="list-style: none; width: 100%"
+        >
+          <h3>Total Price :</h3>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { storeToRefs } from "pinia";
+import { useCartStore } from "../stores/cartStore";
+
 export default {
   data() {
-    return {
-      cartItems: [
-        {
-          id: 1,
-          name: "Product 1",
-          price: 29.99,
-          image: "https://via.placeholder.com/150",
-          quantity: 1,
-        },
-        {
-          id: 2,
-          name: "Product 2",
-          price: 19.99,
-          image: "https://via.placeholder.com/150",
-          quantity: 2,
-        },
-      ],
-    };
+    return {};
   },
   computed: {
     totalPrice() {
@@ -59,6 +44,20 @@ export default {
     },
   },
   methods: {
+    addProduct(product) {
+      product.quantity++;
+    },
+
+    removeProduct(product) {
+      console.log(product);
+      if (product.quantity <= 1) {
+        this.cartItems = this.cartItems.filter(
+          (item) => item.id !== product.id
+        );
+      } else {
+        product.quantity--;
+      }
+    },
     updateQuantity(item) {
       if (item.quantity < 1) {
         item.quantity = 1;
@@ -72,6 +71,15 @@ export default {
       // Add your checkout logic here
     },
   },
+
+  setup() {
+    // just carts come from store
+    const store = useCartStore();
+    const { cart } = storeToRefs(store);
+    return {
+      cart,
+    };
+  },
 };
 </script>
 
@@ -82,10 +90,12 @@ export default {
   border-radius: 8px;
   max-width: 600px;
   margin: auto;
+  background-color: #fff;
 }
 
 .cart-item {
   display: flex;
+  gap: 40px;
   align-items: center;
   margin-bottom: 20px;
 }

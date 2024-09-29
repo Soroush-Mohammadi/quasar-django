@@ -1,5 +1,5 @@
 <template>
-  <div class="row bg-white q-pa-xl justify-center" v-if="product">
+  <div class="row bg-white q-pa-xl justify-center" v-if="showTemplate">
     <!-- Product Image Section -->
     <div class="col-5">
       <div class="row justify-center q-pa-md">
@@ -93,7 +93,11 @@
     </div>
   </div>
 
-  <div v-else>Loading ....</div>
+  <div v-else>
+    <div class="row justify-center items-center">
+      <q-spinner color="primary" size="3em" :thickness="10" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -126,6 +130,7 @@ export default {
 
     const pictureNum = ref(0);
     const product = ref({});
+    const showTemplate = ref(false);
 
     const selectPicture = (value) => (pictureNum.value = value);
 
@@ -133,14 +138,19 @@ export default {
       try {
         const response = await axios.get(url);
         product.value = await response.data;
-        console.log(product.value);
       } catch (error) {
         console.log("Error", error);
         throw error; // Optionally re-throw the error so it can be handled by the caller
       }
     };
 
-    watch(product, (newVal) => console.log(newVal, "fom watch"));
+    watch(product, (newVal) => {
+      if (newVal) {
+        showTemplate.value = true;
+      } else {
+        showTemplate.value = false;
+      }
+    });
 
     // here we find product and show it in the template
 
@@ -159,6 +169,7 @@ export default {
       baseUrl,
       product,
       changePicture,
+      showTemplate,
     };
   },
 

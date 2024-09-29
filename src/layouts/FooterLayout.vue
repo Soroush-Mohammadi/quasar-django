@@ -7,6 +7,6 @@ import { defineComponent } from "vue";
 import AppFooter from "../components/AppFooter.vue";
 
 defineComponent({
-  name: "app-footerss",
+  name: "app-footer",
 });
 </script>

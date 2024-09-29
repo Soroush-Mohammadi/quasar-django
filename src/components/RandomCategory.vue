@@ -7,7 +7,7 @@
       <div class="col-4" v-for="cat in category" :key="cat.id">
         <RouterLink
           style="text-decoration: none"
-          :to="`/${cat.category_id.name}/${removeSpace(cat.name)}`"
+          :to="`/${removeSpace(cat.category_id.name)}/${removeSpace(cat.name)}`"
         >
           <q-card
             class="row items-center justify-between q-pa-md q-mb-md q-hoverable q-card-shadow"

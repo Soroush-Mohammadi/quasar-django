@@ -1,7 +1,7 @@
 <template>
   <div class="container q-pa-lg">
-    <div v-if="products" class="row justify-center q-col-gutter-xl">
-      <div v-if="products.category" class="col q-pa-xl q-ma-md">
+    <div v-if="toggle" class="row justify-center q-col-gutter-xl">
+      <div class="col q-pa-xl q-ma-md">
         <q-card
           class="q-pa-md bg-primary text-white q-card-shadow"
           style="border-radius: 12px"
@@ -18,36 +18,42 @@
             v-for="item in products.products"
             :key="item.id"
           >
-            <q-card style="border-radius: 12px; transition: transform 0.3s">
-              <div class="q-pa-md text-center">
-                <q-img
-                  :src="`${baseUrl}${item.image.image_url}`"
-                  alt="image"
-                  style="
-                    max-width: 100%;
-                    height: auto;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                  "
-                />
-                <div class="text-h6 text-primary q-mt-md">{{ item.name }}</div>
-                <div class="text-body2 text-grey-7 q-mt-xs">
-                  {{ item.description }}
+            <RouterLink :to="`/${item.category_id.name}/${item.name}`">
+              <q-card style="border-radius: 12px; transition: transform 0.3s">
+                <div class="q-pa-md text-center">
+                  <q-img
+                    :src="`${baseUrl}${item.image.image_url}`"
+                    alt="image"
+                    style="
+                      max-width: 50%;
+                      height: auto;
+                      border-radius: 8px;
+                      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    "
+                  />
+                  <div class="text-h6 text-primary q-mt-md">
+                    {{ item.name }}
+                  </div>
+                  <div class="text-body2 text-grey-7 q-mt-xs">
+                    {{ item.description }}
+                  </div>
+                  <q-badge
+                    color="green-6"
+                    :label="`Price: ${item.price}`"
+                    class="q-mt-md"
+                    style="font-size: 1.1em"
+                  />
                 </div>
-                <q-badge
-                  color="green-6"
-                  :label="`Price: ${item.price}`"
-                  class="q-mt-md"
-                  style="font-size: 1.1em"
-                />
-              </div>
-            </q-card>
+              </q-card>
+            </RouterLink>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-else class="text-center text-body1 q-pa-md">Data is loading...</div>
+    <div v-else class="text-center text-body1 q-pa-md">
+      <q-spinner color="primary" size="3em" :thickness="10" />
+    </div>
   </div>
 </template>
 
@@ -63,12 +69,13 @@ export default {
     const products = ref([]);
 
     const baseUrl = "https://onlineshop-parhams-projects-41827abc.vercel.app";
+    let toggle = ref(false);
 
     const getProducts = async (url) => {
       try {
         const response = await axios.get(url);
         products.value = await response.data;
-        console.log(products.value);
+        console.log(products.value, "categoryview");
       } catch (error) {
         console.log("Error", error);
         throw error; // Optionally re-throw the error so it can be handled by the caller
@@ -77,8 +84,12 @@ export default {
 
     let hasProducts = false;
 
-    watch(products.value, (newVal) => {
-      console.log(newVal, "from watch");
+    watch(products, (newVal) => {
+      if (newVal) {
+        toggle.value = true;
+      } else {
+        toggle.value = false;
+      }
     });
 
     return {
@@ -86,6 +97,7 @@ export default {
       products,
       hasProducts,
       baseUrl,
+      toggle,
     };
   },
 
