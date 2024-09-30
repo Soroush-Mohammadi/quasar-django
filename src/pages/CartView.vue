@@ -44,28 +44,14 @@ export default {
     },
   },
   methods: {
-    addProduct(product) {
-      product.quantity++;
-    },
-
-    removeProduct(product) {
-      console.log(product);
-      if (product.quantity <= 1) {
-        this.cartItems = this.cartItems.filter(
-          (item) => item.id !== product.id
-        );
-      } else {
-        product.quantity--;
-      }
-    },
     updateQuantity(item) {
       if (item.quantity < 1) {
         item.quantity = 1;
       }
     },
-    removeFromCart(itemId) {
-      this.cartItems = this.cartItems.filter((item) => item.id !== itemId);
-    },
+    // removeFromCart(itemId) {
+    //   this.cartItems = this.cartItems.filter((item) => item.id !== itemId);
+    // },
     checkout() {
       alert("Proceeding to checkout!");
       // Add your checkout logic here
@@ -76,8 +62,11 @@ export default {
     // just carts come from store
     const store = useCartStore();
     const { cart } = storeToRefs(store);
+    const { removeProduct, addProduct } = store;
     return {
       cart,
+      removeProduct,
+      addProduct,
     };
   },
 };

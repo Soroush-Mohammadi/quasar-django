@@ -1,94 +1,104 @@
 <template>
-  <div class="q-pa-md">
-    <div class="row justify-center q-mt-xl" style="height: 400px">
-      <q-form
-        @submit="onSubmit"
-        @reset="onReset"
-        class="q-gutter-md col-4 q-pa-lg container flex column justify-center"
-      >
-        <h4>User Login</h4>
+  <div class="row q-my-xl justify-center">
+    <div class="col-4 bg-white q-pa-lg">
+      <q-form @submit.prevent="onSubmit" @reset="onReset">
         <q-input
+          v-model="userName"
+          label="Username"
+          :rules="[userNameRule]"
           filled
-          v-model="name"
-          label="Your name *"
-          hint="Name and surname"
-          lazy-rules
-          :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+          required
+        />
+        <q-input
+          v-model="password"
+          type="password"
+          label="Password"
+          :rules="[passwordRule]"
+          filled
+          required
         />
 
-        <q-input
-          filled
-          type="number"
-          v-model="age"
-          label="Your age *"
-          lazy-rules
-          :rules="[
-            (val) => (val !== null && val !== '') || 'Please type your age',
-            (val) => (val > 0 && val < 100) || 'Please type a real age',
-          ]"
-        />
-
-        <div class="q-mt-xl">
-          <q-btn label="Submit" type="submit" color="primary" />
-          <q-btn
-            label="Reset"
-            type="reset"
-            color="primary"
-            flat
-            class="q-ml-sm"
-          />
+        <div class="q-pa-md">
+          <q-btn class="q-mx-xs" label="Submit" type="submit" color="primary" />
+          <q-btn class="q-mx-xs" label="Reset" type="reset" color="warning" />
         </div>
       </q-form>
     </div>
   </div>
 </template>
+
 <script>
-import { useQuasar } from "quasar";
 import { ref } from "vue";
+import { useQuasar } from "quasar";
 
 export default {
   setup() {
     const $q = useQuasar();
 
-    const name = ref(null);
-    const age = ref(null);
-    const accept = ref(false);
+    const userName = ref(null);
+    const password = ref(null);
+
+    // Username rule
+    const userNameRule = (val) => {
+      const regex = /^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
+      return (
+        regex.test(val) ||
+        "Username must be 3-16 characters long, start with a letter, and contain only letters, numbers, or underscores."
+      );
+    };
+
+    // Password rule
+    const passwordRule = (val) => {
+      const regex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+      return (
+        regex.test(val) ||
+        "Password must be at least 8 characters long and contain at least one letter and one number."
+      );
+    };
+
+    // Submit method
+    const onSubmit = () => {
+      const userNameValid = userNameRule(userName.value) === true;
+      const passwordValid = passwordRule(password.value) === true;
+
+      if (!userNameValid) {
+        $q.notify({
+          color: "red-5",
+          textColor: "white",
+          icon: "warning",
+          message: "Please enter a valid username",
+        });
+      } else if (!passwordValid) {
+        $q.notify({
+          color: "red-5",
+          textColor: "white",
+          icon: "warning",
+          message: "Please enter a valid password",
+        });
+      } else {
+        $q.notify({
+          color: "green-4",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Submitted",
+        });
+      }
+    };
+
+    // Reset method
+    const onReset = () => {
+      userName.value = null;
+      password.value = null;
+    };
 
     return {
-      name,
-      age,
-      accept,
-
-      onSubmit() {
-        if (accept.value !== true) {
-          $q.notify({
-            color: "red-5",
-            textColor: "white",
-            icon: "warning",
-            message: "You need to accept the license and terms first",
-          });
-        } else {
-          $q.notify({
-            color: "green-4",
-            textColor: "white",
-            icon: "cloud_done",
-            message: "Submitted",
-          });
-        }
-      },
-
-      onReset() {
-        name.value = null;
-        age.value = null;
-        accept.value = false;
-      },
+      userName,
+      password,
+      passwordRule,
+      userNameRule,
+      onSubmit,
+      onReset,
     };
   },
 };
 </script>
-
-<style>
-.container {
-  background-color: #fff;
-}
-</style>

@@ -19,17 +19,26 @@ export const useCartStore = defineStore("cart", () => {
   ]);
 
   const addToCart = (item) => {
-    this.cart.value.push(item);
+    cart.value.push(item);
   };
 
-  const removeFromCart = (payload) => {
-    const product = this.cart.value.find((item) => item.id == payload.id);
-    this.carts.value.filter((item) => item.id == product.id);
+  const addProduct = (product) => {
+    const findProduct = cart.value.find((item) => item.id === product.id);
+    findProduct.quantity++;
+  };
+
+  const removeProduct = (product) => {
+    console.log(product);
+    if (product.quantity <= 1) {
+      cart.value = cart.value.filter((item) => item.id !== product.id);
+    } else {
+      product.quantity--;
+    }
   };
 
   return {
-    addToCart,
-    removeFromCart,
+    addProduct,
+    removeProduct,
     cart,
   };
 });
