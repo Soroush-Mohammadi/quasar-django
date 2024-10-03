@@ -74,9 +74,7 @@ const filteredKeys = computed(() => {
 async function getData() {
   try {
     data.value = await parhamData();
-    console.log(typeof data.value);
     category.value = data.value;
-    console.log(category.value);
   } catch (error) {
     console.error("faild", error);
   }

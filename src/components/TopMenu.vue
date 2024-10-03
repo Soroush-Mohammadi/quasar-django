@@ -1,6 +1,7 @@
 <template>
   <q-btn color="white" label="categories" flat unelevated>
     <slot name="icon"></slot>
+
     <q-menu>
       <q-list>
         <q-item
@@ -10,7 +11,12 @@
           v-for="menu in images"
           :key="menu"
         >
-          <q-item-section class="q-mr-md col">{{ menu.name }}</q-item-section>
+          <RouterLink
+            :to="removeSpace(menu.name)"
+            style="text-decoration: none"
+          >
+            <q-item-section class="q-mr-md col">{{ menu.name }}</q-item-section>
+          </RouterLink>
         </q-item>
         <q-separator />
       </q-list>
@@ -21,8 +27,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useProductStore } from "../stores/productStore";
+import { useSpaceRemover } from "../composables/useSpaceRemover";
 const store = useProductStore();
 const { parhamData } = store;
+
+const { removeSpace } = useSpaceRemover();
 
 const categories = ref({});
 const images = ref([]);
@@ -31,7 +40,6 @@ onMounted(async () => {
   try {
     categories.value = await parhamData();
     images.value = categories.value["categories_image"];
-    console.log(images.value, "from categoru");
   } catch (error) {
     console.error("faild", error);
   }

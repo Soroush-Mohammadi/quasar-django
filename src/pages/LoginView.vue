@@ -30,6 +30,8 @@
 <script>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
+import { useUserStore } from "../stores/userStore";
+import { storeToRefs } from "pinia";
 
 export default {
   setup() {
@@ -37,6 +39,10 @@ export default {
 
     const userName = ref(null);
     const password = ref(null);
+
+    const store = useUserStore();
+    const { user } = storeToRefs(store);
+    const { setUser } = store;
 
     // Username rule
     const userNameRule = (val) => {
@@ -83,6 +89,8 @@ export default {
           message: "Submitted",
         });
       }
+
+      setUser(userName.value, password.value);
     };
 
     // Reset method
@@ -98,6 +106,8 @@ export default {
       userNameRule,
       onSubmit,
       onReset,
+      setUser,
+      user,
     };
   },
 };

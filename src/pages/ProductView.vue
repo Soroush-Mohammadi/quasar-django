@@ -88,6 +88,7 @@
             font-size: 1.2rem;
           "
           label="Add to Cart"
+          @click="addItemToCart(createProduct)"
         />
       </div>
     </div>
@@ -101,10 +102,12 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useProductStore } from "../stores/productStore";
 import { useDashRemover } from "../composables/useDashRemover";
+import { useCartStore } from "../stores/cartStore";
+
 import { storeToRefs } from "pinia";
 import axios from "axios";
 
@@ -115,7 +118,6 @@ export default {
     const model = ref([]);
     const baseUrl = "https://onlineshop-parhams-projects-41827abc.vercel.app";
 
-    const pictures = ["white/black", "red/black", "green/white", "blue/white"];
     const route = useRoute();
     const tab = ref("mails");
 
@@ -131,13 +133,32 @@ export default {
     const pictureNum = ref(0);
     const product = ref({});
     const showTemplate = ref(false);
+    const cartStore = useCartStore();
+
+    const addItemToCart = (item) => {
+      cartStore.addToCart(item);
+    };
+
+    cartStore.loadCart();
 
     const selectPicture = (value) => (pictureNum.value = value);
+
+    const createProduct = ref({});
+    const cartProduct = (myProduct) => {
+      createProduct.value = {
+        name: myProduct.value.name,
+        price: myProduct.value.price,
+        image: myProduct.value.images[0].image,
+        quantity: 1,
+        upc: myProduct.value.upc,
+      };
+    };
 
     const getProduct = async (url) => {
       try {
         const response = await axios.get(url);
         product.value = await response.data;
+        cartProduct(product);
       } catch (error) {
         console.log("Error", error);
         throw error; // Optionally re-throw the error so it can be handled by the caller
@@ -157,7 +178,6 @@ export default {
     return {
       options,
       colors,
-      pictures,
       selectPicture,
       pictureNum,
       tab,
@@ -170,6 +190,9 @@ export default {
       product,
       changePicture,
       showTemplate,
+      cartProduct,
+      createProduct,
+      addItemToCart,
     };
   },
 

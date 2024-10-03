@@ -1,18 +1,24 @@
 <template>
   <div class="row justify-center q-my-xl">
     <div
-      class="col-md-8 col-lg-6 col-xl-5 bg-white q-pa-md flex justify-center"
+      class="col-sm-12 col-md-9 col-lg-7 col-xl-6 bg-white q-pa-md flex justify-center"
     >
       <ul class="col-12">
         <h5>Shop Cart</h5>
         <li v-for="item in cart" :key="item.id" class="cart-item">
-          <img :src="item.image" alt="" />
+          <div
+            class="flex justify-center q-pa-sm"
+            style="border: 1px solid black"
+          >
+            <img :src="`${baseUrl}${item.image}`" alt="" style="width: 150px" />
+          </div>
           <h5>{{ item.name }}</h5>
-          <h6 class="q-mx-md">{{ item.price }}$</h6>
+          <h5>Price :</h5>
+          <h6 class="q-mx-md">{{ item.totalPrice }}$</h6>
           <div class="flex justify-between q-mx-md" style="min-width: 80px">
-            <button @click="removeProduct(item)">-</button>
+            <button @click="removeItemFromCart(item)">-</button>
             <span>{{ item.quantity }}</span>
-            <button @click="addProduct(item)">+</button>
+            <button @click="addToCart(item)">+</button>
           </div>
         </li>
         <hr />
@@ -30,24 +36,29 @@
 <script>
 import { storeToRefs } from "pinia";
 import { useCartStore } from "../stores/cartStore";
+import { computed } from "vue";
 
 export default {
   data() {
     return {};
   },
   computed: {
-    totalPrice() {
-      return this.cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
-    },
+    // totalPrice() {
+    //   return this.cartItems.reduce(
+    //     (total, item) => total + item.price * item.quantity,
+    //     0
+    //   );
+    // },
   },
   methods: {
     updateQuantity(item) {
       if (item.quantity < 1) {
         item.quantity = 1;
       }
+    },
+
+    setProduct() {
+      this.getCart();
     },
     // removeFromCart(itemId) {
     //   this.cartItems = this.cartItems.filter((item) => item.id !== itemId);
@@ -58,15 +69,38 @@ export default {
     },
   },
 
+  beforeRouteEnter(to, from, next) {
+    next((vm) => vm.setProduct(JSON.parse(localStorage.getItem("cart" || []))));
+  },
+
   setup() {
     // just carts come from store
     const store = useCartStore();
     const { cart } = storeToRefs(store);
-    const { removeProduct, addProduct } = store;
+    const { addToCart, totalPrice } = store;
+
+    const removeItemFromCart = (item) => {
+      store.removeFromCart(item);
+    };
+
+    const getCart = () => {
+      store.loadCart();
+    };
+
+    const getFromStorage = computed(() =>
+      JSON.parse(localStorage.getItem("cart" || []))
+    );
+
+    const baseUrl = "https://onlineshop-parhams-projects-41827abc.vercel.app/";
+
     return {
       cart,
-      removeProduct,
-      addProduct,
+      addToCart,
+      getFromStorage,
+      baseUrl,
+      totalPrice,
+      removeItemFromCart,
+      getCart,
     };
   },
 };

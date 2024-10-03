@@ -18,7 +18,10 @@
             v-for="item in products.products"
             :key="item.id"
           >
-            <RouterLink :to="`/${item.category_id.name}/${item.name}`">
+            <RouterLink
+              :to="`/${item.category_id.name}/${item.name}`"
+              style="text-decoration: none"
+            >
               <q-card style="border-radius: 12px; transition: transform 0.3s">
                 <div class="q-pa-md text-center">
                   <q-img
@@ -60,6 +63,7 @@
 <script>
 import { ref, watch } from "vue";
 import axios from "axios";
+import { useCartStore } from "../stores/cartStore";
 export default {
   data() {
     return {};
@@ -75,7 +79,6 @@ export default {
       try {
         const response = await axios.get(url);
         products.value = await response.data;
-        console.log(products.value, "categoryview");
       } catch (error) {
         console.log("Error", error);
         throw error; // Optionally re-throw the error so it can be handled by the caller

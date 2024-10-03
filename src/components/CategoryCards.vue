@@ -6,7 +6,10 @@
         v-for="item in images"
         :key="item"
       >
-        <RouterLink :to="`/${removeSpace(item.name)}`">
+        <RouterLink
+          :to="`/${removeSpace(item.name)}`"
+          style="text-decoration: none"
+        >
           <q-card class="my-card column items-center">
             <img
               :src="`${baseUrl}${item.image}`"
@@ -49,7 +52,6 @@ export default {
       try {
         categories.value = await parhamData();
         images.value = categories.value["categories_image"];
-        console.log(images.value, "from categoru");
       } catch (error) {
         console.error("faild", error);
       }

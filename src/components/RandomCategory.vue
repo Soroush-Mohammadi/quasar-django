@@ -72,7 +72,6 @@ export default {
       try {
         randomCategories.value = await parhamData();
         category.value = randomCategories.value["product_category_random"];
-        console.log(category.value);
       } catch (error) {
         console.error("faild", error);
       }
