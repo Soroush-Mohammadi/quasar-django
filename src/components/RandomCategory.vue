@@ -47,19 +47,12 @@
 </template>
 
 <script>
-import { ref, watch, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useSpaceRemover } from "../composables/useSpaceRemover";
 import { useProductStore } from "../stores/productStore";
 
 export default {
-  props: {
-    card: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  setup(props) {
-    const products = ref(props.card.products);
+  setup() {
     const store = useProductStore();
     const { parhamData } = store;
 
@@ -79,19 +72,9 @@ export default {
 
     onMounted(() => getData());
 
-    watch(
-      () => props.card.products,
-      (newVal) => {
-        if (newVal) {
-          products.value = newVal;
-        }
-      }
-    );
-
     const { removeSpace } = useSpaceRemover();
 
     return {
-      products,
       removeSpace,
       randomCategories,
       baseUrl,

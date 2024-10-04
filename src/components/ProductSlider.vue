@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useSpaceRemover } from "../composables/useSpaceRemover";
 import { useProductStore } from "../stores/productStore";
 
@@ -84,8 +84,6 @@ const store = useProductStore();
 const { parhamData } = store;
 
 onMounted(() => getData());
-
-const exert = (text, char) => text.slice(0, char);
 
 const { removeSpace } = useSpaceRemover();
 </script>
