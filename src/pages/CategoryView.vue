@@ -19,7 +19,9 @@
             :key="item.id"
           >
             <RouterLink
-              :to="`/${item.category_id.name}/${item.name}`"
+              :to="`/${removeSpace(item.category_id.name)}/${removeSpace(
+                item.name
+              )}`"
               style="text-decoration: none"
             >
               <q-card style="border-radius: 12px; transition: transform 0.3s">
@@ -64,6 +66,7 @@
 import { ref, watch } from "vue";
 import axios from "axios";
 import { useCartStore } from "../stores/cartStore";
+import { useSpaceRemover } from "../composables/useSpaceRemover";
 export default {
   data() {
     return {};
@@ -85,6 +88,8 @@ export default {
       }
     };
 
+    const { removeSpace } = useSpaceRemover();
+
     let hasProducts = false;
 
     watch(products, (newVal) => {
@@ -101,6 +106,7 @@ export default {
       hasProducts,
       baseUrl,
       toggle,
+      removeSpace,
     };
   },
 

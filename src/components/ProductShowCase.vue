@@ -64,24 +64,12 @@
 </template>
 
 <script>
-import { ref, watch, onMounted, computed } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useProductStore } from "../stores/productStore";
 import { useSpaceRemover } from "../composables/useSpaceRemover";
 
 export default {
-  props: {
-    card: {
-      type: Object,
-      default: () => ({}),
-    },
-
-    categories: {
-      type: Array,
-      required: true,
-    },
-  },
-  setup(props) {
-    const products = ref(props.card.products);
+  setup() {
     const selectedProduct = ref(null);
     const store = useProductStore();
     const { parhamData } = store;
@@ -113,29 +101,8 @@ export default {
       }
     );
 
-    watch(
-      () => props.card.products,
-      (newVal) => {
-        if (newVal) {
-          products.value = newVal;
-          selectRandomProduct();
-        }
-      }
-    );
-
-    const selectRandomProduct = () => {
-      if (products.value && products.value.length > 0) {
-        const randomIndex = Math.floor(Math.random() * products.value.length);
-        selectedProduct.value = products.value[randomIndex];
-      }
-    };
-
-    selectRandomProduct();
-
     return {
-      products,
       selectedProduct,
-      selectRandomProduct,
       productRandom,
       data,
       baseUrl,

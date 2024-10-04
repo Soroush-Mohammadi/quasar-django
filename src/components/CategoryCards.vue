@@ -33,12 +33,6 @@ import { useProductStore } from "../stores/productStore";
 import { ref, onMounted } from "vue";
 
 export default {
-  props: {
-    cards: {
-      type: Array,
-      required: true,
-    },
-  },
   setup() {
     const store = useProductStore();
     const { removeSpace } = useSpaceRemover();

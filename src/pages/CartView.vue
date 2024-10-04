@@ -57,9 +57,9 @@ export default {
       }
     },
 
-    setProduct() {
-      this.getCart();
-    },
+    // setProduct() {
+    //   this.getCart();
+    // },
     // removeFromCart(itemId) {
     //   this.cartItems = this.cartItems.filter((item) => item.id !== itemId);
     // },
@@ -69,9 +69,9 @@ export default {
     },
   },
 
-  beforeRouteEnter(to, from, next) {
-    next((vm) => vm.setProduct(JSON.parse(localStorage.getItem("cart" || []))));
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   next((vm) => vm.setProduct(JSON.parse(localStorage.getItem("cart" || []))));
+  // },
 
   setup() {
     // just carts come from store
@@ -83,9 +83,9 @@ export default {
       store.removeFromCart(item);
     };
 
-    const getCart = () => {
-      store.loadCart();
-    };
+    // const getCart = () => {
+    //   store.loadCart();
+    // };
 
     const getFromStorage = computed(() =>
       JSON.parse(localStorage.getItem("cart" || []))
@@ -100,7 +100,6 @@ export default {
       baseUrl,
       totalPrice,
       removeItemFromCart,
-      getCart,
     };
   },
 };
