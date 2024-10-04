@@ -12,7 +12,7 @@
           :key="menu"
         >
           <RouterLink
-            :to="removeSpace(menu.name)"
+            :to="`${removeSpace(menu.name)}`"
             style="text-decoration: none"
           >
             <q-item-section class="q-mr-md col">{{ menu.name }}</q-item-section>

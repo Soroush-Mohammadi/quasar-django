@@ -15,7 +15,7 @@
       />
     </div>
 
-    <div class="col col-4 flex justify-center">
+    <div class="col-4 flex justify-center">
       <WidgetBar />
     </div>
     <div class="col-2 flex justify-end q-col-gutter-none">

@@ -24,6 +24,12 @@ export const useCartStore = defineStore("cart", () => {
     }
   };
 
+  const calculateTotal = () => {
+    return cart.value.reduce((total, product) => {
+      return total + product.price * product.quantity; // Sum of all product prices * quantity
+    }, 0);
+  };
+
   const removeFromCart = (item) => {
     const product = cart.value.find((product) => product.upc === item.upc);
 
@@ -46,5 +52,6 @@ export const useCartStore = defineStore("cart", () => {
     cart,
     addToCart,
     loadCart,
+    calculateTotal,
   };
 });

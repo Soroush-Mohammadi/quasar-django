@@ -3,8 +3,8 @@ import { ref } from "vue";
 
 export const useUserStore = defineStore("user", () => {
   let user = ref({
-    userName: "",
-    password: "",
+    userName: "soroush",
+    password: "vgdosu98",
   });
 
   const setUser = (newUserName, newPassword) => {

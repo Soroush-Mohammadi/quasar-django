@@ -1,34 +1,60 @@
 <template>
   <div class="row justify-center q-my-xl">
     <div
-      class="col-sm-12 col-md-9 col-lg-7 col-xl-6 bg-white q-pa-md flex justify-center"
+      class="col-12 col-md-10 col-lg-6 col-xl-5 bg-white q-pa-md"
+      style="border-radius: 10px"
+      v-if="cart"
     >
-      <ul class="col-12">
-        <h5>Shop Cart</h5>
-        <li v-for="item in cart" :key="item.id" class="cart-item">
-          <div
-            class="flex justify-center q-pa-sm"
-            style="border: 1px solid black"
+      <div class="row">
+        <ul class="col flex column items-center">
+          <h5>Shop Cart</h5>
+          <li
+            v-for="item in cart"
+            :key="item.id"
+            class="q-pa-md cart-item bg-teal-1"
           >
-            <img :src="`${baseUrl}${item.image}`" alt="" style="width: 150px" />
-          </div>
-          <h5>{{ item.name }}</h5>
-          <h5>Price :</h5>
-          <h6 class="q-mx-md">{{ item.totalPrice }}$</h6>
-          <div class="flex justify-between q-mx-md" style="min-width: 80px">
-            <button @click="removeItemFromCart(item)">-</button>
-            <span>{{ item.quantity }}</span>
-            <button @click="addToCart(item)">+</button>
-          </div>
-        </li>
-        <hr />
-        <li
-          class="bg-red flex items-center"
-          style="list-style: none; width: 100%"
-        >
-          <h3>Total Price :</h3>
-        </li>
-      </ul>
+            <div class="flex items-center justify-between" style="gap: 10px">
+              <div>
+                <img
+                  :src="`${baseUrl}${item.image}`"
+                  alt=""
+                  style="max-width: 150px; border: 1px solid black"
+                />
+              </div>
+              <div style="width: 200px" class="q-px-md">
+                <h5>{{ item.name }}</h5>
+              </div>
+
+              <div
+                style="width: 200px"
+                class="flex justify-center items-center"
+              >
+                <h5>Price :</h5>
+                <h6 class="q-mx-md">{{ item.totalPrice }}$</h6>
+              </div>
+              <div class="flex justify-between" style="width: 80px">
+                <button @click="removeItemFromCart(item)">-</button>
+                <span>{{ item.quantity }}</span>
+                <button @click="addToCart(item)">+</button>
+              </div>
+            </div>
+          </li>
+          <hr />
+          <li class="items-center" style="list-style: none; width: 100%">
+            <h3>Total Price :</h3>
+            <h6>{{ store.calculateTotal() }}$</h6>
+            <div class="flex justify-evenly">
+              <q-btn
+                size="xl"
+                color="teal-7"
+                style="width: 100%; border-radius: 10px"
+                @click="userAuth"
+                >checkout</q-btn
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +62,7 @@
 <script>
 import { storeToRefs } from "pinia";
 import { useCartStore } from "../stores/cartStore";
+import { useUserStore } from "../stores/userStore";
 import { computed } from "vue";
 
 export default {
@@ -77,21 +104,22 @@ export default {
     // just carts come from store
     const store = useCartStore();
     const { cart } = storeToRefs(store);
+    const userStore = useUserStore();
+    const { user } = userStore;
+
     const { addToCart, totalPrice } = store;
 
     const removeItemFromCart = (item) => {
       store.removeFromCart(item);
     };
 
-    // const getCart = () => {
-    //   store.loadCart();
-    // };
-
     const getFromStorage = computed(() =>
       JSON.parse(localStorage.getItem("cart" || []))
     );
 
     const baseUrl = "https://onlineshop-parhams-projects-41827abc.vercel.app/";
+
+    const userAuth = () => console.log(user);
 
     return {
       cart,
@@ -100,6 +128,9 @@ export default {
       baseUrl,
       totalPrice,
       removeItemFromCart,
+      store,
+      userAuth,
+      user,
     };
   },
 };
@@ -117,9 +148,8 @@ export default {
 
 .cart-item {
   display: flex;
-  gap: 40px;
-  align-items: center;
   margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .cart-item-image {
