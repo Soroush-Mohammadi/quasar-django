@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-center q-my-xl">
     <div
-      class="col-12 col-md-10 col-lg-6 col-xl-5 bg-white q-pa-md"
+      class="col-12 col-md-10 col-lg-7 col-xl-5 bg-white q-pa-md"
       style="border-radius: 10px"
       v-if="cart"
     >
@@ -64,6 +64,7 @@ import { storeToRefs } from "pinia";
 import { useCartStore } from "../stores/cartStore";
 import { useUserStore } from "../stores/userStore";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   data() {
@@ -107,6 +108,8 @@ export default {
     const userStore = useUserStore();
     const { user } = userStore;
 
+    const router = useRouter();
+
     const { addToCart, totalPrice } = store;
 
     const removeItemFromCart = (item) => {
@@ -119,7 +122,8 @@ export default {
 
     const baseUrl = "https://onlineshop-parhams-projects-41827abc.vercel.app/";
 
-    const userAuth = () => console.log(user);
+    const userAuth = () =>
+      user ? router.push("/checkout") : router.push("/login");
 
     return {
       cart,

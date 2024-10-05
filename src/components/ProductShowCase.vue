@@ -4,7 +4,7 @@
       :to="`${removeSpace(productRandom.category_id.name)}/${removeSpace(
         productRandom.name
       )}`"
-      style="width: 100%; max-width: 1000px"
+      style="width: 100%; max-width: 1000px; text-decoration: none"
     >
       <q-card
         class="q-pa-md q-my-xl q-card-shadow q-hoverable"

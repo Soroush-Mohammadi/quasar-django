@@ -23,6 +23,10 @@
           <q-btn class="q-mx-xs" label="Reset" type="reset" color="warning" />
         </div>
       </q-form>
+      <div v-if="message">
+        <span class="text-red">{{ message }}r</span><br />
+        <RouterLink class="text-blue" to="/register">Register</RouterLink>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +36,7 @@ import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { useUserStore } from "../stores/userStore";
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
@@ -42,7 +47,12 @@ export default {
 
     const store = useUserStore();
     const { user } = storeToRefs(store);
-    const { setUser } = store;
+    const { checkUser, loginUser } = store;
+    const router = useRouter();
+
+    const message = ref("");
+
+    const userAuth = ref(false);
 
     // Username rule
     const userNameRule = (val) => {
@@ -55,15 +65,11 @@ export default {
 
     // Password rule
     const passwordRule = (val) => {
-      const regex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
-      return (
-        regex.test(val) ||
-        "Password must be at least 8 characters long and contain at least one letter and one number."
-      );
+      return val.length >= 6 || "Password must be more than 6 characters long.";
     };
 
     // Submit method
-    const onSubmit = () => {
+    const onSubmit = async () => {
       const userNameValid = userNameRule(userName.value) === true;
       const passwordValid = passwordRule(password.value) === true;
 
@@ -90,13 +96,14 @@ export default {
         });
       }
 
-      setUser(userName.value, password.value);
+      message.value = await loginUser(userNameValid, passwordValid);
     };
 
     // Reset method
     const onReset = () => {
       userName.value = null;
       password.value = null;
+      userAuth.value = false;
     };
 
     return {
@@ -106,8 +113,11 @@ export default {
       userNameRule,
       onSubmit,
       onReset,
-      setUser,
       user,
+      checkUser,
+      userAuth,
+      loginUser,
+      message,
     };
   },
 };
