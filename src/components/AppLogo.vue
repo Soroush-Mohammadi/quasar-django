@@ -1,12 +1,12 @@
 <template>
-  <div class="row items-center justify-center">
-    <div class="col-5">
+  <div class="flex column justify-between items-center">
+    <div>
       <q-avatar size="40px">
         <img src="/my-logo.png" />
       </q-avatar>
     </div>
-    <div class="col-7">
-      <span> Hamrah Mobin</span>
+    <div class="q-mt-sm">
+      <span class="text-bold">H.M.M.A</span>
     </div>
   </div>
 </template>

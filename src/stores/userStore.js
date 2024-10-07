@@ -18,17 +18,14 @@ export const useUserStore = defineStore("user", () => {
       (user) => user.name === newUserName && user.password === newPassword
     );
 
-  const loginUser = async (user, password) => {
+  const loginUser = async (user) => {
     const url =
       "https://onlineshop-parhams-projects-41827abc.vercel.app/basket/login/";
 
-    const userAuth = await {
-      username: user,
-      password: password,
-    };
+
 
     try {
-      const response = await axios.post(url, userAuth);
+      const response = await axios.post(url, user);
       return response.data;
     } catch (error) {
       // Handle error response

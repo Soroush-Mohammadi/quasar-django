@@ -24,7 +24,8 @@
         </div>
       </q-form>
       <div v-if="message">
-        <span class="text-red">{{ message }}r</span><br />
+        <span class="text-teal-6">{{ message.message }}</span
+        ><br />
         <RouterLink class="text-blue" to="/register">Register</RouterLink>
       </div>
     </div>
@@ -96,7 +97,14 @@ export default {
         });
       }
 
-      message.value = await loginUser(userNameValid, passwordValid);
+      message.value = await loginUser({
+        username: userName.value,
+        password: password.value,
+      });
+
+      message.value.message === "Logged in successfully!"
+        ? router.push("/checkout")
+        : null;
     };
 
     // Reset method
@@ -118,6 +126,7 @@ export default {
       userAuth,
       loginUser,
       message,
+      router,
     };
   },
 };

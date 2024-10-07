@@ -1,11 +1,16 @@
 <template>
-  <div class="row justify-center q-col-gutter-md">
-    <div class="col-2" v-for="(nav, index) in navigations" :key="nav">
-      <q-item v-if="index == 0">
-        <AppLogo />
-      </q-item>
+  <div class="row justify-center">
+    <div class="col-2 q-pt-xl" v-if="navigations.length">
+      <AppLogo class="logo" />
+    </div>
+    <div class="col" v-for="nav in navigations" :key="nav.title">
+      <h6 class="text-xl font-bold">{{ nav.title }}</h6>
       <q-list>
-        <q-item v-for="link in nav.links" :key="link">
+        <q-item
+          v-for="link in nav.links"
+          :key="link"
+          class="footer-link hover:bg-teal-6 transition duration-300"
+        >
           <q-item-section>
             {{ link }}
           </q-item-section>
@@ -35,22 +40,22 @@ const navigations = ref([
     ],
   },
   {
-    title: "About Our Companey",
+    title: "About Our Company",
     links: [
       "About Us",
-      "Careers ",
-      "Press/Media ",
+      "Careers",
+      "Press/Media",
       "Shipping Information",
-      "Blog ",
+      "Blog",
     ],
   },
   {
     title: "Legal Information",
     links: [
       "Privacy Policy",
-      "Terms of Service ",
-      "Press/Media ",
-      " Cookie Policy",
+      "Terms of Service",
+      "Press/Media",
+      "Cookie Policy",
     ],
   },
 ]);

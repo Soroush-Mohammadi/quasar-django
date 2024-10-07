@@ -4,7 +4,9 @@
   >
     <div class="col-2 flex justify-center">
       <div style="width: 100px">
-        <img src="/my-logo.png" style="max-width: 70px" />
+        <RouterLink to="/">
+          <img src="/my-logo.png" style="max-width: 70px" />
+        </RouterLink>
       </div>
     </div>
     <div class="col-6">
