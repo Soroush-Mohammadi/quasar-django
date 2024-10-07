@@ -3,10 +3,7 @@ import { ref } from "vue";
 import axios from "axios";
 
 export const useUserStore = defineStore("user", () => {
-  let users = ref([
-    { name: "soroush", password: "abadan12A", id: 1 },
-    { name: "parham", password: "abadan12A", id: 2 },
-  ]);
+  let user = ref({});
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,12 +15,17 @@ export const useUserStore = defineStore("user", () => {
       (user) => user.name === newUserName && user.password === newPassword
     );
 
-  const loginUser = async (user) => {
+  const loadUser = () => {
+    const getUser = JSON.parse(localStorage.getItem("user"));
+    user.value = getUser;
+  };
+
+  const loginUser = async (userObj) => {
     const url =
       "https://onlineshop-parhams-projects-41827abc.vercel.app/basket/login/";
 
     try {
-      const response = await axios.post(url, user);
+      const response = await axios.post(url, userObj);
 
       // Check if the response contains a success message
       if (response) {
@@ -34,11 +36,11 @@ export const useUserStore = defineStore("user", () => {
       return error.response.data;
     }
   };
-  const setUser = async (user) => {
+  const setUser = async (userObj) => {
     const url =
       "https://onlineshop-parhams-projects-41827abc.vercel.app/basket/register/";
 
-    const { confirmPassword, ...userData } = user;
+    const { confirmPassword, ...userData } = userObj;
     try {
       const response = await axios.post(url, userData);
       return response.data;
@@ -63,9 +65,10 @@ export const useUserStore = defineStore("user", () => {
   };
 
   return {
-    users,
+    user,
     checkUser,
     setUser,
     loginUser,
+    loadUser,
   };
 });

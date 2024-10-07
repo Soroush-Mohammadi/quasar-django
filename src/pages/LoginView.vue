@@ -113,7 +113,18 @@ export default {
         password: password.value,
       });
 
-      (await message.value.message) ? router.push("/checkout") : null;
+      if (await message.value.message) {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            username: userName.value,
+            password: password.value,
+          })
+        );
+
+        router.push("/checkout");
+        console.log("user send to local storage");
+      }
     };
 
     // Reset method
@@ -121,6 +132,7 @@ export default {
       userName.value = null;
       password.value = null;
       userAuth.value = false;
+      message.value = "";
     };
 
     return {

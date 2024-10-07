@@ -7,6 +7,8 @@ import {
 } from "vue-router";
 import routes from "./routes";
 import { useCartStore } from "../stores/cartStore";
+import { useUserStore } from "../stores/userStore";
+import { storeToRefs } from "pinia";
 
 // Pinia store should be used within the function scope
 export default route(function (/* { store, ssrContext } */) {
@@ -22,6 +24,9 @@ export default route(function (/* { store, ssrContext } */) {
   Router.beforeEach((to, from, next) => {
     const cartStore = useCartStore(); // Initialize the cart store inside the guard
     cartStore.loadCart(); // Call the function to load cart data before every route
+    const userStore = useUserStore(); // Initialize the user store inside the guard
+    userStore.loadUser();
+
     next(); // Proceed with navigation
   });
 
