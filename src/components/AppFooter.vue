@@ -4,8 +4,8 @@
       <AppLogo class="logo" />
     </div>
     <div class="col" v-for="nav in navigations" :key="nav.title">
-      <h6 class="text-xl font-bold">{{ nav.title }}</h6>
-      <q-list>
+      <div class="text-h5 q-my-lg">{{ nav.title }}</div>
+      <q-list class="q-mb-md">
         <q-item
           v-for="link in nav.links"
           :key="link"
@@ -31,32 +31,15 @@ const navigations = ref([
   },
   {
     title: "Customer Service",
-    links: [
-      "Customer Service",
-      "Help Center",
-      "Returns & Exchanges",
-      "Shipping Information",
-      "Order Tracking",
-    ],
+    links: ["Customer Service", "Help Center", "Returns & Exchanges"],
   },
   {
     title: "About Our Company",
-    links: [
-      "About Us",
-      "Careers",
-      "Press/Media",
-      "Shipping Information",
-      "Blog",
-    ],
+    links: ["About Us", "Careers", "Press/Media"],
   },
   {
     title: "Legal Information",
-    links: [
-      "Privacy Policy",
-      "Terms of Service",
-      "Press/Media",
-      "Cookie Policy",
-    ],
+    links: ["Privacy Policy", "Terms of Service"],
   },
 ]);
 </script>

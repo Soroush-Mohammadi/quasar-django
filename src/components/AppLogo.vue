@@ -6,7 +6,7 @@
       </q-avatar>
     </div>
     <div class="q-mt-sm">
-      <span class="text-bold">H.M.M.A</span>
+      <span class="text-bold bg-black q-pa-xs">H.M.M.A</span>
     </div>
   </div>
 </template>

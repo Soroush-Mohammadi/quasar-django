@@ -23,10 +23,20 @@
           <q-btn class="q-mx-xs" label="Reset" type="reset" color="warning" />
         </div>
       </q-form>
-      <div v-if="message">
+      <div v-if="message.message">
         <span class="text-teal-6">{{ message.message }}</span
         ><br />
-        <RouterLink class="text-blue" to="/register">Register</RouterLink>
+      </div>
+      <div v-else-if="message.error">
+        <span class="text-red text-bold q-my-md"> {{ message.error }}</span>
+        <br />
+        <RouterLink
+          style="text-decoration: none"
+          class="text-blue text-bold"
+          to="/register"
+        >
+          <q-btn color="blue"> Register </q-btn>
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -52,6 +62,7 @@ export default {
     const router = useRouter();
 
     const message = ref("");
+    const error = ref("");
 
     const userAuth = ref(false);
 
@@ -102,9 +113,7 @@ export default {
         password: password.value,
       });
 
-      message.value.message === "Logged in successfully!"
-        ? router.push("/checkout")
-        : null;
+      (await message.value.message) ? router.push("/checkout") : null;
     };
 
     // Reset method
@@ -127,6 +136,7 @@ export default {
       loginUser,
       message,
       router,
+      error,
     };
   },
 };

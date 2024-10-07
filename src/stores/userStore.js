@@ -22,21 +22,18 @@ export const useUserStore = defineStore("user", () => {
     const url =
       "https://onlineshop-parhams-projects-41827abc.vercel.app/basket/login/";
 
-
-
     try {
       const response = await axios.post(url, user);
-      return response.data;
+
+      // Check if the response contains a success message
+      if (response) {
+        return response.data;
+      }
     } catch (error) {
-      // Handle error response
-      console.error(
-        "Error registering user:",
-        error.response?.data || error.message
-      );
-      alert("Registration failed. Please try again.");
+      // Check if there's a response from the server
+      return error.response.data;
     }
   };
-
   const setUser = async (user) => {
     const url =
       "https://onlineshop-parhams-projects-41827abc.vercel.app/basket/register/";
@@ -51,7 +48,6 @@ export const useUserStore = defineStore("user", () => {
         "Error registering user:",
         error.response?.data || error.message
       );
-      alert("Registration failed. Please try again.");
     }
   };
 

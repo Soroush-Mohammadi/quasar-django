@@ -1,11 +1,13 @@
 <template>
   <div class="flex">
-    <svg-icon
-      class="q-ml-lg"
-      type="mdi"
-      :path="account"
-      style="color: white"
-    ></svg-icon>
+    <RouterLink to="/login">
+      <svg-icon
+        class="q-ml-lg"
+        type="mdi"
+        :path="account"
+        style="color: white"
+      ></svg-icon>
+    </RouterLink>
     <RouterLink to="/cart">
       <div class="container q-ml-lg">
         <svg-icon
