@@ -20,31 +20,12 @@
     <div class="col-4 flex justify-center">
       <WidgetBar />
     </div>
-    <div class="col-2 flex justify-end q-col-gutter-none">
+    <div class="col-12 flex justify-start">
       <TopMenu :menu="menus" class="q-mx-md">
         <template v-slot:icon>
           <svg-icon type="mdi" :path="path" class="q-mx-md"></svg-icon>
         </template>
       </TopMenu>
-    </div>
-    <div class="col-10">
-      <q-list class="flex" style="gap: 20px">
-        <q-item clickable v-ripple>
-          <q-item-section>Page 1</q-item-section>
-        </q-item>
-
-        <q-item clickable v-ripple>
-          <q-item-section>
-            <q-item-section>Page 2</q-item-section>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-ripple>
-          <q-item-section>
-            <q-item-section>Page 3</q-item-section>
-          </q-item-section>
-        </q-item>
-      </q-list>
     </div>
   </div>
 </template>

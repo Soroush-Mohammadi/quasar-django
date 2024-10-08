@@ -12,7 +12,7 @@
       </div>
 
       <div
-        class="col-2 q-col-gutter-md"
+        class="col-sm-6 col-md-4 col-lg-3 q-col-gutter-md"
         v-for="(product, index) in items"
         :key="index"
       >

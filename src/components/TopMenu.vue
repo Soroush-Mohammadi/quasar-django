@@ -1,7 +1,6 @@
 <template>
   <q-btn color="white" label="categories" flat unelevated>
     <slot name="icon"></slot>
-
     <q-menu>
       <q-list>
         <q-item

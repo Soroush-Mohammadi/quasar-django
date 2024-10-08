@@ -2,7 +2,7 @@
   <div class="row full-width justify-center">
     <div v-if="categories" class="row wrap justify-center">
       <div
-        class="col-2 q-ma-md flex justify-center"
+        class="col-xs-10 col-sm-4 col-md-2 q-ma-md justify-center"
         v-for="item in images"
         :key="item"
       >
@@ -10,13 +10,9 @@
           :to="`/${removeSpace(item.name)}`"
           style="text-decoration: none"
         >
-          <q-card class="my-card column items-center">
-            <img
-              :src="`${baseUrl}${item.image}`"
-              alt=""
-              style="max-width: 200px"
-            />
-            <span class="q-mt-md">
+          <q-card class="my-card column items-center bg-teal-2">
+            <img :src="`${baseUrl}${item.image}`" alt="" />
+            <span class="q-my-md text-bold q-pa-xs bg-cyan-8">
               {{ item.name }}
             </span>
           </q-card>

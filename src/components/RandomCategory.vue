@@ -4,7 +4,11 @@
       style="width: 80vw"
       class="row q-col-gutter-md justify-around items-center"
     >
-      <div class="col-4" v-for="cat in category" :key="cat.id">
+      <div
+        class="col-sm-10 col-md-6 col-lg-4"
+        v-for="cat in category"
+        :key="cat.id"
+      >
         <RouterLink
           style="text-decoration: none"
           :to="`/${removeSpace(cat.category_id.name)}/${removeSpace(cat.name)}`"
