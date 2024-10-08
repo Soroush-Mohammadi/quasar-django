@@ -1,62 +1,59 @@
 <template>
-  <div class="row justify-center q-my-xl">
-    <div
-      class="col-12 col-md-10 col-lg-7 col-xl-5 bg-white q-pa-md"
-      style="border-radius: 10px"
-      v-if="cart"
-    >
-      <div class="row">
-        <ul class="col flex column items-center">
-          <h5>Shop Cart</h5>
-          <li
-            v-for="item in cart"
-            :key="item.id"
-            class="q-pa-md cart-item bg-teal-1"
-          >
-            <div class="flex items-center justify-between" style="gap: 10px">
-              <div>
-                <img
-                  :src="`${baseUrl}${item.image}`"
-                  alt=""
-                  style="max-width: 150px; border: 1px solid black"
-                />
-              </div>
-              <div style="width: 200px" class="q-px-md">
-                <h5>{{ item.name }}</h5>
-              </div>
-
-              <div
-                style="width: 200px"
-                class="flex justify-center items-center"
-              >
-                <h5>Price :</h5>
-                <h6 class="q-mx-md">{{ item.totalPrice }}$</h6>
-              </div>
-              <div class="flex justify-between" style="width: 80px">
-                <button @click="removeItemFromCart(item)">-</button>
-                <span>{{ item.quantity }}</span>
-                <button @click="addToCart(item)">+</button>
-              </div>
-            </div>
-          </li>
-          <hr />
-          <li class="items-center" style="list-style: none; width: 100%">
-            <h3>Total Price :</h3>
-            <h6>{{ store.calculateTotal() }}$</h6>
-            <div class="flex justify-evenly">
-              <q-btn
-                size="xl"
-                color="teal-7"
-                style="width: 100%; border-radius: 10px"
-                @click="userAuth"
-                >checkout</q-btn
-              >
-            </div>
-          </li>
-        </ul>
-      </div>
+  <ul class="row bg-white q-pa-md">
+    <div class="col-xs-12 bg-blue">
+      <h5>Shop Cart</h5>
     </div>
-  </div>
+    <div class="col-xs-12 bg-red">
+      <li
+        v-for="item in cart"
+        :key="item.id"
+        class="q-pa-md row justify-center items-center"
+      >
+        <div class="col-xs-12 flex justify-center bg-cyan-1">
+          <img
+            :src="`${baseUrl}${item.image}`"
+            alt=""
+            style="border: 1px solid black"
+          />
+        </div>
+        <div
+          class="q-px-md flex justify-center items-center col-xs-12 bg-cyan-2"
+        >
+          <h5 class="q-px-sm">Title :</h5>
+          <h6>{{ item.name }}</h6>
+        </div>
+
+        <div class="col-xs-12 flex justify-center items-center bg-cyan-4">
+          <h5>Price :</h5>
+          <h6 class="q-mx-md">{{ item.totalPrice }}$</h6>
+        </div>
+        <div
+          class="col-xs-12 flex justify-between bg-cyan-6"
+          style="width: 200px"
+        >
+          <button @click="removeItemFromCart(item)" class="q-px-md">-</button>
+          <span>{{ item.quantity }}</span>
+          <button @click="addToCart(item)" class="q-px-md">+</button>
+        </div>
+      </li>
+    </div>
+    <hr />
+    <div class="col-xs-12 bg-green">
+      <li class="items-center col" style="list-style: none; width: 100%">
+        <h3>Total Price :</h3>
+        <h6>{{ store.calculateTotal() }}$</h6>
+        <div class="flex justify-evenly">
+          <q-btn
+            size="xl"
+            color="teal-7"
+            style="width: 100%; border-radius: 10px"
+            @click="userAuth"
+            >checkout</q-btn
+          >
+        </div>
+      </li>
+    </div>
+  </ul>
 </template>
 
 <script>
@@ -140,34 +137,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.cart {
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  max-width: 600px;
-  margin: auto;
-  background-color: #fff;
-}
-
-.cart-item {
-  display: flex;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
-
-.cart-item-image {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-
-.cart-summary {
-  margin-top: 20px;
-}
-
-.empty-cart {
-  text-align: center;
-  font-style: italic;
-}
-</style>
+<style scoped></style>

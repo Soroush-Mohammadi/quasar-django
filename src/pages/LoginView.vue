@@ -1,6 +1,6 @@
 <template>
   <div class="row q-my-xl justify-center">
-    <div class="col-4 bg-white q-pa-lg">
+    <div class="col-xs-8 col-md-4 bg-white q-pa-lg">
       <q-form @submit.prevent="onSubmit" @reset="onReset">
         <q-input
           v-model="userName"

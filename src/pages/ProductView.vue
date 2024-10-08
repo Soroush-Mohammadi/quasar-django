@@ -1,7 +1,7 @@
 <template>
   <div class="row bg-white q-pa-xl justify-center" v-if="showTemplate">
     <!-- Product Image Section -->
-    <div class="col-5">
+    <div class="col-12 col-md-5">
       <div class="row justify-center q-pa-md">
         <!-- Main Product Image -->
         <div
@@ -9,7 +9,7 @@
           class="col-12 q-my-auto flex justify-center"
           style="height: 400px"
         >
-          <q-img
+          <img
             :src="`${baseUrl}${product.images[pictureNum].image}`"
             alt=""
             style="
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Product Information Section -->
-    <div class="col-5 q-px-lg">
+    <div class="col-12 col-md-5 q-px-lg">
       <!-- Product Name -->
       <h3 class="text-h4 text-bold" style="color: #333">
         {{ product.name }}

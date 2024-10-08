@@ -14,9 +14,14 @@
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         "
       >
-        <div v-if="productRandom && productRandom.image" class="row no-wrap">
+        <div
+          v-if="productRandom && productRandom.image"
+          class="row justify-center items-center"
+        >
           <!-- Image Section - Larger and Side-by-Side -->
-          <q-card-section class="col-5 flex justify-center q-pa-md">
+          <q-card-section
+            class="col-xs-12 col-sm-8 col-md-6 justify-center q-pa-md"
+          >
             <q-img
               :src="`${baseUrl}${productRandom.image.image_url}`"
               alt=""
@@ -30,7 +35,9 @@
           </q-card-section>
 
           <!-- Text and Details Section -->
-          <q-card-section class="col-7 q-pa-lg">
+          <q-card-section
+            class="col-xs-12 col-sm-8 col-md-6 q-pa-lg flex justify-center"
+          >
             <div class="text-h3 text-bold q-mb-md" style="color: #333">
               {{ productRandom.name }}
             </div>
@@ -38,18 +45,14 @@
               {{ productRandom.description }}
             </p>
             <p class="text-h5 q-my-md" style="color: #666">
-              {{ productRandom.price }}
+              <span class="text-weight-bold"> Price : </span
+              ><span class="text-weight-medium q-px-md text-white bg-blue-6">
+                {{ productRandom.price }}$
+              </span>
             </p>
 
             <!-- Action Button -->
             <q-card-actions align="left" class="q-pa-none q-mt-lg">
-              <q-btn
-                color="primary"
-                size="xl"
-                class="q-btn-rounded q-shadow-2 q-px-lg"
-              >
-                Click Me
-              </q-btn>
             </q-card-actions>
           </q-card-section>
         </div>
