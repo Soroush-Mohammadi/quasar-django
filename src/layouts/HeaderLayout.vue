@@ -1,15 +1,16 @@
 <template>
-  <div
-    class="row q-col-gutter-lg q-mt-xs items-center justify-around justify-xl-around"
-  >
-    <div class="col-2 flex justify-center">
+  <div class="row items-center justify-md-center justify-start q-py-md">
+    <div class="col-1 flex justify-center gt-md">
       <div style="width: 100px">
         <RouterLink to="/">
           <img src="/my-logo.png" style="max-width: 70px" />
         </RouterLink>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col flex justify-start">
+      <TopMenu :menu="menus" class="q-mx-md" />
+    </div>
+    <div class="col-6 col-4-md gt-md">
       <SearchBar
         class="col"
         @filter-products="handleSearchProducts"
@@ -17,15 +18,8 @@
       />
     </div>
 
-    <div class="col-4 flex justify-center">
+    <div class="col-2 col-4-md gt-md">
       <WidgetBar />
-    </div>
-    <div class="col-12 flex justify-start">
-      <TopMenu :menu="menus" class="q-mx-md">
-        <template v-slot:icon>
-          <svg-icon type="mdi" :path="path" class="q-mx-md"></svg-icon>
-        </template>
-      </TopMenu>
     </div>
   </div>
 </template>
@@ -58,7 +52,6 @@ export default {
     TopMenu,
     WidgetBar,
     SearchBar,
-    SvgIcon,
   },
   setup(props) {
     const products = ref([null]);

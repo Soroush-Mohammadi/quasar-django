@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fff" style="background-color: #092a48">
     <div class="container">
-      <q-header elavated class="bg-primary text-white flex-col header">
+      <q-header elavated class="bg-primary text-white">
         <HeaderLayout @search-products="search" :resetValue="value" />
         <SearchLayout
           :items="items"
@@ -56,9 +56,4 @@ export default {
 };
 </script>
 
-<style>
-.searchLayout {
-  width: 800px;
-  left: 22%;
-}
-</style>
+<style></style>

@@ -1,41 +1,45 @@
 <template>
-  <div class="flex">
+  <div class="row items-center justify-center" style="gap: 10px">
     <div v-if="user">
       <UserProfile />
     </div>
-    <div v-else>
+    <div
+      v-else
+      class="bg-blue-10 col-4 flex q-pa-md"
+      style="border-radius: 10px"
+    >
       <RouterLink to="/login">
         <svg-icon
           class="q-ml-lg"
           type="mdi"
           :path="account"
           style="color: white"
+          size="25px"
         ></svg-icon>
       </RouterLink>
     </div>
 
-    <RouterLink to="/cart">
-      <div class="container q-ml-lg">
+    <div
+      class="container col-4 bg-green-10 flex justify-center q-pa-md"
+      style="border-radius: 10px"
+    >
+      <RouterLink to="/cart">
         <svg-icon
           class="order-last"
           type="mdi"
           :path="cart"
-          style="color: white; position: relative"
+          color="white"
+          size="25px"
         ></svg-icon>
+
         <q-badge
           color="orange"
           text-color="black"
           :label="productNumber"
           class="badge"
         />
-      </div>
-    </RouterLink>
-    <svg-icon
-      class="q-ml-lg"
-      type="mdi"
-      :path="heart"
-      style="color: white"
-    ></svg-icon>
+      </RouterLink>
+    </div>
   </div>
 </template>
 

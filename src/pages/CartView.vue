@@ -1,7 +1,7 @@
 <template>
-  <ul class="row bg-white flex-center">
+  <ul class="row bg-white flex-center q-pa-none">
     <div class="col-xs-12 bg-blue">
-      <h5>Shop Cart</h5>
+      <h5 class="q-px-md">Shop Cart</h5>
     </div>
     <div class="col-xs-12 col-md-8 bg-teal-2 offset-md-2">
       <li
