@@ -3,11 +3,11 @@
     <div class="col-xs-12 bg-blue">
       <h5 class="q-px-md">Shop Cart</h5>
     </div>
-    <div class="col-xs-12 col-md-7 bg-teal-2">
+    <div class="col-xs-12 col-md-7">
       <li
         v-for="item in cart"
         :key="item.id"
-        class="q-pa-md row justify-center items-center"
+        class="row q-my-sm justify-center items-center bg-teal-2"
       >
         <div class="col-xs-3 col-md-2 flex justify-center">
           <img

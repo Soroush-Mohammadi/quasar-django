@@ -1,20 +1,20 @@
 <template>
-  <div class="container q-pa-lg">
-    <div v-if="toggle" class="row justify-center q-col-gutter-xl">
+  <div class="container">
+    <div v-if="toggle" class="row justify-center">
       <div class="col q-pa-xl q-ma-md">
         <q-card
           class="q-pa-md bg-primary text-white q-card-shadow"
           style="border-radius: 12px"
         >
-          <h4 class="text-h4 text-bold q-mb-md">
+          <p class="text-h6 text-bold q-mb-md">
             {{ products.category.name }}
-          </h4>
+          </p>
           <p class="text-body1 q-mb-lg">{{ products.category.description }}</p>
         </q-card>
 
-        <div class="row q-col-gutter-xl justify-between q-mt-md q-pa-md">
+        <div class="row flex-center q-mt-md">
           <div
-            class="col-3 q-pa-md q-hoverable q-card-shadow"
+            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 q-pa-md q-hoverable q-card-shadow"
             v-for="item in products.products"
             :key="item.id"
           >
