@@ -1,6 +1,6 @@
 <template>
   <div class="row items-center justify-md-center justify-start q-py-md">
-    <div class="col-1 flex justify-center gt-md">
+    <div class="col-1 flex justify-center gt-md hidden">
       <div style="width: 100px">
         <RouterLink to="/">
           <img src="/my-logo.png" style="max-width: 70px" />
@@ -18,7 +18,7 @@
       />
     </div>
 
-    <div class="col-2 col-4-md gt-md">
+    <div class="col-3 col-4-md gt-xs" style="width: 300px">
       <WidgetBar />
     </div>
   </div>

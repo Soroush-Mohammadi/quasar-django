@@ -3,13 +3,13 @@
     <div class="col-2 q-pt-xl gt-md" v-if="navigations.length">
       <AppLogo class="logo" />
     </div>
-    <div class="col-sm-12 lt-md flex justify-around items-center">
+    <div class="col-12 lt-md flex justify-around bg-red">
       <svg-icon
         v-for="(icon, index) in icons"
         :key="index"
         type="mdi"
         :path="icon"
-        size="40px"
+        size="60px"
       ></svg-icon>
     </div>
     <div
