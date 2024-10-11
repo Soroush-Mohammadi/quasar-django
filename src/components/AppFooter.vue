@@ -10,7 +10,7 @@
         v-for="(icon, index) in icons"
         :key="index"
       >
-        <div class="bg-blue-10 q-py-none" style="border-radius: 10px">
+        <div class="q-py-none">
           <div v-if="icon.name == mdiCart">
             <q-badge
               style="z-index: 1000"

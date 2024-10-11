@@ -1,7 +1,35 @@
 <template>
   <div class="row items-center justify-center" style="gap: 10px">
     <div v-if="user">
-      <UserProfile />
+      <q-btn
+        class="bg-blue-10 col-4 flex q-pa-md justify-center items-center"
+        style="border-radius: 10px; width: 100px"
+      >
+        <svg-icon
+          class="q-ma-auto"
+          type="mdi"
+          :path="account"
+          style="color: white"
+          size="30px"
+        ></svg-icon>
+        <q-menu>
+          <q-list style="min-width: 100px" class="bg-blue-10">
+            <q-item clickable v-close-popup>
+              <q-item-section>
+                <UserProfile class="text-white">
+                  <svg-icon
+                    class="q-ml-lg"
+                    type="mdi"
+                    :path="account"
+                    style="color: white"
+                    size="25px"
+                  ></svg-icon>
+                </UserProfile>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
     </div>
     <div
       v-else
@@ -47,7 +75,7 @@
 import UserProfile from "./UserProfile.vue";
 
 import SvgIcon from "@jamescoyle/vue-icon";
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, watch } from "vue";
 import { useCartStore } from "../stores/cartStore";
 import { useUserStore } from "../stores/userStore";
 
@@ -60,6 +88,8 @@ const store = useCartStore();
 const { cart: cartStore } = storeToRefs(store);
 const userStore = useUserStore();
 const { user } = userStore;
+
+watch(user, (user) => console.log(user, "user"), { immedieate: true });
 
 const productNumber = computed(() => cartStore.value.length);
 
