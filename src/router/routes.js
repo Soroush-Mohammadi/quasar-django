@@ -34,6 +34,11 @@ const routes = [
         name: "registerView",
         component: () => import("pages/RegisterView.vue"),
       },
+      {
+        path: "download",
+        name: "DownlaodView",
+        component: () => import("pages/DownloadView.vue"),
+      },
     ],
   },
 

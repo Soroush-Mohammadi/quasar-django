@@ -3,14 +3,29 @@
     <div class="col-2 q-pt-xl gt-md" v-if="navigations.length">
       <AppLogo class="logo" />
     </div>
-    <div class="col-12 lt-md flex justify-around bg-red">
-      <svg-icon
+    <div class="col-12 lt-md flex justify-around">
+      <RouterLink
+        class="text-white"
+        :to="icon.path"
         v-for="(icon, index) in icons"
         :key="index"
-        type="mdi"
-        :path="icon"
-        size="60px"
-      ></svg-icon>
+      >
+        <div class="bg-blue-10 q-py-none" style="border-radius: 10px">
+          <div v-if="icon.name == mdiCart">
+            <q-badge
+              style="z-index: 1000"
+              color="orange"
+              text-color="black"
+              :label="productNumber"
+              class="badge"
+            />
+            <svg-icon type="mdi" :path="icon.name" size="60px"> </svg-icon>
+          </div>
+          <div v-else>
+            <svg-icon type="mdi" :path="icon.name" size="60px"> </svg-icon>
+          </div>
+        </div>
+      </RouterLink>
     </div>
     <div
       class="col-sm-3 col-lg-2 gt-sm"
@@ -36,8 +51,16 @@
 <script setup>
 import SvgIcon from "@jamescoyle/vue-icon";
 import AppLogo from "../components/AppLogo.vue";
-import { ref } from "vue";
-import { mdiHome, mdiTable, mdiCart, mdiAccount } from "@mdi/js";
+import { useCartStore } from "../stores/cartStore";
+import { computed, ref } from "vue";
+import { mdiHome, mdiDownload, mdiCart, mdiAccount } from "@mdi/js";
+import { storeToRefs } from "pinia";
+
+const store = useCartStore();
+const { cart } = storeToRefs(store);
+
+const productNumber = computed(() => cart.value.length);
+const navigate = (val) => console.log(val);
 
 const navigations = ref([
   {
@@ -58,7 +81,12 @@ const navigations = ref([
   },
 ]);
 
-const icons = ref([mdiHome, mdiTable, mdiCart, mdiAccount]);
+const icons = ref([
+  { name: mdiHome, path: "/" },
+  { name: mdiDownload, path: "/download" },
+  { name: mdiAccount, path: "/login" },
+  { name: mdiCart, path: "/cart" },
+]);
 </script>
 
 <style></style>
