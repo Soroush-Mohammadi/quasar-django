@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed, watch } from "vue";
 import { useQuasar } from "quasar";
 import { useUserStore } from "../stores/userStore";
 import { storeToRefs } from "pinia";
@@ -128,6 +128,8 @@ export default {
             password: password.value,
           })
         );
+
+        (user.username = userName.value), (user.password = password.value);
 
         router.push("/checkout");
         console.log("user send to local storage");

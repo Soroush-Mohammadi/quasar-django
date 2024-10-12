@@ -39,6 +39,11 @@ const routes = [
         name: "DownlaodView",
         component: () => import("pages/DownloadView.vue"),
       },
+      {
+        path: "profile",
+        name: "ProfieVeiw",
+        component: () => import("pages/ProfileView.vue"),
+      },
     ],
   },
 

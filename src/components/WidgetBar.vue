@@ -1,6 +1,6 @@
 <template>
   <div class="row items-center justify-center" style="gap: 10px">
-    <div v-if="user">
+    <div v-if="user.username">
       <q-btn
         class="bg-blue-10 col-4 flex q-pa-md justify-center items-center"
         style="border-radius: 10px; width: 100px"
@@ -88,10 +88,8 @@ import { defineComponent, computed, watch } from "vue";
 import { useCartStore } from "../stores/cartStore";
 import { useUserStore } from "../stores/userStore";
 
-import { mdiAccount } from "@mdi/js";
-import { mdiCart } from "@mdi/js";
-import { mdiHeart } from "@mdi/js";
-import { mdiLogout } from "@mdi/js";
+import { mdiAccount, mdiCart, mdiHeart, mdiLogout } from "@mdi/js";
+
 import { storeToRefs } from "pinia";
 
 const store = useCartStore();
@@ -99,7 +97,7 @@ const { cart: cartStore } = storeToRefs(store);
 const userStore = useUserStore();
 const { user } = userStore;
 
-watch(user, (user) => console.log(user, "user"), { immedieate: true });
+watch(user, (val) => console.log(val.value), { immediate: true });
 
 const productNumber = computed(() => cartStore.value.length);
 

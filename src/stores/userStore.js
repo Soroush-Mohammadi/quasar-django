@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { reactive } from "vue";
 import axios from "axios";
 
 export const useUserStore = defineStore("user", () => {
-  let user = ref({});
+  let user = reactive({});
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,13 +11,16 @@ export const useUserStore = defineStore("user", () => {
   };
 
   const checkUser = (newUserName, newPassword) =>
-    user.value.some(
+    user.some(
       (user) => user.name === newUserName && user.password === newPassword
     );
 
   const loadUser = () => {
     const getUser = JSON.parse(localStorage.getItem("user"));
-    user.value = getUser;
+    if (getUser) {
+      user.username = getUser.username;
+      user.password = getUser.password;
+    }
   };
 
   const loginUser = async (userObj) => {
@@ -64,11 +67,16 @@ export const useUserStore = defineStore("user", () => {
     };
   };
 
+  const resetUser = () => {
+    (user.username = ""), (user.password = "");
+  };
+
   return {
     user,
     checkUser,
     setUser,
     loginUser,
     loadUser,
+    resetUser,
   };
 });
