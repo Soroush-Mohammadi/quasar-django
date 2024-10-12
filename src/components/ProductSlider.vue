@@ -1,18 +1,16 @@
 <template>
-  <div v-if="category">
+  <q-page v-if="category">
     <div
-      class="row q-col-gutter-xl items-center justify-center q-ma-md"
+      class="row justify-evenly gutter-lg"
       v-for="(items, key) in filteredKeys"
       :key="key"
     >
-      <div
-        class="col-12 text-h6 text-bold text-center bg-primary text-white q-pa-sm q-mb-md"
-      >
+      <div class="col-12 text-h6 text-bold text-center bg-primary text-white">
         {{ key }}
       </div>
 
       <div
-        class="col-sm-6 col-md-4 col-lg-3 q-col-gutter-md"
+        class="col-sm-5 col-md-5 col-lg-2 q-my-xl"
         v-for="(product, index) in items"
         :key="index"
       >
@@ -31,7 +29,9 @@
                 <q-img
                   :src="`${baseUrl}${product.image.image_url}`"
                   style="
-                    max-width: 120px;
+                    max-width: 100px;
+                    max-height: 100px;
+                    object-fit: cover;
                     border-radius: 8px;
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                   "
@@ -52,7 +52,7 @@
         </RouterLink>
       </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script setup>

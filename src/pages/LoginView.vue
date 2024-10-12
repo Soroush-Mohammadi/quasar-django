@@ -1,45 +1,52 @@
 <template>
-  <div class="row q-my-xl justify-center">
-    <div class="col-xs-8 col-md-4 bg-white q-pa-lg">
-      <q-form @submit.prevent="onSubmit" @reset="onReset">
-        <q-input
-          v-model="userName"
-          label="Username"
-          :rules="[userNameRule]"
-          filled
-          required
-        />
-        <q-input
-          v-model="password"
-          type="password"
-          label="Password"
-          :rules="[passwordRule]"
-          filled
-          required
-        />
+  <q-page>
+    <div class="row q-my-xl justify-center">
+      <div class="col-xs-12 col-sm-8 col-md-4 bg-white q-pa-lg">
+        <q-form @submit.prevent="onSubmit" @reset="onReset">
+          <q-input
+            v-model="userName"
+            label="Username"
+            :rules="[userNameRule]"
+            filled
+            required
+          />
+          <q-input
+            v-model="password"
+            type="password"
+            label="Password"
+            :rules="[passwordRule]"
+            filled
+            required
+          />
 
-        <div class="q-pa-md">
-          <q-btn class="q-mx-xs" label="Submit" type="submit" color="primary" />
-          <q-btn class="q-mx-xs" label="Reset" type="reset" color="warning" />
+          <div class="q-pa-md">
+            <q-btn
+              class="q-mx-xs"
+              label="Submit"
+              type="submit"
+              color="primary"
+            />
+            <q-btn class="q-mx-xs" label="Reset" type="reset" color="warning" />
+          </div>
+        </q-form>
+        <div v-if="message.message">
+          <span class="text-teal-6">{{ message.message }}</span
+          ><br />
         </div>
-      </q-form>
-      <div v-if="message.message">
-        <span class="text-teal-6">{{ message.message }}</span
-        ><br />
-      </div>
-      <div v-else-if="message.error">
-        <span class="text-red text-bold q-my-md"> {{ message.error }}</span>
-        <br />
-        <RouterLink
-          style="text-decoration: none"
-          class="text-blue text-bold"
-          to="/register"
-        >
-          <q-btn color="blue"> Register </q-btn>
-        </RouterLink>
+        <div v-else-if="message.error">
+          <span class="text-red text-bold q-my-md"> {{ message.error }}</span>
+          <br />
+          <RouterLink
+            style="text-decoration: none"
+            class="text-blue text-bold"
+            to="/register"
+          >
+            <q-btn color="blue"> Register </q-btn>
+          </RouterLink>
+        </div>
       </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script>

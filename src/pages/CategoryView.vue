@@ -1,65 +1,69 @@
 <template>
-  <div class="container">
-    <div v-if="toggle" class="row justify-center">
-      <div class="col q-pa-xl q-ma-md">
-        <q-card
-          class="q-pa-md bg-primary text-white q-card-shadow"
-          style="border-radius: 12px"
-        >
-          <p class="text-h6 text-bold q-mb-md">
-            {{ products.category.name }}
-          </p>
-          <p class="text-body1 q-mb-lg">{{ products.category.description }}</p>
-        </q-card>
-
-        <div class="row flex-center q-mt-md">
-          <div
-            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 q-pa-md q-hoverable q-card-shadow"
-            v-for="item in products.products"
-            :key="item.id"
+  <q-page>
+    <div class="container">
+      <div v-if="toggle" class="row justify-center">
+        <div class="col q-pa-xl q-ma-md">
+          <q-card
+            class="q-pa-md bg-primary text-white q-card-shadow"
+            style="border-radius: 12px"
           >
-            <RouterLink
-              :to="`/${removeSpace(item.category_id.name)}/${removeSpace(
-                item.name
-              )}`"
-              style="text-decoration: none"
+            <p class="text-h6 text-bold q-mb-md">
+              {{ products.category.name }}
+            </p>
+            <p class="text-body1 q-mb-lg">
+              {{ products.category.description }}
+            </p>
+          </q-card>
+
+          <div class="row flex-center q-mt-md">
+            <div
+              class="col-xs-12 col-sm-6 col-md-4 col-lg-3 q-pa-md q-hoverable q-card-shadow"
+              v-for="item in products.products"
+              :key="item.id"
             >
-              <q-card style="border-radius: 12px; transition: transform 0.3s">
-                <div class="q-pa-md text-center">
-                  <q-img
-                    :src="`${baseUrl}${item.image.image_url}`"
-                    alt="image"
-                    style="
-                      max-width: 50%;
-                      height: auto;
-                      border-radius: 8px;
-                      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                    "
-                  />
-                  <div class="text-h6 text-primary q-mt-md">
-                    {{ item.name }}
+              <RouterLink
+                :to="`/${removeSpace(item.category_id.name)}/${removeSpace(
+                  item.name
+                )}`"
+                style="text-decoration: none"
+              >
+                <q-card style="border-radius: 12px; transition: transform 0.3s">
+                  <div class="q-pa-md text-center">
+                    <q-img
+                      :src="`${baseUrl}${item.image.image_url}`"
+                      alt="image"
+                      style="
+                        max-width: 50%;
+                        height: auto;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                      "
+                    />
+                    <div class="text-h6 text-primary q-mt-md">
+                      {{ item.name }}
+                    </div>
+                    <div class="text-body2 text-grey-7 q-mt-xs">
+                      {{ item.description }}
+                    </div>
+                    <q-badge
+                      color="green-6"
+                      :label="`Price: ${item.price}`"
+                      class="q-mt-md"
+                      style="font-size: 1.1em"
+                    />
                   </div>
-                  <div class="text-body2 text-grey-7 q-mt-xs">
-                    {{ item.description }}
-                  </div>
-                  <q-badge
-                    color="green-6"
-                    :label="`Price: ${item.price}`"
-                    class="q-mt-md"
-                    style="font-size: 1.1em"
-                  />
-                </div>
-              </q-card>
-            </RouterLink>
+                </q-card>
+              </RouterLink>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div v-else class="text-center text-body1 q-pa-md">
-      <q-spinner color="primary" size="3em" :thickness="10" />
+      <div v-else class="text-center text-body1 q-pa-md">
+        <q-spinner color="primary" size="3em" :thickness="10" />
+      </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script>

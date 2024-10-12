@@ -14,35 +14,31 @@
           :to="`/${removeSpace(cat.category_id.name)}/${removeSpace(cat.name)}`"
         >
           <q-card
-            class="row items-center justify-between q-pa-md q-mb-md q-hoverable q-card-shadow"
+            class="flex column items-center q-pa-md q-mb-md q-hoverable q-card-shadow"
             style="border-radius: 16px; transition: transform 0.3s"
           >
-            <div class="col-5 flex flex-center">
-              <q-img
-                v-if="cat.image"
-                :src="`${baseUrl}${cat.image.image_url}`"
-                style="
-                  max-width: 180px;
-                  border-radius: 12px;
-                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                "
-              />
-            </div>
+            <q-img
+              v-if="cat.image"
+              :src="`${baseUrl}${cat.image.image_url}`"
+              style="
+                max-width: 120px;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+              "
+            />
 
-            <div class="col-7 q-pl-md">
-              <q-card-section class="text-left">
-                <h5 class="text-primary q-mb-none">{{ cat.name }}</h5>
-                <p class="text-body2 text-grey-8 q-mt-xs">
-                  {{ cat.description }}
-                </p>
-                <q-badge
-                  color="green-6"
-                  :label="`Price : ${cat.price}$`"
-                  class="q-mt-md"
-                  style="font-size: 1.2em"
-                />
-              </q-card-section>
-            </div>
+            <q-card-section class="text-left">
+              <h5 class="text-primary q-mb-none">{{ cat.name }}</h5>
+              <p class="text-body2 text-grey-8 q-mt-xs">
+                {{ cat.description }}
+              </p>
+              <q-badge
+                color="green-6"
+                :label="`Price : ${cat.price}$`"
+                class="q-mt-md"
+                style="font-size: 1.2em"
+              />
+            </q-card-section>
           </q-card>
         </RouterLink>
       </div>

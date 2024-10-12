@@ -1,68 +1,70 @@
 <template>
-  <div class="row bg-white">
-    <div class="col-xs-12 bg-blue">
-      <h5 class="q-px-md">Shop Cart</h5>
-    </div>
-    <div class="col-xs-12 col-md-7">
-      <li
-        v-for="item in cart"
-        :key="item.id"
-        class="row q-my-sm justify-center items-center bg-teal-2"
-      >
-        <div class="col-xs-3 col-md-2 flex justify-center">
-          <img
-            :src="`${baseUrl}${item.image}`"
-            alt=""
-            style="border: 1px solid black"
-            class="item-image"
-          />
-        </div>
-        <div class="flex items-center justify-center col-xs-3 col-md-3">
-          <h5 class="q-px-sm gt-md">Title :</h5>
-          <p class="item-name q-my-auto q-px-xs">{{ item.name }}</p>
-        </div>
+  <q-page>
+    <div class="row bg-white">
+      <div class="col-xs-12 bg-blue">
+        <h5 class="q-px-md">Shop Cart</h5>
+      </div>
+      <div class="col-xs-12 col-md-7">
+        <li
+          v-for="item in cart"
+          :key="item.id"
+          class="row q-my-sm justify-center items-center bg-teal-2"
+        >
+          <div class="col-xs-3 col-md-2 flex justify-center">
+            <img
+              :src="`${baseUrl}${item.image}`"
+              alt=""
+              style="border: 1px solid black"
+              class="item-image"
+            />
+          </div>
+          <div class="flex items-center justify-center col-xs-3 col-md-3">
+            <h5 class="q-px-sm gt-md">Title :</h5>
+            <p class="item-name q-my-auto q-px-xs">{{ item.name }}</p>
+          </div>
 
-        <div
-          class="col-xs-2 col-sm-2 col-md-3 flex justify-center items-center"
-        >
-          <h5 class="gt-md">Price :</h5>
-          <h6 class="q-mx-md item-price">{{ item.totalPrice }}$</h6>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 flex justify-around">
-          <q-btn
-            @click="removeItemFromCart(item)"
-            class="q-px-md item-btn"
-            color="red-7"
-            size="xs"
-            >-</q-btn
+          <div
+            class="col-xs-2 col-sm-2 col-md-3 flex justify-center items-center"
           >
-          <span>{{ item.quantity }}</span>
+            <h5 class="gt-md">Price :</h5>
+            <h6 class="q-mx-md item-price">{{ item.totalPrice }}$</h6>
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 flex justify-around">
+            <q-btn
+              @click="removeItemFromCart(item)"
+              class="q-px-md item-btn"
+              color="red-7"
+              size="xs"
+              >-</q-btn
+            >
+            <span>{{ item.quantity }}</span>
+            <q-btn
+              color="green-7"
+              @click="addToCart(item)"
+              class="q-px-md"
+              size="xs"
+              >+</q-btn
+            >
+          </div>
+        </li>
+      </div>
+      <div class="col-xs-12 col-md-5 q-pa-md flex column justify-center">
+        <div class="flex justify-center items-center">
+          <h3 class="q-mx-md">Total Price :</h3>
+          <h4 class="q-mx-md">{{ store.calculateTotal() }}$</h4>
+        </div>
+        <div class="flex justify-evenly">
           <q-btn
-            color="green-7"
-            @click="addToCart(item)"
-            class="q-px-md"
-            size="xs"
-            >+</q-btn
+            size="xl"
+            color="teal-7"
+            style="width: 100%; border-radius: 10px"
+            @click="userAuth"
+            >checkout</q-btn
           >
         </div>
-      </li>
-    </div>
-    <div class="col-xs-12 col-md-5 q-pa-md flex column justify-center">
-      <div class="flex justify-center items-center">
-        <h3 class="q-mx-md">Total Price :</h3>
-        <h4 class="q-mx-md">{{ store.calculateTotal() }}$</h4>
-      </div>
-      <div class="flex justify-evenly">
-        <q-btn
-          size="xl"
-          color="teal-7"
-          style="width: 100%; border-radius: 10px"
-          @click="userAuth"
-          >checkout</q-btn
-        >
       </div>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script>

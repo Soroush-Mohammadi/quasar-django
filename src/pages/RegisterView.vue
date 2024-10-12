@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row justify-center" style="width: 100vw">
-      <div class="col-4">
+      <div class="col-xs-12 col-sm-8 col-md-4">
         <q-card class="q-pa-md">
           <q-card-section>
             <div class="text-h6">Register</div>
