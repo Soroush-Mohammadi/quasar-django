@@ -13,17 +13,26 @@
           size="30px"
         ></svg-icon>
         <q-menu>
-          <q-list style="min-width: 100px" class="bg-blue-10">
+          <q-list style="min-width: 100px" class="text-black">
             <q-item clickable v-close-popup>
               <q-item-section>
-                <UserProfile class="text-white">
-                  <svg-icon
-                    class="q-ml-lg"
-                    type="mdi"
-                    :path="account"
-                    style="color: white"
-                    size="25px"
-                  ></svg-icon>
+                <UserProfile>
+                  <template v-slot:userIcon>
+                    <svg-icon
+                      type="mdi"
+                      :path="account"
+                      style="color: black"
+                      size="25px"
+                    ></svg-icon>
+                  </template>
+                  <template v-slot:userLogout>
+                    <svg-icon
+                      type="mdi"
+                      :path="logout"
+                      style="color: black"
+                      size="20px"
+                    ></svg-icon>
+                  </template>
                 </UserProfile>
               </q-item-section>
             </q-item>
@@ -82,6 +91,7 @@ import { useUserStore } from "../stores/userStore";
 import { mdiAccount } from "@mdi/js";
 import { mdiCart } from "@mdi/js";
 import { mdiHeart } from "@mdi/js";
+import { mdiLogout } from "@mdi/js";
 import { storeToRefs } from "pinia";
 
 const store = useCartStore();
@@ -100,6 +110,7 @@ defineComponent({
 const account = mdiAccount;
 const cart = mdiCart;
 const heart = mdiHeart;
+const logout = mdiLogout;
 </script>
 
 <style>

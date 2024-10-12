@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-xs bg-blue-10" style="border-radius: 10px">
+  <div style="border-radius: 5px" class="bg-blue-10">
     <q-btn color="white" flat unelevated>
       <q-icon size="xl">
         <svg-icon type="mdi" :path="path"></svg-icon>
@@ -7,7 +7,6 @@
       <q-menu>
         <q-list>
           <q-item
-            class="bg-teal-2"
             v-for="menu in images"
             :key="menu.name"
             clickable
