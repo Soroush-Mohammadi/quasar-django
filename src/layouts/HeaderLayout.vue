@@ -1,5 +1,5 @@
 <template>
-  <div class="row items-center justify-md-center justify-start q-py-md">
+  <div class="row items-center justify-md-center justify-between q-my-xs">
     <div class="col-1 flex justify-center gt-md hidden">
       <div style="width: 100px">
         <RouterLink to="/">
@@ -7,7 +7,7 @@
         </RouterLink>
       </div>
     </div>
-    <div class="col flex justify-start">
+    <div class="col-3 flex justify-start">
       <TopMenu :menu="menus" class="q-mx-md" />
     </div>
     <div class="col-6 col-4-md gt-md">

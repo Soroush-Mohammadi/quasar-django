@@ -9,7 +9,7 @@
     @focus="searchValue = ''"
   >
     <template v-slot:prepend>
-      <svg-icon type="mdi" :path="magnify" size="40"></svg-icon>
+      <svg-icon type="mdi" :path="magnify" size="30px"></svg-icon>
     </template>
   </q-input>
 </template>

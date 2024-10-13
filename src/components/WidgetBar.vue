@@ -2,15 +2,15 @@
   <div class="row items-center justify-center" style="gap: 10px">
     <div v-if="user.username">
       <q-btn
-        class="bg-blue-10 col-4 flex q-pa-md justify-center items-center"
-        style="border-radius: 10px; width: 100px"
+        class="bg-blue-10 q-py-sm col-auto flex justify-center"
+        style="border-radius: 10px; width: 50px"
       >
         <svg-icon
-          class="q-ma-auto"
           type="mdi"
           :path="account"
           style="color: white"
-          size="30px"
+          size="26px"
+          class="q-my-auto"
         ></svg-icon>
         <q-menu>
           <q-list style="min-width: 100px" class="text-black">
@@ -42,31 +42,30 @@
     </div>
     <div
       v-else
-      class="bg-blue-10 col-4 flex q-pa-md"
-      style="border-radius: 10px"
+      class="bg-blue-10 col-auto q-py-sm"
+      style="width: 50px; border-radius: 10px; text-align: center"
     >
       <RouterLink to="/login">
         <svg-icon
-          class="q-ml-lg"
           type="mdi"
+          color="white"
           :path="account"
-          style="color: white"
-          size="25px"
+          size="20px"
         ></svg-icon>
       </RouterLink>
     </div>
 
     <div
-      class="container col-4 bg-green-10 flex justify-center q-pa-md"
-      style="border-radius: 10px"
+      class="col-auto bg-green-10 flex justify-center q-py-sm"
+      style="border-radius: 10px; width: 50px"
     >
       <RouterLink to="/cart">
         <svg-icon
-          class="order-last"
+          class="order-last menu-btn"
           type="mdi"
           :path="cart"
           color="white"
-          size="25px"
+          size="20px"
         ></svg-icon>
 
         <q-badge
@@ -114,5 +113,8 @@ const logout = mdiLogout;
 <style>
 .badge {
   position: absolute;
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
 }
 </style>

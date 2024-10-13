@@ -1,30 +1,21 @@
 <template>
-  <div style="border-radius: 5px" class="bg-blue-10">
-    <q-btn color="white" flat unelevated>
-      <q-icon size="xl">
-        <svg-icon type="mdi" :path="path"></svg-icon>
-      </q-icon>
-      <q-menu>
-        <q-list>
-          <q-item
-            v-for="menu in images"
-            :key="menu.name"
-            clickable
-            v-close-popup
+  <q-btn dense unelevated>
+    <q-icon size="lg">
+      <svg-icon type="mdi" color="black" :path="path"></svg-icon>
+    </q-icon>
+    <q-menu>
+      <q-list>
+        <q-item v-for="menu in images" :key="menu.name" clickable v-close-popup>
+          <RouterLink
+            :to="`/${removeSpace(menu.name)}`"
+            style="text-decoration: none; width: 100%"
           >
-            <RouterLink
-              :to="`/${removeSpace(menu.name)}`"
-              style="text-decoration: none; width: 100%"
-            >
-              <q-item-section class="q-mr-md col">{{
-                menu.name
-              }}</q-item-section>
-            </RouterLink>
-          </q-item>
-        </q-list>
-      </q-menu>
-    </q-btn>
-  </div>
+            <q-item-section class="q-mr-md col">{{ menu.name }}</q-item-section>
+          </RouterLink>
+        </q-item>
+      </q-list>
+    </q-menu>
+  </q-btn>
 </template>
 
 <script setup>
