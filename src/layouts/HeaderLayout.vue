@@ -1,16 +1,20 @@
 <template>
-  <div class="row items-center justify-md-center justify-between q-my-xs">
-    <div class="col-1 flex justify-center gt-md hidden">
-      <div style="width: 100px">
-        <RouterLink to="/">
-          <img src="/my-logo.png" style="max-width: 70px" />
+  <div class="row items-center justify-md-start justify-between q-my-xs">
+    <div class="col-xs-1 col-sm-2 col-md-2 col-lg-1 flex justify-end gt-sm">
+      <div
+        class="flex items-center justify-evenly bg-blue-10"
+        style="border-radius: 10px; width: 150px; height: 100%"
+      >
+        <RouterLink to="/" class="order-last">
+          <img src="/my-logo.png" style="max-width: 40px" />
         </RouterLink>
+        <span class="order-first text-bold"> HMMA</span>
       </div>
     </div>
-    <div class="col-3 flex justify-start">
+    <div class="col-sm-2 col-md-7 col-lg-3 flex">
       <TopMenu :menu="menus" class="q-mx-md" />
     </div>
-    <div class="col-6 col-4-md gt-md">
+    <div class="col-md-6 col-lg-7 gt-md">
       <SearchBar
         class="col"
         @filter-products="handleSearchProducts"
@@ -18,7 +22,7 @@
       />
     </div>
 
-    <div class="col-3 col-4-md gt-xs" style="width: 300px">
+    <div class="col-3 col-4-md col-lg-1 gt-xs">
       <WidgetBar />
     </div>
   </div>
