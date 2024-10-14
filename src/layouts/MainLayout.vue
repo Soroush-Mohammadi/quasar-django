@@ -12,7 +12,7 @@
       <q-page-container class="main">
         <router-view />
       </q-page-container>
-      <q-footer class="footer">
+      <q-footer style="height: 80px">
         <FooterLayout />
       </q-footer>
     </div>

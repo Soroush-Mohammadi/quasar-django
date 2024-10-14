@@ -1,6 +1,6 @@
 <template>
-  <div class="row justify-center items-center">
-    <div class="col-2 q-pt-xl gt-md" v-if="navigations.length">
+  <div class="row justify-center items-center full-height">
+    <div class="col-2 q-pt-xl gt-md hidden" v-if="navigations.length">
       <AppLogo class="logo" />
     </div>
     <div class="col-12 lt-md flex justify-around">
@@ -27,23 +27,24 @@
         </div>
       </RouterLink>
     </div>
-    <div
-      class="col-sm-3 col-lg-2 gt-sm"
-      v-for="nav in navigations"
-      :key="nav.title"
-    >
-      <div class="text-h5 q-my-lg">{{ nav.title }}</div>
-      <q-list class="q-mb-md">
-        <q-item
-          v-for="link in nav.links"
-          :key="link"
-          class="footer-link hover:bg-teal-6 transition duration-300"
-        >
-          <q-item-section>
-            {{ link }}
-          </q-item-section>
-        </q-item>
-      </q-list>
+    <div class="col-12 gt-sm flex justify-evenly">
+      <div class="row justify-center" style="width: 75%">
+        <q-list class="col-6 flex">
+          <q-item v-for="icon in SoicalIcons" :key="icon">
+            <q-item-section>
+              <svg-icon type="mdi" :path="icon" size="30px"> </svg-icon>
+            </q-item-section>
+          </q-item>
+        </q-list>
+        <div class="col">
+          <AppLogo />
+        </div>
+        <div class="col-auto q-my-auto">
+          <p class="text-body1 q-my-auto text-weight-medium">
+            Your Style, Just a Click Away!
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -53,7 +54,18 @@ import SvgIcon from "@jamescoyle/vue-icon";
 import AppLogo from "../components/AppLogo.vue";
 import { useCartStore } from "../stores/cartStore";
 import { computed, ref } from "vue";
-import { mdiHome, mdiDownload, mdiCart, mdiAccount } from "@mdi/js";
+import {
+  mdiHome,
+  mdiDownload,
+  mdiCart,
+  mdiAccount,
+  mdiTwitter,
+  mdiLinkedin,
+  mdiFacebook,
+  mdiGithub,
+  mdiHandPeace,
+  mdiBasketball,
+} from "@mdi/js";
 import { storeToRefs } from "pinia";
 
 const store = useCartStore();
@@ -86,6 +98,15 @@ const icons = ref([
   { name: mdiDownload, path: "/download" },
   { name: mdiAccount, path: "/login" },
   { name: mdiCart, path: "/cart" },
+]);
+
+const SoicalIcons = ref([
+  mdiTwitter,
+  mdiLinkedin,
+  mdiFacebook,
+  mdiGithub,
+  mdiHandPeace,
+  mdiBasketball,
 ]);
 </script>
 

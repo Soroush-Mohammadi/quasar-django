@@ -1,13 +1,12 @@
 <template>
-  <div class="flex column justify-between items-center">
-    <div>
-      <q-avatar size="40px">
-        <img src="/my-logo.png" />
-      </q-avatar>
-    </div>
-    <div class="q-mt-sm">
-      <span class="text-bold bg-black q-pa-xs">H.M.M.A</span>
-    </div>
+  <div
+    class="flex items-center justify-evenly bg-blue-10"
+    style="border-radius: 10px; width: 150px; height: 100%"
+  >
+    <RouterLink to="/" class="order-last">
+      <img src="/my-logo.png" style="max-width: 40px" />
+    </RouterLink>
+    <span class="order-first text-bold"> HMMA</span>
   </div>
 </template>
 

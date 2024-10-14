@@ -1,66 +1,71 @@
 <template>
   <div v-if="toggle" class="row justify-center items-center q-ma-lg">
-    <RouterLink
-      :to="`${removeSpace(productRandom.category_id.name)}/${removeSpace(
-        productRandom.name
-      )}`"
-      style="width: 100%; max-width: 1000px; text-decoration: none"
-    >
-      <q-card
-        class="q-pa-md q-my-xl q-card-shadow q-hoverable"
-        style="
-          border-radius: 16px;
-          transition: transform 0.3s;
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        "
+    <div class="col-xs-auto col-md-6 col-lg-4">
+      <RouterLink
+        :to="`${removeSpace(productRandom.category_id.name)}/${removeSpace(
+          productRandom.name
+        )}`"
+        style="width: 100%; max-width: 1000px; text-decoration: none"
       >
-        <div
-          v-if="productRandom && productRandom.image"
-          class="row justify-center items-center"
+        <q-card
+          class="q-pa-md q-my-xl q-card-shadow q-hoverable"
+          style="
+            border-radius: 16px;
+            transition: transform 0.3s;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+          "
         >
-          <!-- Image Section - Larger and Side-by-Side -->
-          <q-card-section class="col-md-6 justify-center q-pa-md">
-            <q-img
-              :src="`${baseUrl}${productRandom.image.image_url}`"
-              alt=""
-              style="
-                min-width: 200px;
-                height: auto;
-                border-radius: 12px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-              "
-            />
-          </q-card-section>
-
-          <!-- Text and Details Section -->
-          <q-card-section
-            class="col-xs-12 col-sm-8 col-md-6 q-pa-lg flex justify-center"
+          <div
+            v-if="productRandom && productRandom.image"
+            class="row justify-center items-center"
           >
-            <div class="text-h3 text-bold q-mb-md" style="color: #333">
-              {{ productRandom.name }}
-            </div>
-            <p class="text-body1 q-my-md" style="color: #666; line-height: 1.8">
-              {{ productRandom.description }}
-            </p>
-            <p class="text-h5 q-my-md" style="color: #666">
-              <span class="text-weight-bold"> Price : </span
-              ><span class="text-weight-medium q-px-md text-white bg-blue-6">
-                {{ productRandom.price }}$
-              </span>
-            </p>
+            <!-- Image Section - Larger and Side-by-Side -->
+            <q-card-section class="col-md-6 justify-center q-pa-md">
+              <q-img
+                :src="`${baseUrl}${productRandom.image.image_url}`"
+                alt=""
+                style="
+                  min-width: 200px;
+                  height: auto;
+                  border-radius: 12px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                "
+              />
+            </q-card-section>
 
-            <!-- Action Button -->
-            <q-card-actions align="left" class="q-pa-none q-mt-lg">
-            </q-card-actions>
-          </q-card-section>
-        </div>
+            <!-- Text and Details Section -->
+            <q-card-section
+              class="col-xs-12 col-sm-8 col-md-6 q-pa-lg flex justify-center"
+            >
+              <div class="text-h3 text-bold q-mb-md" style="color: #333">
+                {{ productRandom.name }}
+              </div>
+              <p
+                class="text-body1 q-my-md"
+                style="color: #666; line-height: 1.8"
+              >
+                {{ productRandom.description }}
+              </p>
+              <p class="text-h5 q-my-md" style="color: #666">
+                <span class="text-weight-bold"> Price : </span
+                ><span class="text-weight-medium q-px-md text-white bg-blue-6">
+                  {{ productRandom.price }}$
+                </span>
+              </p>
 
-        <!-- Loading State -->
-        <div v-else class="text-center q-pa-md">
-          <p>Loading product...</p>
-        </div>
-      </q-card>
-    </RouterLink>
+              <!-- Action Button -->
+              <q-card-actions align="left" class="q-pa-none q-mt-lg">
+              </q-card-actions>
+            </q-card-section>
+          </div>
+
+          <!-- Loading State -->
+          <div v-else class="text-center q-pa-md">
+            <p>Loading product...</p>
+          </div>
+        </q-card>
+      </RouterLink>
+    </div>
   </div>
 </template>
 
