@@ -11,10 +11,10 @@
         <span class="order-first text-bold"> HMMA</span>
       </div>
     </div>
-    <div class="col-sm-2 col-md-7 col-lg-3 flex">
+    <div class="col-sm-2 col-md-auto col-lg-auto flex">
       <TopMenu :menu="menus" class="q-mx-md" />
     </div>
-    <div class="col-md-6 col-lg-7 gt-md">
+    <div class="col-md-6 col-lg-4 gt-sm">
       <SearchBar
         class="col"
         @filter-products="handleSearchProducts"
@@ -22,8 +22,8 @@
       />
     </div>
 
-    <div class="col-3 col-4-md col-lg-1 gt-xs">
-      <WidgetBar />
+    <div class="col-3 col-4-md col-lg-6 gt-xs flex justify-end">
+      <WidgetBar class="q-mr-lg" />
     </div>
   </div>
 </template>

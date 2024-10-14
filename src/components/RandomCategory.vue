@@ -5,7 +5,7 @@
       class="row q-col-gutter-md justify-around items-center"
     >
       <div
-        class="col-sm-10 col-md-6 col-lg-4"
+        class="col-sm-10 col-md-4 col-lg-auto"
         v-for="cat in category"
         :key="cat.id"
       >

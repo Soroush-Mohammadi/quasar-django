@@ -1,6 +1,5 @@
 <template>
   <q-input
-    rounded
     standout
     label="Search"
     dark

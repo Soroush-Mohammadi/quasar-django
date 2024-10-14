@@ -10,7 +10,7 @@
       </div>
 
       <div
-        class="col-sm-5 col-md-5 col-lg-2 q-my-xl"
+        class="col-sm-5 col-md-auto col-lg-2 q-my-xl"
         v-for="(product, index) in items"
         :key="index"
       >

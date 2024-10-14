@@ -19,10 +19,10 @@
               :label="productNumber"
               class="badge"
             />
-            <svg-icon type="mdi" :path="icon.name" size="60px"> </svg-icon>
+            <svg-icon type="mdi" :path="icon.name" size="40px"> </svg-icon>
           </div>
           <div v-else>
-            <svg-icon type="mdi" :path="icon.name" size="60px"> </svg-icon>
+            <svg-icon type="mdi" :path="icon.name" size="40px"> </svg-icon>
           </div>
         </div>
       </RouterLink>
