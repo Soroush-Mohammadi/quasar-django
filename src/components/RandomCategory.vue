@@ -4,7 +4,12 @@
       style="width: 80vw"
       class="row q-col-gutter-md justify-around items-center"
     >
-      <div class="col-sm-10 col-md-4" v-for="cat in category" :key="cat.id">
+      <div
+        class="col-sm-10 col-md-4 col-lg-2"
+        v-for="cat in category"
+        :key="cat.id"
+        style="max-width: 300px; max-height: 400px"
+      >
         <RouterLink
           style="text-decoration: none"
           :to="`/${removeSpace(cat.category_id.name)}/${removeSpace(cat.name)}`"
@@ -17,7 +22,7 @@
               v-if="cat.image"
               :src="`${baseUrl}${cat.image.image_url}`"
               style="
-                max-width: 120px;
+                max-width: 100px;
                 border-radius: 12px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
               "

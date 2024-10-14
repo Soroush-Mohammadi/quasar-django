@@ -1,7 +1,7 @@
 <template>
   <q-page v-if="category">
     <div
-      class="row justify-evenly gutter-lg"
+      class="row justify-evenly"
       v-for="(items, key) in filteredKeys"
       :key="key"
     >
@@ -10,7 +10,7 @@
       </div>
 
       <div
-        class="col-sm-5 col-md-auto col-lg-2 q-my-xl"
+        class="col-sm-5 col-md-4 col-lg-2 q-my-xl"
         v-for="(product, index) in items"
         :key="index"
       >
@@ -22,7 +22,11 @@
         >
           <q-card
             class="q-pa-sm q-hoverable q-card-shadow"
-            style="border-radius: 12px; transition: transform 0.3s"
+            style="
+              border-radius: 12px;
+              transition: transform 0.3s;
+              max-width: 300px;
+            "
           >
             <div class="q-gutter-md text-center">
               <div v-if="product.image">
