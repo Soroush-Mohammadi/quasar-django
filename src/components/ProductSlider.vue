@@ -1,16 +1,18 @@
 <template>
   <q-page v-if="category">
     <div
-      class="row justify-evenly"
+      class="row justify-center"
       v-for="(items, key) in filteredKeys"
       :key="key"
     >
-      <div class="col-12 text-h6 text-bold text-center bg-primary text-white">
+      <div
+        class="col-12 text-h6 q-my-md text-bold text-center bg-primary text-white"
+      >
         {{ key }}
       </div>
 
       <div
-        class="col-sm-5 col-md-4 col-lg-2 q-my-xl"
+        class="col-xs-12 col-sm-5 col-md-2 q-ma-xs"
         v-for="(product, index) in items"
         :key="index"
       >
@@ -21,11 +23,12 @@
           )}`"
         >
           <q-card
-            class="q-pa-sm q-hoverable q-card-shadow"
+            class="q-pa-sm q-hoverable q-card-shadow q-mx-auto"
             style="
               border-radius: 12px;
               transition: transform 0.3s;
-              max-width: 300px;
+              min-height: 300px;
+              max-width: 400px;
             "
           >
             <div class="q-gutter-md text-center">
@@ -41,7 +44,9 @@
                   "
                 />
               </div>
-              <div class="text-h6 text-primary q-mb-xs">{{ product.name }}</div>
+              <div class="text-h6 text-primary q-mb-xs">
+                {{ product.name }}
+              </div>
               <div class="text-body2 text-grey-7 q-mb-xs">
                 {{ product.description }}
               </div>

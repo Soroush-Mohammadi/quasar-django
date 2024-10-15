@@ -1,14 +1,14 @@
 <template>
   <q-page>
     <div class="row bg-white">
-      <div class="col-xs-12 bg-blue">
+      <div class="col-12 col-md-8">
         <h5 class="q-px-md">Shop Cart</h5>
-      </div>
-      <div class="col-xs-12 col-md-7">
+        <q-separator />
         <li
           v-for="item in cart"
           :key="item.id"
-          class="row q-my-sm justify-center items-center bg-teal-2"
+          class="row q-my-sm q-py-sm justify-center items-center"
+          style="border-bottom: 1px solid gray"
         >
           <div class="col-xs-3 col-md-2 flex justify-center">
             <img
@@ -48,17 +48,49 @@
           </div>
         </li>
       </div>
-      <div class="col-xs-12 col-md-5 q-pa-md flex column justify-center">
-        <div class="flex justify-center items-center">
-          <h3 class="q-mx-md">Total Price :</h3>
-          <h4 class="q-mx-md">{{ store.calculateTotal() }}$</h4>
+      <div class="col-12 col-md-4 flex column q-mb-xs bg-grey-4">
+        <div class="section q-my-xl q-mx-lg">
+          <p class="text-weight-bold text-h5">Summary</p>
+          <q-separator size="1px" />
+        </div>
+        <div class="row section justify-between q-my-sm q-mx-lg q-gutter-lg">
+          <span class="text-h5 col-xs-12 col-sm-5"> ITEMS 3 </span>
+          <span class="text-h6 col-xs-12 col-sm-5">Price</span>
+        </div>
+        <div class="section q-my-xl q-mx-lg">
+          <p class="text-h5 text-weight-medium">SHIPPING</p>
+          <q-select
+            v-model="selectedItem"
+            :options="options"
+            :dense="dense"
+            style="width: 400px"
+            outlined
+            :disable="isSelected"
+            class="small-screen"
+          />
+        </div>
+
+        <div class="section q-my-lg q-mx-lg">
+          <p class="text-h5 text-weight-medium">Give Code</p>
+          <q-input
+            v-model="code"
+            :dense="dense"
+            style="width: 400px"
+            outlined
+            :disable="true"
+          />
+          <br />
+          <q-separator size="1px" class="q-my-md" />
+        </div>
+
+        <div class="row justify-between justify-xs-center">
+          <h3 class="q-mx-md col-xs-12 col-sm-6">Total Price :</h3>
+          <h4 class="q-mx-md col-xs-12 col-sm-6">
+            {{ store.calculateTotal() }}$
+          </h4>
         </div>
         <div class="flex justify-evenly">
-          <q-btn
-            size="xl"
-            color="teal-7"
-            style="width: 100%; border-radius: 10px"
-            @click="userAuth"
+          <q-btn size="xl" color="primary" style="width: 100%" @click="userAuth"
             >checkout</q-btn
           >
         </div>
@@ -76,7 +108,12 @@ import { useRouter } from "vue-router";
 
 export default {
   data() {
-    return {};
+    return {
+      selectedItem: "Standard Delievery",
+      // your dropdown options
+      isSelected: true, // controls if the dropdown is disabled
+      code: "Your Code Here",
+    };
   },
   computed: {
     // totalPrice() {
@@ -91,6 +128,11 @@ export default {
       if (item.quantity < 1) {
         item.quantity = 1;
       }
+    },
+
+    onSelect() {
+      // Disable dropdown after selection
+      this.isSelected = true;
     },
 
     // setProduct() {
@@ -167,6 +209,17 @@ export default {
     font-weight: bold;
   }
 
+  .section {
+    margin: 20px 5px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .small-screen {
+    width: 100%;
+  }
+
   .item-image {
     widows: 20%;
   }
@@ -177,6 +230,10 @@ export default {
   .item-name,
   .item-price {
     font-size: 18px;
+  }
+
+  .small-screen {
+    width: 100%;
   }
 }
 

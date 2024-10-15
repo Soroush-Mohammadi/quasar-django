@@ -1,12 +1,9 @@
 <template>
   <div class="flex justify-center" v-show="category">
-    <div
-      style="width: 80vw"
-      class="row q-col-gutter-md justify-around items-center"
-    >
+    <div class="row q-col-gutter-md justify-around items-center">
       <div
-        class="col-sm-10 col-md-4 col-lg-2"
-        v-for="cat in category"
+        class="col-sm-10 col-md-3"
+        v-for="cat in category.slice(2)"
         :key="cat.id"
         style="max-width: 300px; max-height: 400px"
       >
@@ -16,7 +13,13 @@
         >
           <q-card
             class="flex column items-center q-pa-md q-mb-md q-hoverable q-card-shadow"
-            style="border-radius: 16px; transition: transform 0.3s"
+            style="
+              border-radius: 16px;
+              transition: transform 0.3s;
+              max-width: 400px;
+              min-height: 380px;
+              min-width: 250px;
+            "
           >
             <q-img
               v-if="cat.image"
