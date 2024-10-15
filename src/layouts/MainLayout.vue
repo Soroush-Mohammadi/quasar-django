@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fff" style="background-color: #092a48">
+  <q-layout view="hHh lpR fff" class="bg-cyan-1">
     <div class="container">
       <q-header elavated class="bg-primary text-white">
         <HeaderLayout @search-products="search" :resetValue="value" />

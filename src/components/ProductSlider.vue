@@ -5,10 +5,14 @@
       v-for="(items, key) in filteredKeys"
       :key="key"
     >
-      <div
-        class="col-12 text-h6 q-my-md text-bold text-center bg-primary text-white"
-      >
-        {{ key }}
+      <div class="col-12 text-h6 q-my-md text-bold text-center text-blue-10">
+        <p
+          class="text-h5 text-weight-medium bg-cyan-2 q-pa-xs"
+          style="text-transform: uppercase; display: inline-block"
+        >
+          {{ replaceDashWithSpace(key) }}
+        </p>
+        <q-separator color="blue-10" class="q-mx-xl q-my-lg" />
       </div>
 
       <div
@@ -91,6 +95,10 @@ async function getData() {
 
 const store = useProductStore();
 const { parhamData } = store;
+
+const replaceDashWithSpace = (str) => {
+  return str.replaceAll("_", " ");
+};
 
 onMounted(() => getData());
 
