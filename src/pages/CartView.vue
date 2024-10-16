@@ -48,7 +48,7 @@
           </div>
         </li>
       </div>
-      <div class="col-12 col-md-4 flex column q-mb-xs bg-grey-4">
+      <div class="col-12 col-md-4 flex column q-mb-xs bg-cyan-2">
         <div class="section q-my-xl q-mx-lg">
           <p class="text-weight-bold text-h5">Summary</p>
           <q-separator size="1px" />

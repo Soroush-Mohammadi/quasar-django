@@ -10,9 +10,16 @@
           :to="`/${removeSpace(item.name)}`"
           style="text-decoration: none"
         >
-          <q-card class="my-card column items-center bg-teal-2">
-            <img :src="`${baseUrl}${item.image}`" alt="" />
-            <span class="q-my-md text-bold q-pa-xs bg-cyan-8">
+          <q-card
+            class="my-card flex column items-center justify-around bg-primary"
+            style="min-height: 280px"
+          >
+            <img
+              :src="`${baseUrl}${item.image}`"
+              alt=""
+              style="max-height: 200px"
+            />
+            <span class="q-my-md text-bold q-pa-xs text-white text-body1">
               {{ item.name }}
             </span>
           </q-card>

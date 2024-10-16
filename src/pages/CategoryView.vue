@@ -27,13 +27,20 @@
                 )}`"
                 style="text-decoration: none"
               >
-                <q-card style="border-radius: 12px; transition: transform 0.3s">
+                <q-card
+                  style="
+                    border-radius: 12px;
+                    transition: transform 0.3s;
+                    min-height: 330px;
+                  "
+                >
                   <div class="q-pa-md text-center">
                     <q-img
                       :src="`${baseUrl}${item.image.image_url}`"
                       alt="image"
                       style="
                         max-width: 50%;
+                        max-height: 200px;
                         height: auto;
                         border-radius: 8px;
                         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
